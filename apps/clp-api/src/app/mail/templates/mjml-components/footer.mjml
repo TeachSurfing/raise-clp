@@ -1,0 +1,11 @@
+<mjml>
+  <mj-body background-color="#fafafa">
+    <mj-divider border-color="lightgrey" border-width="2px" padding="24px 0" />
+    <mj-text font-size="12px" padding="24px" line-height="16px">
+      Verwalte welche E-Mails Du von uns bekommst in Deinen <a href="{target}">Einstellungen</a>.
+    </mj-text>
+    <mj-text font-size="12px" color="rgba(0,0,0,0.54)" padding="0 24px" line-height="16px">
+      © 2022 TeachSurfing - a nonprofit social enterprise (gemeinnützige UG)
+    </mj-text>
+  </mj-body>
+</mjml>

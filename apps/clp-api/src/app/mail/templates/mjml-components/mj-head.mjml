@@ -1,0 +1,14 @@
+<mj-head>
+  <mj-attributes>
+    <mj-all font-family="Arial" font-size="16px" />
+    <mj-body background-color="#fafafa" width="560px" />
+    <mj-section padding="24px 0 48px" />
+    <mj-text color="rgba(0,0,0,0.8)" line-height="24px" padding="0 24px 24px" />
+    <mj-divider border-color="lightgrey" border-width="2px" padding="24px" />
+  </mj-attributes>
+  <mj-style>
+    a {
+      color: #4A798D;
+    }
+  </mj-style>
+</mj-head>

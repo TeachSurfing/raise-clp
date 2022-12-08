@@ -4,4 +4,9 @@
 
   display: grid;
   grid-template-columns: 300px auto;
+  column-gap: 32px;
+
+  @media only screen and (max-width: 768px) {
+    display: block;
+  }
 }

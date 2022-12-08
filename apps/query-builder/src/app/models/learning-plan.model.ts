@@ -1,13 +1,21 @@
-export interface LearningPlan {
-  id: number;
-  title: string;
-  course_id: number;
-  description: string;
-  items: Unit[];
+export class LearningPlan {
+  constructor(public id: number, public chapters: Chapter[]) {}
 }
 
-export interface Unit {
-  id: number;
-  type: string;
-  title: string;
+export class Chapter {
+  constructor(
+    public id: number,
+    public title: string,
+    public units: Unit[],
+    public rule: any | undefined,
+    public open = false
+  ) {}
+}
+
+export class Unit {
+  constructor(
+    public id: number,
+    public title: string,
+    public rule: any | undefined
+  ) {}
 }
