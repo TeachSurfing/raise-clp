@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nx run-many --target=serve --all",
-    "build": "nx run-many --target=build --all",
+    "build": "nx run-many --target=build --all --buildLibsFromSource",
     "build:container": "npm run build; nx run-many --target=container --all",
     "postbuild": "ts-node tools/mail/mjml.ts",
     "test": "nx run-many --target=test --all",
@@ -22,6 +22,7 @@
     "@nestjs/core": "^9.0.0",
     "@nestjs/mongoose": "^9.2.1",
     "@nestjs/platform-express": "^9.0.0",
+    "@nrwl/esbuild": "^15.3.3",
     "@react-querybuilder/dnd": "^5.1.1",
     "@react-querybuilder/material": "^5.1.1",
     "@types/json-logic-js": "^2.0.1",
@@ -40,7 +41,8 @@
     "reflect-metadata": "^0.1.13",
     "regenerator-runtime": "0.13.7",
     "rxjs": "^7.0.0",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@nestjs/schematics": "^9.0.0",

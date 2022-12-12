@@ -1,13 +1,16 @@
+import { ChapterDto, LearningPlanDto, UnitDto } from '@raise-clp/models';
 import { Component } from 'react';
 import { SelectedItem } from '../../app';
-import { Chapter, LearningPlan, Unit } from '../../models/learning-plan.model';
+
 import './chapter-overview.scss';
 
 export default class ChapterOverviewComponent extends Component<{
-  learningPlan: LearningPlan | undefined;
+  learningPlan: LearningPlanDto | undefined;
   clickHandler: (selectedItem: SelectedItem) => void;
 }> {
-  state: { selected: Chapter | Unit | undefined } = { selected: undefined };
+  state: { selected: ChapterDto | UnitDto | undefined } = {
+    selected: undefined,
+  };
 
   render() {
     if (

@@ -16,7 +16,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@raise-clp/models": ["libs/models/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

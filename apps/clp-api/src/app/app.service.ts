@@ -50,7 +50,7 @@ export class AppService {
   private async evaluateRules(normalizedData: unknown) {
     const customLearningPlan: CustomLearningPlan = new CustomLearningPlan();
 
-    const lp = (await this.learningPlanService.find(18045))?.toObject();
+    const lp = (await this.learningPlanService.findOne('18045'))?.toObject();
 
     lp.chapters.forEach((chapter) => {
       chapter.units.forEach((unit) => {

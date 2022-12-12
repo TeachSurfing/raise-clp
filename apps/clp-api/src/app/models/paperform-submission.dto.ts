@@ -10,10 +10,20 @@ export interface PaperformSubmissionDto {
   device: Device;
 }
 
+export interface PaperformFormDto {
+  title: string;
+  description?: string;
+  type: PaperFormQuestionType;
+  key: string;
+  custom_key: any;
+  value: any;
+  options?: string[];
+}
+
 export interface Data {
   title: string;
   description?: string;
-  type: string;
+  type: PaperFormQuestionType;
   key: string;
   custom_key: any;
   value: any;
@@ -49,3 +59,62 @@ export interface Device {
   utm_content: any;
   ip_address: string;
 }
+
+export enum PaperFormQuestionType {
+  'text' = 'text',
+  'email' = 'email',
+  'url' = 'url',
+  'yesNo' = 'yesNo',
+  'color' = 'color',
+  'number' = 'number',
+  'phone' = 'phone',
+  'address' = 'address',
+  'country' = 'country',
+  'appointment' = 'appointment',
+  'date' = 'date',
+  'time' = 'time',
+  'scale' = 'scale',
+  'slider' = 'slider',
+  'choices' = 'choices',
+  'dropdown' = 'dropdown',
+  'image' = 'image',
+  'file' = 'file',
+  'signature' = 'signature',
+  'price' = 'price',
+  'products' = 'products',
+  'subscriptions' = 'subscriptions',
+  'calculations' = 'calculations',
+  'hidden' = 'hidden',
+  'rank' = 'rank',
+  'rating' = 'rating',
+  'matrix' = 'matrix',
+}
+
+// export type PaperFormQuestionType =
+//   , 'text'
+//   , 'email'
+//   , 'url'
+//   , 'yesNo'
+//   , 'color'
+//   , 'number'
+//   , 'phone'
+//   , 'address'
+//   , 'country'
+//   , 'appointment'
+//   , 'date'
+//   , 'time'
+//   , 'scale'
+//   , 'slider'
+//   , 'choices'
+//   , 'dropdown'
+//   , 'image'
+//   , 'file'
+//   , 'signature'
+//   , 'price'
+//   , 'products'
+//   , 'subscriptions'
+//   , 'calculations'
+//   , 'hidden'
+//   , 'rank'
+//   , 'rating'
+//   , 'matrix';

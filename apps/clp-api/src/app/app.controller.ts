@@ -17,7 +17,7 @@ export class AppController {
     private readonly config: ConfigService
   ) {}
 
-  @Post()
+  @Post('submission')
   @HttpCode(204)
   async processQuestionnaireSubmission(
     @Body() submission: PaperformSubmissionDto
@@ -44,4 +44,6 @@ export class AppController {
       submission
     );
   }
+
+
 }

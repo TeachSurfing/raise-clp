@@ -15,12 +15,6 @@ import { LearnpressTransformationProvider } from './learning-plan/learnpress-tra
 import { MailModule } from './mail/mail.module';
 import { FormTransformationProvider } from './questionnaire/form-transformation-provider.interface';
 import { PaperformTransformationProvider } from './questionnaire/paperform-transformation-provider.service';
-import { QuestionnaireController } from './questionnaire/questionnaire.controller';
-import {
-  Questionnaire,
-  QuestionnaireSchema,
-} from './questionnaire/questionnaire.schema';
-import { QuestionnaireService } from './questionnaire/questionnaire.service';
 
 @Module({
   imports: [
@@ -37,16 +31,12 @@ import { QuestionnaireService } from './questionnaire/questionnaire.service';
     MongooseModule.forFeature([
       { name: LearningPlan.name, schema: LearningPlanSchema },
     ]),
-    MongooseModule.forFeature([
-      { name: Questionnaire.name, schema: QuestionnaireSchema },
-    ]),
     MailModule,
   ],
-  controllers: [AppController, LearningPlanController, QuestionnaireController],
+  controllers: [AppController, LearningPlanController],
   providers: [
     AppService,
     LearningPlanService,
-    QuestionnaireService,
     {
       provide: FormTransformationProvider,
       useClass: PaperformTransformationProvider,

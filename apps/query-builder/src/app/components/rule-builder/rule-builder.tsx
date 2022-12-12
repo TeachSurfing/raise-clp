@@ -36,7 +36,7 @@ export default class RuleBuilderComponent extends Component<RuleBuilderProps> {
   public readonly state: RuleBuilderState = {
     chapterId: this.props.chapterId,
     unitId: this.props.unitId,
-    rule: parseJsonLogic(this.props.rule),
+    rule: parseJsonLogic(this.props.rule ?? {}),
     fields: this.props.fields,
   };
 
@@ -44,6 +44,7 @@ export default class RuleBuilderComponent extends Component<RuleBuilderProps> {
     props: RuleBuilderProps,
     state: RuleBuilderState
   ) {
+    console.log(props, state);
     if (props.chapterId !== state.chapterId || props.unitId !== state.unitId)
       return {
         rule: parseJsonLogic(props.rule),
