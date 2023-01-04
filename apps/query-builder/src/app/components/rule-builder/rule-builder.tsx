@@ -42,6 +42,12 @@ export default class RuleBuilderComponent extends Component<RuleBuilderProps> {
     fields: this.props.fields,
   };
 
+  constructor(props: any) {
+    super(props);
+
+    this.handleQueryChange = this.handleQueryChange.bind(this);
+  }
+
   static getDerivedStateFromProps(
     props: RuleBuilderProps,
     state: RuleBuilderState
@@ -56,13 +62,16 @@ export default class RuleBuilderComponent extends Component<RuleBuilderProps> {
     return null;
   }
 
-  async save() {
-    if (!this.state.chapterId) return;
+  async handleQueryChange(change: any) {
+    this.setState({ rule: change });
+    const rule = formatQuery(change, 'jsonlogic');
+
+    if (!this.state?.chapterId || !rule) return;
 
     this.props.saveHandler({
       chapterId: this.state.chapterId,
       unitId: this.state.unitId,
-      rule: formatQuery(this.state.rule, 'jsonlogic'),
+      rule: formatQuery(change, 'jsonlogic'),
     });
   }
 
@@ -77,7 +86,7 @@ export default class RuleBuilderComponent extends Component<RuleBuilderProps> {
                 key={`${this.state.chapterId}_${this.state.unitId ?? 0}`}
                 fields={this.state.fields}
                 query={this.state.rule}
-                onQueryChange={(changed) => this.setState({ rule: changed })}
+                onQueryChange={this.handleQueryChange}
               />
             </QueryBuilderMaterial>
           </QueryBuilderDnD>
