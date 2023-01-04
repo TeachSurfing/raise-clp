@@ -36,9 +36,9 @@ export default class AppComponent extends Component {
       .then((response) => response.json())
       .then((data) => {
         this.setState({
-          learningPlan: plainToInstance(LearningPlanDto, data[0]),
+          learningPlan: plainToInstance(LearningPlanDto, data[data.length - 1]),
         });
-        console.log(plainToInstance(LearningPlanDto, data[0]));
+        console.log(plainToInstance(LearningPlanDto, data[data.length - 1]));
       });
   }
 
