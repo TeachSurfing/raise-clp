@@ -20,24 +20,17 @@ export default class ChapterOverviewComponent extends Component<{
       return (
         <>
           <h2>Chapter overview</h2>
-          <ul>
+          <ul className="chapters">
             {this.props.learningPlan.chapters.map((chapter) => (
               <li
                 key={chapter.id}
                 className={
                   chapter.id === this.state.selected?.id ? 'active' : ''
                 }
-                onClick={() => {
-                  this.setState({ selected: chapter });
-                  this.props.clickHandler({
-                    chapterId: chapter.id,
-                    rule: chapter.rule,
-                  });
-                }}
               >
                 {chapter.title}
 
-                <ul>
+                <ul className="units">
                   {chapter.units.map((unit) => (
                     <li
                       key={unit.id}

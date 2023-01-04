@@ -1,4 +1,8 @@
-import { createTheme, ThemeProvider } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
 import { QueryBuilderDnD } from '@react-querybuilder/dnd';
 import { QueryBuilderMaterial } from '@react-querybuilder/material';
 import { Component } from 'react';
@@ -13,8 +17,6 @@ import {
 import 'react-querybuilder/dist/query-builder.scss';
 import { SelectedItem } from '../../app';
 import './rule-builder.scss';
-
-const muiTheme = createTheme();
 
 interface RuleBuilderState {
   rule: DefaultRuleGroupType;
@@ -44,7 +46,6 @@ export default class RuleBuilderComponent extends Component<RuleBuilderProps> {
     props: RuleBuilderProps,
     state: RuleBuilderState
   ) {
-    console.log(props, state);
     if (props.chapterId !== state.chapterId || props.unitId !== state.unitId)
       return {
         rule: parseJsonLogic(props.rule),
@@ -71,23 +72,32 @@ export default class RuleBuilderComponent extends Component<RuleBuilderProps> {
         <section className="wrapper">
           <h1>Build your Query</h1>
           <QueryBuilderDnD>
-            <ThemeProvider theme={muiTheme}>
-              <QueryBuilderMaterial>
-                <QueryBuilder
-                  key={`${this.state.chapterId}_${this.state.unitId ?? 0}`}
-                  fields={this.state.fields}
-                  query={this.state.rule}
-                  onQueryChange={(changed) => this.setState({ rule: changed })}
-                />
-              </QueryBuilderMaterial>
-            </ThemeProvider>
+            <QueryBuilderMaterial>
+              <QueryBuilder
+                key={`${this.state.chapterId}_${this.state.unitId ?? 0}`}
+                fields={this.state.fields}
+                query={this.state.rule}
+                onQueryChange={(changed) => this.setState({ rule: changed })}
+              />
+            </QueryBuilderMaterial>
           </QueryBuilderDnD>
-          <button onClick={() => this.save()}>Save</button>
-          <h4>
-            JSON logic as result of <code>formatQuery(query, 'jsonlogic')</code>
-            :
-          </h4>
-          <pre>{JSON.stringify(formatQuery(this.state.rule, 'jsonlogic'))}</pre>
+
+          <Accordion className="logic">
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              JSON logic (<i>for development purposes only</i>)
+            </AccordionSummary>
+            <AccordionDetails>
+              <code>
+                <pre>
+                  {JSON.stringify(
+                    formatQuery(this.state.rule, 'jsonlogic'),
+                    null,
+                    2
+                  )}
+                </pre>
+              </code>
+            </AccordionDetails>
+          </Accordion>
         </section>
       );
     else return 'loading ...';

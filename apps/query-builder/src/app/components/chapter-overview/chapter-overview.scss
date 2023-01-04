@@ -1,9 +1,17 @@
-.ChapterOverviewComponent {
-  ul {
-    padding: 0;
-  }
+.chapters {
+  padding: 0;
 }
 
-.active {
-  background: red;
+.units {
+  li {
+    padding: 2px 4px;
+    &.active {
+      background: #4db6ac;
+      border-radius: 5px;
+    }
+    &:hover:not(.active) {
+      cursor: pointer;
+      background: #cae9e6;
+    }
+  }
 }

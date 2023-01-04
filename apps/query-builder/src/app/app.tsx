@@ -38,7 +38,6 @@ export default class AppComponent extends Component {
         this.setState({
           learningPlan: plainToInstance(LearningPlanDto, data[data.length - 1]),
         });
-        console.log(plainToInstance(LearningPlanDto, data[data.length - 1]));
       });
   }
 

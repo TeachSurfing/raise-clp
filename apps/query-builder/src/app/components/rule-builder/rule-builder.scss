@@ -1,7 +1,26 @@
-.RuleBuilderComponent {
-  background: red;
+.MuiFormControl-root {
+  max-width: 500px;
 }
 
-.rule-remove {
-  background: green;
+.rule {
+  &-fields {
+    width: 50%;
+  }
+  &-operators {
+    width: 90px;
+  }
+  &-value {
+    flex: 1;
+  }
+  &-remove {
+    width: 50px;
+  }
+}
+
+div.ruleGroup-combinators {
+  margin-right: auto;
+}
+
+.logic {
+  margin-top: 32px;
 }

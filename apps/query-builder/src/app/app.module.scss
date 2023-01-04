@@ -9,4 +9,9 @@
   @media only screen and (max-width: 768px) {
     display: block;
   }
+
+  > div {
+    max-width: 100%;
+    overflow: hidden;
+  }
 }
