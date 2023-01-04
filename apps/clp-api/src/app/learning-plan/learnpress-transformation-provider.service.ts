@@ -54,6 +54,8 @@ export class LearnpressTransformationProvider
             )
         ),
         catchError((e) => {
+          console.error(e);
+
           throw new HttpException(
             e.response?.data ?? 'Unknown Error',
             e.response?.status ?? HttpStatus.INTERNAL_SERVER_ERROR
@@ -77,121 +79,39 @@ export class LearnpressTransformationProvider
     );
   }
 
+  // TODO: matrix, rank
+
   private deriveInputType(paperFormType: PaperFormQuestionType) {
     switch (paperFormType) {
-      case PaperFormQuestionType.address:
-        return 'text';
       case PaperFormQuestionType.appointment:
         return 'date';
-      case PaperFormQuestionType.calculations:
-        return 'text';
-      case PaperFormQuestionType.choices:
-        return 'text';
-      case PaperFormQuestionType.color:
-        return 'text';
-      case PaperFormQuestionType.country:
-        return 'text';
       case PaperFormQuestionType.date:
         return 'date';
-      case PaperFormQuestionType.dropdown:
-        return 'text';
-      case PaperFormQuestionType.email:
-        return 'text';
-      case PaperFormQuestionType.file:
-        return 'text';
-      case PaperFormQuestionType.hidden:
-        return 'text';
-      case PaperFormQuestionType.image:
-        return 'text';
-      case PaperFormQuestionType.matrix:
-        return 'text';
-      case PaperFormQuestionType.number:
-        return 'text';
-      case PaperFormQuestionType.phone:
-        return 'text';
-      case PaperFormQuestionType.price:
-        return 'text';
-      case PaperFormQuestionType.products:
-        return 'text';
-      case PaperFormQuestionType.rank:
-        return 'text';
       case PaperFormQuestionType.rating:
         return 'number';
       case PaperFormQuestionType.scale:
         return 'number';
-      case PaperFormQuestionType.signature:
-        return 'text';
-      case PaperFormQuestionType.slider:
-        return 'text';
-      case PaperFormQuestionType.text:
-        return 'text';
       case PaperFormQuestionType.time:
         return 'time';
-      case PaperFormQuestionType.url:
-        return 'text';
-      case PaperFormQuestionType.yesNo:
-        return 'text';
       default:
-      // return assertUnreachable(paperFormType);
+        return 'text';
     }
   }
 
   private deriveEditorType(paperFormType: PaperFormQuestionType) {
     switch (paperFormType) {
-      case PaperFormQuestionType.address:
-        return 'text';
       case PaperFormQuestionType.appointment:
         return 'date';
-      case PaperFormQuestionType.calculations:
-        return 'text';
       case PaperFormQuestionType.choices:
-        return 'text';
-      case PaperFormQuestionType.color:
-        return 'text';
-      case PaperFormQuestionType.country:
-        return 'text';
+        return 'select';
       case PaperFormQuestionType.date:
         return 'date';
       case PaperFormQuestionType.dropdown:
         return 'select';
-      case PaperFormQuestionType.email:
-        return 'text';
-      case PaperFormQuestionType.file:
-        return 'text';
-      case PaperFormQuestionType.hidden:
-        return 'text';
-      case PaperFormQuestionType.image:
-        return 'text';
-      case PaperFormQuestionType.matrix:
-        return 'text';
-      case PaperFormQuestionType.number:
-        return 'text';
-      case PaperFormQuestionType.phone:
-        return 'text';
-      case PaperFormQuestionType.price:
-        return 'text';
-      case PaperFormQuestionType.products:
-        return 'text';
-      case PaperFormQuestionType.rank:
-        return 'text';
-      case PaperFormQuestionType.rating:
-        return 'text';
-      case PaperFormQuestionType.scale:
-        return 'text';
-      case PaperFormQuestionType.signature:
-        return 'text';
-      case PaperFormQuestionType.slider:
-        return 'text';
-      case PaperFormQuestionType.text:
-        return 'text';
-      case PaperFormQuestionType.time:
-        return 'time';
-      case PaperFormQuestionType.url:
-        return 'text';
       case PaperFormQuestionType.yesNo:
         return 'select';
       default:
-      // return assertUnreachable(paperFormType);
+        return 'text';
     }
   }
 
@@ -199,17 +119,30 @@ export class LearnpressTransformationProvider
     options: string[],
     paperFormType: PaperFormQuestionType
   ) {
-    if (paperFormType === PaperFormQuestionType.yesNo)
-      return [
-        { name: 'yes', label: 'yes' },
-        { name: 'no', label: 'no' },
-      ];
-    return options?.map((option) => ({ name: option, label: option }));
+    switch (paperFormType) {
+      case PaperFormQuestionType.yesNo:
+        return [
+          { name: 'yes', label: 'yes' },
+          { name: 'no', label: 'no' },
+        ];
+      default:
+        return options?.map((option) => ({ name: option, label: option }));
+    }
   }
 
   private deriveOperators(paperFormType: PaperFormQuestionType) {
-    if (paperFormType === PaperFormQuestionType.yesNo)
-      return defaultOperators.filter((op) => op.name === '=');
-    return defaultOperators;
+    switch (paperFormType) {
+      case PaperFormQuestionType.yesNo:
+      case PaperFormQuestionType.dropdown:
+        return defaultOperators.filter((op) => op.name === '=');
+      case PaperFormQuestionType.choices:
+        return defaultOperators.filter((op) => op.name === 'contains');
+      case PaperFormQuestionType.rating:
+        return defaultOperators.filter((op) =>
+          ['=', '<=', '>=', '<', '>'].includes(op.name)
+        );
+      default:
+        return defaultOperators;
+    }
   }
 }
