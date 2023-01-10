@@ -47,8 +47,7 @@ export class LearningPlanDto implements ILearningPlan {
             chapter.description,
             chapter.units.map(
               (unit) => new UnitDto(unit.id, unit.title, unit.rule)
-            ),
-            chapter.rule
+            )
           )
       ),
       schemaLearningPlan.questions.map(

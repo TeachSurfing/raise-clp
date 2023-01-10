@@ -40,17 +40,19 @@ export class LearnpressTransformationProvider
           questionnaireData: response.questionnaireData.data.results.fields,
         })),
         map(
-          (data) =>
+          (transformedData) =>
             new LearningPlan(
               undefined,
               plainToInstance(
                 Chapter,
-                data.learningPlan.sections as Chapter[],
+                transformedData.learningPlan.sections as Chapter[],
                 {
                   excludeExtraneousValues: true,
                 }
               ),
-              this.extractNameLabel(data.questionnaireData)
+              this.extractNameLabel(transformedData.questionnaireData),
+              data.lpUrl,
+              data.questionnaireUrl
             )
         ),
         catchError((e) => {

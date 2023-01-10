@@ -29,16 +29,13 @@ export class LearningPlanController {
   }
 
   @Post(':id')
-  updateLearningPlan(
-    @Param() params,
-    @Body() body: { url: string; safety: boolean }
-  ) {
+  updateLearningPlan(@Param() params, @Body() body: { safety: boolean }) {
     if (!body.safety)
       return new HttpException(
         'WARNING! Calling this endpoint will potentially corrupt data, please only continue when you know what you are doing and set the "safety" paramter explicitly to "true"!',
         HttpStatus.BAD_REQUEST
       );
-    return this.learningPlanService.updateLearningPlan(params.id, body.url);
+    return this.learningPlanService.updateLearningPlan(params.id);
   }
 
   @Get(':id/questions')

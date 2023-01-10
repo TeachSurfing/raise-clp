@@ -46,22 +46,11 @@ export class Chapter implements IChapter {
   @Expose({ name: 'items' })
   units: Unit[];
 
-  @Prop({ type: Object })
-  @Expose()
-  rule: any = {};
-
-  constructor(
-    id: number,
-    title: string,
-    description: string,
-    units: Unit[],
-    rule = {}
-  ) {
+  constructor(id: number, title: string, description: string, units: Unit[]) {
     this.id = id;
     this.title = title;
     this.description = description;
     this.units = units;
-    this.rule = rule;
   }
 }
 
@@ -129,10 +118,26 @@ export class LearningPlan implements ILearningPlan {
   @Type(() => Question)
   questions: Question[];
 
-  constructor(id: string, chapters: Chapter[], questions: Question[]) {
+  @Prop()
+  @Expose()
+  lpUrl: string;
+
+  @Prop()
+  @Expose()
+  questionnaireUrl: string;
+
+  constructor(
+    id: string,
+    chapters: Chapter[],
+    questions: Question[],
+    lpUrl?: string,
+    questionnaireUrl?: string
+  ) {
     this.id = id;
     this.chapters = chapters;
     this.questions = questions;
+    this.lpUrl = lpUrl;
+    this.questionnaireUrl = questionnaireUrl;
   }
 }
 

@@ -22,15 +22,31 @@ export class LearningPlanService {
   }
 
   async addLearningPlan(data: any) {
-    const newLearningPlan = await this.learningPlanService.transform(data);
+    const newLearningPlan = await this.learningPlanService.transform(data.data);
     newLearningPlan.id = uuidv4();
 
     return await this.learningPlanModel.create(newLearningPlan);
   }
 
-  async updateLearningPlan(id: string, url: string) {
-    const newLearningPlan = await this.learningPlanService.transform(url);
+  async updateLearningPlan(id: string) {
+    const oldLearningPlan = await this.findOne(id);
+    const newLearningPlan = await this.learningPlanService.transform({
+      lpUrl: oldLearningPlan.lpUrl,
+      questionnaireUrl: oldLearningPlan.questionnaireUrl,
+    });
     newLearningPlan.id = id;
+
+    newLearningPlan.chapters = newLearningPlan.chapters.map((chapter) => {
+      return {
+        ...chapter,
+        units: chapter.units.map((unit) => ({
+          ...unit,
+          rule: oldLearningPlan.chapters
+            .find((findChapter) => findChapter.id === chapter.id)
+            ?.units.find((findUnit) => findUnit.id === unit.id)?.rule,
+        })),
+      };
+    });
 
     return await this.learningPlanModel.findOneAndUpdate(
       { id: newLearningPlan.id },
@@ -60,7 +76,7 @@ export class LearningPlanService {
     );
   }
 
-  async updateUnitRule(
+  public async updateUnitRule(
     courseId: string,
     chapterId: number,
     unitId: number,

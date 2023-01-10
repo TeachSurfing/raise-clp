@@ -10,7 +10,6 @@ export interface IChapter {
   title: string;
   description: string;
   units: IUnit[];
-  rule: any;
 }
 
 export interface IQuestion {
