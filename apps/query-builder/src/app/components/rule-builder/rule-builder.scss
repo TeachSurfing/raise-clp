@@ -24,3 +24,23 @@ div.ruleGroup-combinators {
 .logic {
   margin-top: 32px;
 }
+
+.queryBuilder-invalid {
+  position: relative;
+  padding-left: 24px;
+  padding-bottom: 4px;
+  border-bottom: 2px solid #f44336;
+
+  &::before {
+    font-family: 'Material Icons';
+    content: '\e001';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 24px;
+    width: 24px;
+    font-size: 24px;
+    color: #f44336;
+  }
+}

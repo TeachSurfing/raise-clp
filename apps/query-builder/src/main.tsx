@@ -30,10 +30,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <StrictMode>
-    <Typography>
-      <ThemeProvider theme={muiTheme}>
+    <ThemeProvider theme={muiTheme}>
+      <Typography component={'div'}>
         <App />
-      </ThemeProvider>
-    </Typography>
+      </Typography>
+    </ThemeProvider>
   </StrictMode>
 );

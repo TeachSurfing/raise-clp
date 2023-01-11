@@ -13,6 +13,8 @@ import {
   JsonLogicRulesLogic,
   parseJsonLogic,
   QueryBuilder,
+  RuleValidator,
+  ValidationResult,
 } from 'react-querybuilder';
 import 'react-querybuilder/dist/query-builder.scss';
 import { SelectedItem } from '../../app';
@@ -34,12 +36,26 @@ interface RuleBuilderProps {
   saveHandler: (selectedItem: SelectedItem) => void;
 }
 
+export const validator: RuleValidator = (q): ValidationResult => ({
+  valid: !!q.value,
+  reasons: ['Field has no value'],
+});
+
+export const addValidators = (fields: Field[] | undefined) => {
+  fields = fields?.map((field) => ({
+    ...field,
+    validator: validator,
+  }));
+
+  return fields;
+};
+
 export default class RuleBuilderComponent extends Component<RuleBuilderProps> {
   public readonly state: RuleBuilderState = {
     chapterId: this.props.chapterId,
     unitId: this.props.unitId,
     rule: parseJsonLogic(this.props.rule ?? {}),
-    fields: this.props.fields,
+    fields: addValidators(this.props.fields),
   };
 
   constructor(props: any) {
@@ -57,6 +73,7 @@ export default class RuleBuilderComponent extends Component<RuleBuilderProps> {
         rule: parseJsonLogic(props.rule),
         chapterId: props.chapterId,
         unitId: props.unitId,
+        fields: addValidators(props.fields),
       };
 
     return null;

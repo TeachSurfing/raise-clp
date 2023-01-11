@@ -70,6 +70,10 @@ export class Question implements IQuestion {
 
   @Prop()
   @Expose()
+  questionType: string;
+
+  @Prop()
+  @Expose()
   inputType: string;
 
   @Prop()
@@ -89,6 +93,7 @@ export class Question implements IQuestion {
   constructor(
     name: string,
     label: string,
+    questionType: string,
     inputType = 'text',
     valueEditorType = 'text',
     values?: NameLabelPair[],
@@ -96,6 +101,7 @@ export class Question implements IQuestion {
   ) {
     this.name = name;
     this.label = label;
+    this.questionType = questionType;
     this.inputType = inputType;
     this.valueEditorType = valueEditorType;
     this.values = values;

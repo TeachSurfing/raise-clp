@@ -73,6 +73,7 @@ export class LearnpressTransformationProvider
         new Question(
           d.custom_key ?? d.key,
           d.title,
+          d.type,
           this.deriveInputType(d.type),
           this.deriveEditorType(d.type),
           this.deriveValues(d.options, d.type),
