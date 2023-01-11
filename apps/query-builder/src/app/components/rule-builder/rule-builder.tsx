@@ -3,6 +3,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
+import { FieldValueType } from '@raise-clp/models';
 import { QueryBuilderDnD } from '@react-querybuilder/dnd';
 import { QueryBuilderMaterial } from '@react-querybuilder/material';
 import { Component } from 'react';
@@ -27,24 +28,46 @@ interface RuleBuilderState {
   fields: Field[] | undefined;
 }
 
+export interface FieldWithType extends Field {
+  questionType: FieldValueType;
+}
+
 interface RuleBuilderProps {
   chapterId: number | undefined;
   unitId: number | undefined;
   rule: JsonLogicRulesLogic;
-  fields: Field[] | undefined;
+  fields: FieldWithType[] | undefined;
 
   saveHandler: (selectedItem: SelectedItem) => void;
 }
 
-export const validator: RuleValidator = (q): ValidationResult => ({
-  valid: !!q.value,
-  reasons: ['Field has no value'],
-});
+export const validatorFactory = (field: any) => {
+  switch (field.fieldType) {
+    case FieldValueType.boolean:
+      return yesNoValidator;
+    default:
+      return defaultValidator;
+  }
+};
+
+export const defaultValidator: RuleValidator = (rule): ValidationResult => {
+  return {
+    valid: !!rule.value,
+    reasons: ['Field has no value'],
+  };
+};
+
+export const yesNoValidator: RuleValidator = (rule): ValidationResult => {
+  return {
+    valid: typeof rule.value == 'boolean',
+    reasons: ['Field value has invalid type'],
+  };
+};
 
 export const addValidators = (fields: Field[] | undefined) => {
   fields = fields?.map((field) => ({
     ...field,
-    validator: validator,
+    validator: validatorFactory(field),
   }));
 
   return fields;

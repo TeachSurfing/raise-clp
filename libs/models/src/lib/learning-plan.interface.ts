@@ -15,6 +15,7 @@ export interface IChapter {
 export interface IQuestion {
   name: string;
   label: string;
+  questionType: string;
   valueEditorType: string;
   values: NameLabelPair[];
   operators: NameLabelPair[];

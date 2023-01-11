@@ -1,6 +1,7 @@
 import { HttpService } from '@nestjs/axios';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { FieldValueType } from '@raise-clp/models';
 import { plainToInstance } from 'class-transformer';
 import { defaultOperators } from 'react-querybuilder';
 import { catchError, firstValueFrom, forkJoin, map } from 'rxjs';
@@ -73,7 +74,7 @@ export class LearnpressTransformationProvider
         new Question(
           d.custom_key ?? d.key,
           d.title,
-          d.type,
+          this.deriveValueType(d.type),
           this.deriveInputType(d.type),
           this.deriveEditorType(d.type),
           this.deriveValues(d.options, d.type),
@@ -82,7 +83,23 @@ export class LearnpressTransformationProvider
     );
   }
 
-  // TODO: matrix, rank
+  private deriveValueType(paperFormType: PaperFormQuestionType) {
+    switch (paperFormType) {
+      case PaperFormQuestionType.appointment:
+      case PaperFormQuestionType.date:
+      case PaperFormQuestionType.time:
+        return FieldValueType.date;
+      case PaperFormQuestionType.rating:
+      case PaperFormQuestionType.scale:
+        return FieldValueType.number;
+      case PaperFormQuestionType.yesNo:
+        return FieldValueType.boolean;
+      case PaperFormQuestionType.rank:
+        return FieldValueType.multiString;
+      default:
+        return FieldValueType.string;
+    }
+  }
 
   private deriveInputType(paperFormType: PaperFormQuestionType) {
     switch (paperFormType) {
@@ -110,7 +127,6 @@ export class LearnpressTransformationProvider
       case PaperFormQuestionType.date:
         return 'date';
       case PaperFormQuestionType.dropdown:
-        return 'select';
       case PaperFormQuestionType.yesNo:
         return 'select';
       default:

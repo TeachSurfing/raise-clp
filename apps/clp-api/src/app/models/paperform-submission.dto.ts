@@ -89,32 +89,3 @@ export enum PaperFormQuestionType {
   'rating' = 'rating',
   'matrix' = 'matrix',
 }
-
-// export type PaperFormQuestionType =
-//   , 'text'
-//   , 'email'
-//   , 'url'
-//   , 'yesNo'
-//   , 'color'
-//   , 'number'
-//   , 'phone'
-//   , 'address'
-//   , 'country'
-//   , 'appointment'
-//   , 'date'
-//   , 'time'
-//   , 'scale'
-//   , 'slider'
-//   , 'choices'
-//   , 'dropdown'
-//   , 'image'
-//   , 'file'
-//   , 'signature'
-//   , 'price'
-//   , 'products'
-//   , 'subscriptions'
-//   , 'calculations'
-//   , 'hidden'
-//   , 'rank'
-//   , 'rating'
-//   , 'matrix';

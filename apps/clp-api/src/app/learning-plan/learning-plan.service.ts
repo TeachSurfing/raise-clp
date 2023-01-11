@@ -21,6 +21,10 @@ export class LearningPlanService {
     return await this.learningPlanModel.findOne({ id: id }).exec();
   }
 
+  async findLatest() {
+    return await (await this.learningPlanModel.find().exec()).pop();
+  }
+
   async addLearningPlan(data: any) {
     const newLearningPlan = await this.learningPlanService.transform(data.data);
     newLearningPlan.id = uuidv4();

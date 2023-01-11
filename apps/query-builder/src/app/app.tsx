@@ -11,9 +11,11 @@ import {
 import { LearningPlanDto } from '@raise-clp/models';
 import { plainToInstance } from 'class-transformer';
 import { Component } from 'react';
-import { Field, JsonLogicRulesLogic } from 'react-querybuilder';
+import { JsonLogicRulesLogic } from 'react-querybuilder';
 import ChapterOverviewComponent from './components/chapter-overview/chapter-overview';
-import RuleBuilderComponent from './components/rule-builder/rule-builder';
+import RuleBuilderComponent, {
+  FieldWithType,
+} from './components/rule-builder/rule-builder';
 
 import 'react-querybuilder/dist/query-builder.scss';
 import styles from './app.module.scss';
@@ -115,7 +117,7 @@ export default class AppComponent extends Component {
               chapterId={this.state.selectedItem?.chapterId}
               unitId={this.state.selectedItem?.unitId}
               rule={this.state.selectedItem?.rule ?? {}}
-              fields={this.state.learningPlan.questions as Field[]}
+              fields={this.state.learningPlan.questions as FieldWithType[]}
               saveHandler={this.handleSave}
             />
           ) : (

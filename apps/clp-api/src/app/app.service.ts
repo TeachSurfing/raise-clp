@@ -1,10 +1,26 @@
 import { Injectable } from '@nestjs/common';
 import * as jsonLogic from 'json-logic-js';
 import { CustomLearningPlan } from './models/custom-learning-plan.model';
-import { PaperformSubmissionDto } from './models/paperform-submission.dto';
+import {
+  Data,
+  PaperFormQuestionType,
+  PaperformSubmissionDto,
+} from './models/paperform-submission.dto';
 
 import { LearningPlanService } from './learning-plan/learning-plan.service';
 import { MailService } from './mail/mail.service';
+
+const deriveValue = (question: Data) => {
+  switch (question?.type) {
+    case PaperFormQuestionType.rank:
+      return question.value?.join();
+    case PaperFormQuestionType.matrix:
+      question.value?.shift();
+      return question.value?.map((option) => option[1])?.join();
+    default:
+      return question.value;
+  }
+};
 
 @Injectable()
 export class AppService {
@@ -25,33 +41,15 @@ export class AppService {
 
   private normalizeData(submission: PaperformSubmissionDto) {
     return submission.data.reduce((acc, question) => {
-      const value = question.value;
-      if (question.type === 'matrix' && Array.isArray(value)) {
-        value.shift();
-        const mappedValue = value.map((val) => {
-          return val[1];
-        });
-
-        const mapping = mappedValue.reduce(
-          (innerAcc, val, counter) => ({
-            ...innerAcc,
-            [`${question.custom_key}_${counter}`]: val,
-          }),
-          {}
-        );
-
-        return { ...acc, ...mapping };
-      }
-
-      return { ...acc, [question.custom_key]: value };
+      const value = deriveValue(question);
+      return { ...acc, [question.custom_key ?? question.key]: value };
     }, {});
   }
 
   private async evaluateRules(normalizedData: unknown) {
     const customLearningPlan: CustomLearningPlan = new CustomLearningPlan();
 
-    const lp = (await this.learningPlanService.findOne('18045'))?.toObject();
-
+    const lp = (await this.learningPlanService.findLatest())?.toObject();
     lp.chapters.forEach((chapter) => {
       chapter.units.forEach((unit) => {
         if (!unit.rule)
@@ -59,11 +57,12 @@ export class AppService {
             title: unit.title,
             recommendation: false,
           });
-        else
+        else {
           customLearningPlan.chapters.push({
             title: unit.title,
             recommendation: jsonLogic.apply(unit.rule, normalizedData),
           });
+        }
       });
     });
 

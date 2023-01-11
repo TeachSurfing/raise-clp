@@ -23,6 +23,7 @@ export class QuestionDto implements IQuestion {
   constructor(
     public name: string,
     public label: string,
+    public questionType: string,
     public valueEditorType = 'text',
     public values: NameLabelPair[],
     public operators: NameLabelPair[]
@@ -55,6 +56,7 @@ export class LearningPlanDto implements ILearningPlan {
           new QuestionDto(
             question.name,
             question.label,
+            question.questionType,
             question.valueEditorType,
             question.values,
             question.operators
