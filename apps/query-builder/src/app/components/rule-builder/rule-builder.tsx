@@ -129,6 +129,7 @@ export default class RuleBuilderComponent extends Component<RuleBuilderProps> {
     this.props.saveHandler({
       chapterId: this.state.chapterId,
       unitId: this.state.unitId,
+      selectedDto: undefined,
       rule: formatQuery(change, 'jsonlogic'),
     });
   }
@@ -137,7 +138,7 @@ export default class RuleBuilderComponent extends Component<RuleBuilderProps> {
     if (this.state.fields)
       return (
         <section className="wrapper">
-          <h1>Build your Query</h1>
+          <h2>Build your Query</h2>
           <QueryBuilderDnD>
             <QueryBuilderMaterial>
               <QueryBuilder

@@ -1,18 +1,52 @@
+header {
+  background: #4db6ac;
+}
+
+.flex-justify {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 0;
+}
+
+h1 {
+  margin: 0;
+}
+
 .wrapper {
   max-width: 1200px;
   margin: 0 auto;
 
-  display: grid;
-  grid-template-columns: 300px auto;
-  column-gap: 32px;
+  &_grid {
+    display: grid;
+    grid-template-columns: 300px auto;
+    column-gap: 32px;
 
-  @media only screen and (max-width: 768px) {
-    display: block;
+    @media only screen and (max-width: 768px) {
+      display: block;
+    }
+
+    > div {
+      max-width: 100%;
+      overflow: hidden;
+    }
   }
+}
 
-  > div {
-    max-width: 100%;
-    overflow: hidden;
+.faq {
+  display: none;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 88px;
+
+  &--visible {
+    display: block;
+    background: #fff;
   }
 }
 

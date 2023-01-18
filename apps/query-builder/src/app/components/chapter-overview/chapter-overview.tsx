@@ -6,10 +6,11 @@ import './chapter-overview.scss';
 
 export default class ChapterOverviewComponent extends Component<{
   learningPlan: LearningPlanDto | undefined;
+  selected: ChapterDto | UnitDto | undefined;
   clickHandler: (selectedItem: SelectedItem) => void;
 }> {
   state: { selected: ChapterDto | UnitDto | undefined } = {
-    selected: undefined,
+    selected: this.props.selected,
   };
 
   render() {
@@ -44,6 +45,7 @@ export default class ChapterOverviewComponent extends Component<{
                           chapterId: chapter.id,
                           unitId: unit.id,
                           rule: unit.rule,
+                          selectedDto: unit,
                         });
                       }}
                     >
