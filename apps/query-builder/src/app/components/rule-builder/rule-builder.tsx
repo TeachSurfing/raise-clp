@@ -45,6 +45,8 @@ export const validatorFactory = (field: any) => {
   switch (field.fieldType) {
     case FieldValueType.boolean:
       return yesNoValidator;
+    case FieldValueType.number:
+      return numberValidator;
     default:
       return defaultValidator;
   }
@@ -52,14 +54,30 @@ export const validatorFactory = (field: any) => {
 
 export const defaultValidator: RuleValidator = (rule): ValidationResult => {
   return {
-    valid: !!rule.value,
+    valid:
+      rule.value !== undefined &&
+      rule.value !== null &&
+      typeof rule.value == 'string',
+    reasons: ['Field has no value'],
+  };
+};
+
+export const numberValidator: RuleValidator = (rule): ValidationResult => {
+  return {
+    valid:
+      rule.value !== undefined &&
+      rule.value !== null &&
+      typeof rule.value == 'number',
     reasons: ['Field has no value'],
   };
 };
 
 export const yesNoValidator: RuleValidator = (rule): ValidationResult => {
   return {
-    valid: typeof rule.value == 'boolean',
+    valid:
+      rule.value !== undefined &&
+      rule.value !== null &&
+      typeof rule.value == 'boolean',
     reasons: ['Field value has invalid type'],
   };
 };
