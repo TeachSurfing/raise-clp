@@ -1,3 +1,5 @@
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 import { ChapterDto, LearningPlanDto, UnitDto } from '@raise-clp/models';
 import { Component } from 'react';
 import { SelectedItem } from '../../app';
@@ -21,16 +23,13 @@ export default class ChapterOverviewComponent extends Component<{
       return (
         <>
           <h2>Chapter overview</h2>
-          <ul className="chapters">
-            {this.props.learningPlan.chapters.map((chapter) => (
-              <li
-                key={chapter.id}
-                className={
-                  chapter.id === this.state.selected?.id ? 'active' : ''
-                }
-              >
-                {chapter.title}
 
+          {this.props.learningPlan.chapters.map((chapter, index) => (
+            <Accordion key={chapter.id} expanded={index === 0}>
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                {chapter.title}
+              </AccordionSummary>
+              <AccordionDetails>
                 <ul className="units">
                   {chapter.units.map((unit) => (
                     <li
@@ -53,9 +52,9 @@ export default class ChapterOverviewComponent extends Component<{
                     </li>
                   ))}
                 </ul>
-              </li>
-            ))}
-          </ul>
+              </AccordionDetails>
+            </Accordion>
+          ))}
         </>
       );
 
