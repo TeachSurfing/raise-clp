@@ -9,10 +9,12 @@ import './chapter-overview.scss';
 export default class ChapterOverviewComponent extends Component<{
   learningPlan: LearningPlanDto | undefined;
   selected: ChapterDto | UnitDto | undefined;
+
   clickHandler: (selectedItem: SelectedItem) => void;
 }> {
-  state: { selected: ChapterDto | UnitDto | undefined } = {
+  state: { selected: ChapterDto | UnitDto | undefined; expanded: number } = {
     selected: this.props.selected,
+    expanded: 0,
   };
 
   render() {
@@ -25,7 +27,15 @@ export default class ChapterOverviewComponent extends Component<{
           <h2>Chapter overview</h2>
 
           {this.props.learningPlan.chapters.map((chapter, index) => (
-            <Accordion key={chapter.id} expanded={index === 0}>
+            <Accordion
+              key={chapter.id}
+              expanded={this.state.expanded === index}
+              onClick={() => {
+                if (this.state.expanded === index)
+                  this.setState({ expanded: undefined });
+                else this.setState({ expanded: index });
+              }}
+            >
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 {chapter.title}
               </AccordionSummary>
