@@ -83,7 +83,13 @@ export default class AppComponent extends Component {
   };
 
   handleInfoButtonClick = () => {
-    this.setState({ faqVisible: !this.state.faqVisible });
+    this.setState(
+      { faqVisible: !this.state.faqVisible },
+      () =>
+        (document.body.style.overflow = this.state.faqVisible
+          ? 'hidden'
+          : 'auto')
+    );
   };
 
   handleClick(itemClicked: SelectedItem | undefined) {
@@ -222,42 +228,121 @@ export default class AppComponent extends Component {
               </div>
               <h3>How to use the QueryBuilder</h3>
               <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Mollitia accusamus, et adipisci aut illo animi? Fuga culpa
-                perferendis inventore laborum aliquid. Illum consectetur,
-                inventore minima reprehenderit quaerat quia eos fugit?
+                You can see the chapters and units of the connected course on
+                the left. You can select each unit and specify rules to mark the
+                specific unit as optional.
               </p>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Mollitia accusamus, et adipisci aut illo animi? Fuga culpa
-                perferendis inventore laborum aliquid. Illum consectetur,
-                inventore minima reprehenderit quaerat quia eos fugit?
+              <p className={styles.hint}>
+                The rules you define always specify under which conditions you
+                want to make a unit <strong>optional</strong>!
               </p>
-              <h3>How to use the QueryBuilder</h3>
+              <h3>Build queries</h3>
               <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Mollitia accusamus, et adipisci aut illo animi? Fuga culpa
-                perferendis inventore laborum aliquid. Illum consectetur,
-                inventore minima reprehenderit quaerat quia eos fugit?
+                In order to build queries you can combine any amount of rules.
+                Rules can be connected as <i>AND</i> or <i>OR</i>.{' '}
               </p>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Mollitia accusamus, et adipisci aut illo animi? Fuga culpa
-                perferendis inventore laborum aliquid. Illum consectetur,
-                inventore minima reprehenderit quaerat quia eos fugit?
+              <p className={styles.hint}>
+                <strong>Every single rule</strong> combined with <i>AND</i> must
+                be true, so that the whole rule is true!
+                <br /> <br />
+                <strong>At least one rule</strong> combined with <i>OR</i> must
+                be true, so that the whole rule is true!
               </p>
-              <h3>How to use the QueryBuilder</h3>
+              <h3>Question types</h3>
               <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Mollitia accusamus, et adipisci aut illo animi? Fuga culpa
-                perferendis inventore laborum aliquid. Illum consectetur,
-                inventore minima reprehenderit quaerat quia eos fugit?
+                The type of the question is read from paperform, so in most
+                cases the CLP tool will only allow to input values that make
+                sense. For some types of rules, you need to know some specific
+                inputs in order to match the results. These are:
               </p>
+              <h4>Matrix</h4>
               <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Mollitia accusamus, et adipisci aut illo animi? Fuga culpa
-                perferendis inventore laborum aliquid. Illum consectetur,
-                inventore minima reprehenderit quaerat quia eos fugit?
+                Unfortunately paperform does not provide the options of the
+                matrix type questions. So in order to match a matrix question
+                you need to put the indizes of the right answer, separated with
+                a comma. So for example, if the correct solution of the matrix
+                looks like this:
+              </p>
+              <table>
+                <thead>
+                  <tr>
+                    <td></td>
+                    <th scope="col">Affective component</th>
+                    <th scope="col">Behavorial Component</th>
+                    <th scope="col">Cognitive component</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">
+                      Feelings/Emotions = e.g. they feel happy when they recycle
+                    </th>
+                    <td data-label="Affective component">
+                      <input type="radio" disabled />
+                    </td>
+                    <td data-label="Behavorial Component">
+                      <input type="radio" checked disabled />
+                    </td>
+                    <td data-label="Cognitive component">
+                      <input type="radio" disabled />
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      Response/Action = e.g. they recycle every day
+                    </th>
+                    <td data-label="Affective component">
+                      <input type="radio" checked disabled />
+                    </td>
+                    <td data-label="Behavorial Component">
+                      <input type="radio" disabled />
+                    </td>
+                    <td data-label="Cognitive component">
+                      <input type="radio" disabled />
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      Belief/Evaluation = e.g. they believe recycling is the
+                      responsible things to do
+                    </th>
+                    <td data-label="Affective component">
+                      <input type="radio" disabled />
+                    </td>
+                    <td data-label="Behavorial Component">
+                      <input type="radio" disabled />
+                    </td>
+                    <td data-label="Cognitive component">
+                      <input type="radio" checked disabled />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <p>
+                You would need to put the following into the value field (index
+                of correct answer of first row, index of correct answer second
+                row, etc.): <i>2,1,3</i>
+              </p>
+              <h4>Ranking</h4>
+              <p>
+                For the ranking the input is similiar to the matrix. If you have
+                a some options defined in paperform, i.e.:
+              </p>
+              <ul>
+                <li> Option A</li>
+                <li> Option B</li>
+                <li> Option C</li>
+              </ul>
+              <p>
+                and the correct answer would be B, C, A. Then you would need to
+                put <i>2,3,1</i> into the value field.
+              </p>
+              <h4>Selection</h4>
+              <p>
+                If you want to create a rule, where a participant needs to have
+                selected more then one element of a selection type question,
+                please create several rules, combined with <i>AND</i> to choose
+                all the possible values.
               </p>
             </div>
           </div>

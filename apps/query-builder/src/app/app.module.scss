@@ -43,9 +43,29 @@ h1 {
   width: 100%;
   top: 88px;
 
+  overflow-y: auto;
+  height: calc(100vh - 88px);
+
   &--visible {
     display: block;
     background: #fff;
+  }
+}
+
+.hint {
+  border: 1px solid #eed202;
+  padding: 12px 8px 8px;
+  border-radius: 4px;
+  position: relative;
+
+  &::before {
+    color: #eed202;
+    display: block;
+    position: absolute;
+    content: '⚠ IMPORTANT';
+    top: -12px;
+    font-weight: bold;
+    background-color: #fff;
   }
 }
 
