@@ -54,7 +54,7 @@ export default class AppComponent extends Component {
   }
 
   componentDidMount() {
-    fetch(`${process.env['NX_API_URL']}/learning-plans`)
+    fetch(`${(window as any).env.API_URL as string}/learning-plans`)
       .then((response) => response.json())
       .then((data: LearningPlanDto[]) => {
         const lp: LearningPlanDto = plainToInstance(
