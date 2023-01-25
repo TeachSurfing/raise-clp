@@ -22,12 +22,16 @@ export class LearnpressTransformationProvider
   ) {}
 
   transform(data: {
-    lpUrl: string;
+    learningPlan: {
+      courseUrl: string;
+      addOptionalUrl: string;
+      removeOptionalUrl: string;
+    };
     questionnaireUrl: string;
   }): Promise<LearningPlan> {
     return firstValueFrom(
       forkJoin({
-        learningPlan: this.httpService.get(data.lpUrl),
+        learningPlan: this.httpService.get(data.learningPlan.courseUrl),
         questionnaireData: this.httpService.get(data.questionnaireUrl, {
           headers: {
             Authorization: `Bearer ${this.configService.get(
@@ -52,7 +56,9 @@ export class LearnpressTransformationProvider
                 }
               ),
               this.extractNameLabel(transformedData.questionnaireData),
-              data.lpUrl,
+              data.learningPlan.courseUrl,
+              data.learningPlan.addOptionalUrl,
+              data.learningPlan.removeOptionalUrl,
               data.questionnaireUrl
             )
         ),

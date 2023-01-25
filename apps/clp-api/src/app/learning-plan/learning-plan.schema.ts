@@ -130,6 +130,14 @@ export class LearningPlan implements ILearningPlan {
 
   @Prop()
   @Expose()
+  addOptionalUrl: string;
+
+  @Prop()
+  @Expose()
+  removeOptionalUrl: string;
+
+  @Prop()
+  @Expose()
   questionnaireUrl: string;
 
   constructor(
@@ -137,12 +145,16 @@ export class LearningPlan implements ILearningPlan {
     chapters: Chapter[],
     questions: Question[],
     lpUrl?: string,
+    addOptionalUrl?: string,
+    removeOptionalUrl?: string,
     questionnaireUrl?: string
   ) {
     this.id = id;
     this.chapters = chapters;
     this.questions = questions;
     this.lpUrl = lpUrl;
+    this.addOptionalUrl = addOptionalUrl;
+    this.removeOptionalUrl = removeOptionalUrl;
     this.questionnaireUrl = questionnaireUrl;
   }
 }

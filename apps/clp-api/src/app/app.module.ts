@@ -15,6 +15,7 @@ import { LearnpressTransformationProvider } from './learning-plan/learnpress-tra
 import { MailModule } from './mail/mail.module';
 import { FormTransformationProvider } from './questionnaire/form-transformation-provider.interface';
 import { PaperformTransformationProvider } from './questionnaire/paperform-transformation-provider.service';
+import { Submission, SubmissionSchema } from './submission/submission.schema';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { PaperformTransformationProvider } from './questionnaire/paperform-trans
     }),
     MongooseModule.forFeature([
       { name: LearningPlan.name, schema: LearningPlanSchema },
+      { name: Submission.name, schema: SubmissionSchema },
     ]),
     MailModule,
   ],

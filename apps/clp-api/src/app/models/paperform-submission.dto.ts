@@ -1,4 +1,4 @@
-export interface PaperformSubmissionDto {
+export class PaperformSubmissionDto {
   data: Data[];
   form_id: string;
   slug: string;
