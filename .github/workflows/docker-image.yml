@@ -19,7 +19,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build the project
-        run: INPUT_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} NX_API_URL=${{ secrets.NX_API_URL }} npm run build:container
+        run: INPUT_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} npm run build:container
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v4
