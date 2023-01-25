@@ -97,7 +97,9 @@ export default class AppComponent extends Component {
   }
 
   async handleSave(itemSaved: SelectedItem) {
-    let updateUrl = `${process.env['NX_API_URL']}/learning-plans/${this.state.learningPlan?.id}/chapters/${itemSaved.chapterId}`;
+    let updateUrl = `${(window as any).env.API_URL as string}/learning-plans/${
+      this.state.learningPlan?.id
+    }/chapters/${itemSaved.chapterId}`;
     if (itemSaved.unitId) updateUrl += `/units/${itemSaved.unitId}`;
 
     const updatedLearningPlan = await fetch(updateUrl, {
@@ -116,7 +118,9 @@ export default class AppComponent extends Component {
 
   async handleRefresh() {
     const updatedLearningPlan = await fetch(
-      `${process.env['NX_API_URL']}/learning-plans/${this.state.learningPlan?.id}`,
+      `${(window as any).env.API_URL as string}/learning-plans/${
+        this.state.learningPlan?.id
+      }`,
       {
         method: 'POST',
         body: JSON.stringify({
