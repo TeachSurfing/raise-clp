@@ -57,10 +57,10 @@ export class AppService {
       (question) => question.custom_key === this.config.get('USER_ID_KEY')
     )?.value;
     const chaptersToSkip = clp.chapters.filter(
-      (chapter) => chapter.recommendation
+      (chapter) => !chapter.recommendation
     );
     const chaptersToDo = clp.chapters.filter(
-      (chapter) => !chapter.recommendation
+      (chapter) => chapter.recommendation
     );
 
     const lp = (await this.learningPlanService.findLatest())?.toObject();
