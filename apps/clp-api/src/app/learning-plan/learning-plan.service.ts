@@ -35,7 +35,11 @@ export class LearningPlanService {
   async updateLearningPlan(id: string) {
     const oldLearningPlan = await this.findOne(id);
     const newLearningPlan = await this.learningPlanService.transform({
-      lpUrl: oldLearningPlan.lpUrl,
+      learningPlan: {
+        courseUrl: oldLearningPlan.lpUrl,
+        addOptionalUrl: oldLearningPlan.addOptionalUrl,
+        removeOptionalUrl: oldLearningPlan.removeOptionalUrl,
+      },
       questionnaireUrl: oldLearningPlan.questionnaireUrl,
     });
     newLearningPlan.id = id;
