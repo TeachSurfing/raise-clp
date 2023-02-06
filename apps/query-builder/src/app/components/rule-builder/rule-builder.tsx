@@ -122,15 +122,15 @@ export default class RuleBuilderComponent extends Component<RuleBuilderProps> {
 
   async handleQueryChange(change: any) {
     this.setState({ rule: change });
-    const rule = formatQuery(change, 'jsonlogic');
+    const rule = formatQuery(change, 'jsonlogic') || {};
 
-    if (!this.state?.chapterId || !rule) return;
+    if (!this.state?.chapterId) return;
 
     this.props.saveHandler({
       chapterId: this.state.chapterId,
       unitId: this.state.unitId,
       selectedDto: undefined,
-      rule: formatQuery(change, 'jsonlogic'),
+      rule: rule,
     });
   }
 
