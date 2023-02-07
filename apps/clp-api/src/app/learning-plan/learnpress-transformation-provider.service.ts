@@ -147,8 +147,8 @@ export class LearnpressTransformationProvider
     switch (paperFormType) {
       case PaperFormQuestionType.yesNo:
         return [
-          { name: 'yes', label: 'yes' },
-          { name: 'no', label: 'no' },
+          { name: 'Yes', label: 'Yes' },
+          { name: 'No', label: 'No' },
         ];
       default:
         return options?.map((option) => ({ name: option, label: option }));
