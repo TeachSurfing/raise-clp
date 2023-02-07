@@ -100,8 +100,6 @@ export class LearnpressTransformationProvider
         return FieldValueType.number;
       case PaperFormQuestionType.yesNo:
         return FieldValueType.boolean;
-      case PaperFormQuestionType.rank:
-        return FieldValueType.multiString;
       default:
         return FieldValueType.string;
     }
@@ -135,6 +133,8 @@ export class LearnpressTransformationProvider
       case PaperFormQuestionType.dropdown:
       case PaperFormQuestionType.yesNo:
         return 'select';
+      case PaperFormQuestionType.rank:
+        return 'textarea';
       default:
         return 'text';
     }
@@ -159,6 +159,7 @@ export class LearnpressTransformationProvider
     switch (paperFormType) {
       case PaperFormQuestionType.yesNo:
       case PaperFormQuestionType.dropdown:
+      case PaperFormQuestionType.rank:
         return defaultOperators.filter((op) => op.name === '=');
       case PaperFormQuestionType.choices:
         return defaultOperators.filter((op) => op.name === 'contains');

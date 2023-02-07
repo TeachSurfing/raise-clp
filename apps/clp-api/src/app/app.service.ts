@@ -19,7 +19,7 @@ import { Submission, SubmissionDocument } from './submission/submission.schema';
 const deriveValue = (question: Data) => {
   switch (question?.type) {
     case PaperFormQuestionType.rank:
-      return question.value?.join();
+      return question.value?.join('\n');
     case PaperFormQuestionType.matrix:
       question.value?.shift();
       return question.value?.map((option) => option[1])?.join();
