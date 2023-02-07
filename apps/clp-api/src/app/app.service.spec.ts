@@ -23,12 +23,12 @@ describe('TestService', () => {
       '66ace02b-7c51-43ed-9986-1d24cb0709ef',
       [
         {
-          id: 203,
+          id: 1,
           title: 'Chapter A',
           description: '',
           units: [
             {
-              id: 21956,
+              id: 0,
               title: 'Unit A.1',
               rule: {
                 '>=': [
@@ -40,7 +40,7 @@ describe('TestService', () => {
               },
             },
             {
-              id: 18862,
+              id: 1,
               title: 'Unit A.2',
               rule: {
                 '==': [
@@ -52,19 +52,52 @@ describe('TestService', () => {
               },
             },
             {
-              id: 19000,
+              id: 2,
               title: 'Unit A.3',
-              rule: {},
+              rule: {
+                '==': [
+                  {
+                    var: 'boolean',
+                  },
+                  'Yes',
+                ],
+              },
             },
             {
-              id: 19067,
+              id: 3,
               title: 'Unit A.4',
-              rule: {},
+              rule: {
+                in: [
+                  'Exists',
+                  {
+                    var: 'multiple_choice',
+                  },
+                ],
+              },
             },
             {
-              id: 18048,
+              id: 4,
               title: 'Unit A.5',
-              rule: {},
+              rule: {
+                '==': [
+                  {
+                    var: 'dropdown',
+                  },
+                  'Selected',
+                ],
+              },
+            },
+            {
+              id: 5,
+              title: 'Unit A.6',
+              rule: {
+                '==': [
+                  {
+                    var: 'rank',
+                  },
+                  'B\nA\nC',
+                ],
+              },
             },
           ],
         },
@@ -305,5 +338,141 @@ describe('TestService', () => {
 
     expect(clps.toBeTrue.chapters[1].recommendation).toBe(true);
     expect(clps.toBeFalse.chapters[1].recommendation).toBe(false);
+  });
+
+  it('should transform and evaluate a boolean rule', async () => {
+    const dataTrue = {
+      title: 'Boolean',
+      description: null,
+      type: 'yesNo',
+      key: 'boolean',
+      custom_key: null,
+      value: 'Yes',
+    } as Data;
+    const dataFalse = {
+      title: 'Boolean',
+      description: null,
+      type: 'yesNo',
+      key: 'boolean',
+      custom_key: null,
+      value: 'No',
+    } as Data;
+
+    const submissions = createSubmission(dataTrue, dataFalse);
+    const normalizedData = createNormalizedData(submissions);
+
+    expect(normalizedData.toBeTrue).toEqual({
+      [dataTrue.key]: dataTrue.value,
+    });
+    expect(normalizedData.toBeFalse).toEqual({
+      [dataFalse.key]: dataFalse.value,
+    });
+
+    const clps = await evaluateRules(normalizedData);
+
+    expect(clps.toBeTrue.chapters[2].recommendation).toBe(true);
+    expect(clps.toBeFalse.chapters[2].recommendation).toBe(false);
+  });
+
+  it('should transform and evaluate a multiple-choice rule', async () => {
+    const dataTrue = {
+      title: 'Multiple Choice',
+      description: null,
+      type: 'yesNo',
+      key: 'multiple_choice',
+      custom_key: null,
+      value: ['Exists'],
+    } as Data;
+    const dataFalse = {
+      title: 'Multiple Choice',
+      description: null,
+      type: 'choices',
+      key: 'multiple_choice',
+      custom_key: null,
+      value: ['NotExists'],
+    } as Data;
+
+    const submissions = createSubmission(dataTrue, dataFalse);
+    const normalizedData = createNormalizedData(submissions);
+
+    expect(normalizedData.toBeTrue).toEqual({
+      [dataTrue.key]: dataTrue.value,
+    });
+    expect(normalizedData.toBeFalse).toEqual({
+      [dataFalse.key]: dataFalse.value,
+    });
+
+    const clps = await evaluateRules(normalizedData);
+
+    expect(clps.toBeTrue.chapters[3].recommendation).toBe(true);
+    expect(clps.toBeFalse.chapters[3].recommendation).toBe(false);
+  });
+
+  it('should transform and evaluate a dropdown rule', async () => {
+    const dataTrue = {
+      title: 'Dropdown',
+      description: null,
+      type: 'dropdown',
+      key: 'dropdown',
+      custom_key: null,
+      value: ['Selected'],
+    } as Data;
+    const dataFalse = {
+      title: 'Dropdown',
+      description: null,
+      type: 'dropdown',
+      key: 'dropdown',
+      custom_key: null,
+      value: ['NotSelected'],
+    } as Data;
+
+    const submissions = createSubmission(dataTrue, dataFalse);
+    const normalizedData = createNormalizedData(submissions);
+
+    expect(normalizedData.toBeTrue).toEqual({
+      [dataTrue.key]: dataTrue.value,
+    });
+    expect(normalizedData.toBeFalse).toEqual({
+      [dataFalse.key]: dataFalse.value,
+    });
+
+    const clps = await evaluateRules(normalizedData);
+
+    expect(clps.toBeTrue.chapters[4].recommendation).toBe(true);
+    expect(clps.toBeFalse.chapters[4].recommendation).toBe(false);
+  });
+
+  it('should transform and evaluate a rank rule', async () => {
+    const dataTrue = {
+      title: 'Rank',
+      description: null,
+      type: 'rank',
+      key: 'rank',
+      custom_key: null,
+      value: ['B', 'A', 'C'],
+    } as Data;
+    const dataFalse = {
+      title: 'Rank',
+      description: null,
+      type: 'rank',
+      key: 'rank',
+      custom_key: null,
+      value: ['A', 'B', 'C'],
+    } as Data;
+
+    const submissions = createSubmission(dataTrue, dataFalse);
+    const normalizedData = createNormalizedData(submissions);
+
+    expect(normalizedData.toBeTrue).toEqual({
+      [dataTrue.key]: dataTrue.value.join('\n'),
+    });
+    expect(normalizedData.toBeFalse).toEqual({
+      [dataFalse.key]: dataFalse.value.join('\n'),
+    });
+
+    const clps = await evaluateRules(normalizedData);
+
+    expect(clps.toBeTrue.chapters[5].recommendation).toBe(true);
+    expect(clps.toBeFalse.chapters[5].recommendation).toBe(false);
   });
 });
