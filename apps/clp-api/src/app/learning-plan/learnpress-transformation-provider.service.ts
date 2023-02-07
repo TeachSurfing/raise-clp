@@ -159,6 +159,7 @@ export class LearnpressTransformationProvider
     switch (paperFormType) {
       case PaperFormQuestionType.yesNo:
       case PaperFormQuestionType.dropdown:
+      case PaperFormQuestionType.matrix:
       case PaperFormQuestionType.rank:
         return defaultOperators.filter((op) => op.name === '=');
       case PaperFormQuestionType.choices:
