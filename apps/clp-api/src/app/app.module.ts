@@ -13,8 +13,7 @@ import { LearningPlanService } from './learning-plan/learning-plan.service';
 import { LearningplanTransformationProvider } from './learning-plan/learningplan-transformation-provider.service';
 import { LearnpressTransformationProvider } from './learning-plan/learnpress-transformation-provider.service';
 import { MailModule } from './mail/mail.module';
-import { FormTransformationProvider } from './questionnaire/form-transformation-provider.interface';
-import { PaperformTransformationProvider } from './questionnaire/paperform-transformation-provider.service';
+
 import { Submission, SubmissionSchema } from './submission/submission.schema';
 
 @Module({
@@ -39,10 +38,6 @@ import { Submission, SubmissionSchema } from './submission/submission.schema';
   providers: [
     AppService,
     LearningPlanService,
-    {
-      provide: FormTransformationProvider,
-      useClass: PaperformTransformationProvider,
-    },
     {
       provide: LearningplanTransformationProvider,
       useClass: LearnpressTransformationProvider,

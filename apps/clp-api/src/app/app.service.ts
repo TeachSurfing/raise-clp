@@ -48,11 +48,11 @@ export class AppService {
     const clp = await this.evaluateRules(normalizedData);
     await this.mailService.sendClpMail(name, email, clp);
 
-    // TODO: Safe data and CLP
+    // Safe data and CLP
     const submissionEntity = new Submission(submission, clp);
     await this.submissionModel.create(submissionEntity);
 
-    // TODO: Talk to WP
+    // Talk to WP
     const wpUserId = submission.data.find(
       (question) => question.custom_key === this.config.get('USER_ID_KEY')
     )?.value;
