@@ -83,14 +83,14 @@ export class AppService {
     return true;
   }
 
-  private normalizeData(submission: PaperformSubmissionDto) {
+  public normalizeData(submission: PaperformSubmissionDto) {
     return submission.data.reduce((acc, question) => {
       const value = deriveValue(question);
       return { ...acc, [question.custom_key ?? question.key]: value };
     }, {});
   }
 
-  private async evaluateRules(normalizedData: unknown) {
+  public async evaluateRules(normalizedData: unknown) {
     const customLearningPlan: CustomLearningPlan = new CustomLearningPlan();
 
     const lp = (await this.learningPlanService.findLatest())?.toObject();

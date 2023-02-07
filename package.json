@@ -8,6 +8,7 @@
     "build:container": "npm run build; nx run-many --target=container --all",
     "postbuild": "ts-node tools/mail/mjml.ts",
     "test": "nx run-many --target=test --all",
+    "test:watch": "nx run-many --target=test --all --watch",
     "test:e2e": "nx run query-builder-e2e:e2e"
   },
   "private": true,
