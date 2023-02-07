@@ -24,8 +24,7 @@ export class LearnpressTransformationProvider
   transform(data: {
     learningPlan: {
       courseUrl: string;
-      addOptionalUrl: string;
-      removeOptionalUrl: string;
+      lpOptionalUrl: string;
     };
     questionnaireUrl: string;
   }): Promise<LearningPlan> {
@@ -57,8 +56,7 @@ export class LearnpressTransformationProvider
               ),
               this.extractNameLabel(transformedData.questionnaireData),
               data.learningPlan.courseUrl,
-              data.learningPlan.addOptionalUrl,
-              data.learningPlan.removeOptionalUrl,
+              data.learningPlan.lpOptionalUrl,
               data.questionnaireUrl
             )
         ),

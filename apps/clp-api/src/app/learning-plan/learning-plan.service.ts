@@ -37,8 +37,7 @@ export class LearningPlanService {
     const newLearningPlan = await this.learningPlanService.transform({
       learningPlan: {
         courseUrl: oldLearningPlan.lpUrl,
-        addOptionalUrl: oldLearningPlan.addOptionalUrl,
-        removeOptionalUrl: oldLearningPlan.removeOptionalUrl,
+        lpOptionalUrl: oldLearningPlan.lpOptionalUrl,
       },
       questionnaireUrl: oldLearningPlan.questionnaireUrl,
     });

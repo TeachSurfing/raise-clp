@@ -11,7 +11,7 @@ import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { firstValueFrom, forkJoin } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { LearningPlanService } from './learning-plan/learning-plan.service';
 import { MailService } from './mail/mail.service';
 import { Submission, SubmissionDocument } from './submission/submission.schema';
@@ -56,29 +56,19 @@ export class AppService {
     const wpUserId = submission.data.find(
       (question) => question.custom_key === this.config.get('USER_ID_KEY')
     )?.value;
-    const chaptersToSkip = clp.chapters.filter(
-      (chapter) => !chapter.recommendation
-    );
-    const chaptersToDo = clp.chapters.filter(
-      (chapter) => chapter.recommendation
-    );
 
     const lp = (await this.learningPlanService.findLatest())?.toObject();
 
-    const requests = [
-      ...chaptersToDo.map((chapter) => {
-        return this.httpService.get(
-          `${lp.removeOptionalUrl}/${wpUserId}/${chapter.lessonId}`
-        );
-      }),
-      ...chaptersToSkip.map((chapter) =>
-        this.httpService.get(
-          `${lp.addOptionalUrl}/${wpUserId}/${chapter.lessonId}`
-        )
-      ),
-    ];
+    const requestData = clp.chapters.map((chapter) => ({
+      lessonId: chapter.lessonId,
+      optional: chapter.recommendation,
+    }));
+    const request = this.httpService.post(
+      `${lp.lpOptionalUrl}/${wpUserId}`,
+      requestData
+    );
 
-    await firstValueFrom(forkJoin(requests));
+    await firstValueFrom(request);
 
     return true;
   }
