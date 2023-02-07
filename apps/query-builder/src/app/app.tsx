@@ -327,19 +327,26 @@ export default class AppComponent extends Component {
                 of correct answer of first row, index of correct answer second
                 row, etc.): <i>2,1,3</i>
               </p>
-              <h4>Ranking</h4>
+              <h4>Rank</h4>
               <p>
-                For the ranking the input is similiar to the matrix. If you have
-                a some options defined in paperform, i.e.:
+                For the ranking the input is a bit different to the one from the
+                matrix input. If you have a some options defined in paperform,
+                i.e.:
               </p>
               <ul>
-                <li> Option A</li>
-                <li> Option B</li>
-                <li> Option C</li>
+                <li>Option A</li>
+                <li>Option B</li>
+                <li>Option C</li>
               </ul>
               <p>
-                and the correct answer would be B, C, A. Then you would need to
-                put <i>2,3,1</i> into the value field.
+                and the correct answer would be Option B, Option A, Option C.
+                Then you would need to put the correct order into the textarea
+                and separate the options with a new line. So i.e.:
+                <div className={styles['textarea-lookalike']}>
+                  Option B<br />
+                  Option A<br />
+                  Option C
+                </div>
               </p>
               <h4>Selection</h4>
               <p>

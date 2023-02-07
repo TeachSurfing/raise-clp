@@ -74,3 +74,14 @@ h1 {
   right: 24px;
   bottom: 24px;
 }
+
+.textarea-lookalike {
+  appearance: textarea;
+  border: 1px solid gray;
+  font: -webkit-small-control;
+  height: 49px;
+  overflow-y: scroll;
+  padding: 2px;
+  resize: both;
+  width: 330px;
+}
