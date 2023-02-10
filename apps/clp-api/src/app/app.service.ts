@@ -46,7 +46,9 @@ export class AppService {
   ): Promise<boolean> {
     const normalizedData = this.normalizeData(submission);
     const clp = await this.evaluateRules(normalizedData);
-    await this.mailService.sendClpMail(name, email, clp);
+
+    if (email && this.config.get('MAIL_ACTIVE'))
+      await this.mailService.sendClpMail(name, email, clp);
 
     // Safe data and CLP
     const submissionEntity = new Submission(submission, clp);
