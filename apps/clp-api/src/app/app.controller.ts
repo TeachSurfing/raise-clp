@@ -22,21 +22,26 @@ export class AppController {
   async processQuestionnaireSubmission(
     @Body() submission: PaperformSubmissionDto
   ) {
-    const emailQuestion = submission.data.find(
-      (question) => question.custom_key === this.config.get('EMAIL_KEY')
-    );
-    const nameQuestion = submission.data.find(
-      (question) => question.custom_key === this.config.get('NAME_KEY')
-    );
+    let email;
+    let name;
 
-    const email = emailQuestion?.value;
-    const name = nameQuestion?.value;
-
-    if (!email)
-      throw new HttpException(
-        'Invalid Request - Email field must be available',
-        HttpStatus.BAD_REQUEST
+    if (this.config.get('MAIL_ACTIVE')) {
+      const emailQuestion = submission.data.find(
+        (question) => question.custom_key === this.config.get('EMAIL_KEY')
       );
+      const nameQuestion = submission.data.find(
+        (question) => question.custom_key === this.config.get('NAME_KEY')
+      );
+
+      email = emailQuestion?.value;
+      name = nameQuestion?.value;
+
+      if (!email)
+        throw new HttpException(
+          'Invalid Request - Email field must be available',
+          HttpStatus.BAD_REQUEST
+        );
+    }
 
     return this.appService.processQuestionnaireSubmission(
       name,
@@ -44,6 +49,4 @@ export class AppController {
       submission
     );
   }
-
-
 }
