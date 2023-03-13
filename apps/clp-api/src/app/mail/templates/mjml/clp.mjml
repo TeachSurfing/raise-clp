@@ -5,30 +5,28 @@
     <mj-section>
       <mj-column>
         <mj-text font-weight="bold">
-          Hello {{ name }},<br>your custom learning plan is ready.
+          Hello {{ name }},<br>thank you for filling out the RAISE questionnaire - your custom learning plan is ready!
         </mj-text>
+        <mj-raw>{{#if chapters.[0]}}</mj-raw>
         <mj-text padding="0 24px">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+          As a result we were able to provide you with the suggestion to skip the following chapters of the online course:
         </mj-text>
         <mj-text>
           <ul>
             {{#each chapters}}
               <li>
-                {{title}} =>
-                {{#if recommendation}}
-                  Please skip it.
-                {{else}}
-                  Please do it.
-                {{/if}}
+                {{title}}
               </li>
             {{/each}}
           </ul>
         </mj-text>
+        <mj-raw>{{/if}}</mj-raw>
         <mj-text>
-
+          You can look at it at the <a href="https://evelp.teachsurfing.org/courses/become-a-volunteer-educator/">VE-course page on the e-VELP platform</a>. {{#if chapters.[0]}}The skipable chapter(s) are now marked as "optional"{{/if}}.
         </mj-text>
         <mj-text>
-          Your RAISE-Team
+          For support, feel free to get in touch with the e-VELP team: <a href="mailto: evelp@teachsurfing.de">evelp@teachsurfing.de</a><br>
+          Happy to have you on board: The e-VELP Team
         </mj-text>
 
         <mj-include path="../mjml-components/footer.mjml" />

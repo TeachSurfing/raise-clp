@@ -1,0 +1,33 @@
+<mjml>
+  <mj-include path="../mjml-components/mj-head.mjml" />
+
+  <mj-body>
+    <mj-section>
+      <mj-column>
+        <mj-text font-weight="bold">
+          Hello,<br>a custom learning plan has been generated for {{ participantName }} <i>(ID: {{ participantId }})</i>.
+        </mj-text>
+        <mj-text padding="0 24px">
+          The custom learning plan for that participant suggests that they can skip the following chapters:
+        </mj-text>
+        <mj-text>
+          <ul>
+            {{#each chapters}}
+              <li>
+                {{title}}
+              </li>
+            {{/each}}
+          </ul>
+        </mj-text>
+        <mj-text>
+
+        </mj-text>
+        <mj-text>
+          Your RAISE-Team
+        </mj-text>
+
+        <mj-include path="../mjml-components/footer.mjml" />
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>

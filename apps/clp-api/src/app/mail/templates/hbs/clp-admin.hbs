@@ -99,11 +99,11 @@
                   
       <div
          style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;font-weight:bold;line-height:1;text-align:left;color:#000000;"
-      >Hello {{ name }},<br>thank you for filling out the RAISE questionnaire - your custom learning plan is ready!</div>
+      >Hello,<br>a custom learning plan has been generated for {{ participantName }} <i>(ID: {{ participantId }})</i>.</div>
     
                 </td>
               </tr>
-            {{#if chapters.[0]}}
+            
               <tr>
                 <td
                    align="left" style="font-size:0px;padding:0 24px;word-break:break-word;"
@@ -111,7 +111,7 @@
                   
       <div
          style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"
-      >As a result we were able to provide you with the suggestion to skip the following chapters of the online course:</div>
+      >The custom learning plan for that participant suggests that they can skip the following chapters:</div>
     
                 </td>
               </tr>
@@ -133,7 +133,7 @@
     
                 </td>
               </tr>
-            {{/if}}
+            
               <tr>
                 <td
                    align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;"
@@ -141,7 +141,7 @@
                   
       <div
          style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"
-      >You can look at it at the <a href="https://evelp.teachsurfing.org/courses/become-a-volunteer-educator/">VE-course page on the e-VELP platform</a>. {{#if chapters.[0]}}The skipable chapter(s) are now marked as "optional"{{/if}}.</div>
+      ></div>
     
                 </td>
               </tr>
@@ -153,8 +153,7 @@
                   
       <div
          style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;"
-      >For support, feel free to get in touch with the e-VELP team: <a href="mailto: evelp@teachsurfing.de">evelp@teachsurfing.de</a><br>
-          Happy to have you on board: The e-VELP Team</div>
+      >Your RAISE-Team</div>
     
                 </td>
               </tr>

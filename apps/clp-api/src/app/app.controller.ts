@@ -25,7 +25,7 @@ export class AppController {
     let email;
     let name;
 
-    if (this.config.get('MAIL_ACTIVE')) {
+    if (JSON.parse(this.config.get('MAIL_TO_SENDER_ACTIVE'))) {
       const emailQuestion = submission.data.find(
         (question) => question.custom_key === this.config.get('EMAIL_KEY')
       );

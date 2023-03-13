@@ -46,19 +46,29 @@ export class AppService {
   ): Promise<boolean> {
     const normalizedData = this.normalizeData(submission);
     const clp = await this.evaluateRules(normalizedData);
+    const wpUserId = submission.data.find(
+      (question) => question.custom_key === this.config.get('USER_ID_KEY')
+    )?.value;
 
-    if (email && this.config.get('MAIL_ACTIVE'))
+    // Send mail to questionnaire sender
+    if (email && this.config.get('MAIL_TO_SENDER_ACTIVE'))
       await this.mailService.sendClpMail(name, email, clp);
+
+    // Send mail to admin
+    const mailAddresses = this.config.get('MAIL_TO_ADMINS')?.split(' ');
+    if (this.config.get('MAIL_TO_ADMINS'))
+      await this.mailService.sendClpAdminMail(
+        name,
+        wpUserId,
+        mailAddresses,
+        clp
+      );
 
     // Safe data and CLP
     const submissionEntity = new Submission(submission, clp);
     await this.submissionModel.create(submissionEntity);
 
     // Talk to WP
-    const wpUserId = submission.data.find(
-      (question) => question.custom_key === this.config.get('USER_ID_KEY')
-    )?.value;
-
     const lp = (await this.learningPlanService.findLatest())?.toObject();
 
     const requestData = clp.chapters.map((chapter) => ({
