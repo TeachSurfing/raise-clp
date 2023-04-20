@@ -22,6 +22,7 @@ export class MailService {
       .sendMail({
         to: email,
         from: this.configService.get('SMTP_SENDER'),
+        sender: this.configService.get('SMTP_SENDER'),
         subject: '[RAISE] Your custom learning plan is ready ✔',
         text: JSON.stringify({
           ...clp,
@@ -56,6 +57,7 @@ export class MailService {
       .sendMail({
         to: email,
         from: this.configService.get('SMTP_SENDER'),
+        sender: this.configService.get('SMTP_SENDER'),
         subject: `[RAISE] A custom learning plan has been generated for ${
           name ?? 'unknown'
         } (ID: ${id})`,
