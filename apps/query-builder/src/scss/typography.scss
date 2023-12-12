@@ -1,0 +1,86 @@
+/* Regular font */
+@font-face {
+    font-family: 'Museo';
+    font-style: normal;
+    font-weight: 100;
+    font-display: fallback;
+    src: url('https://s3.eu-central-1.amazonaws.com/fonts.teachsurfing.org/Museo100.otf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Museo';
+    font-style: normal;
+    font-weight: 300;
+    font-display: fallback;
+    src: url('https://s3.eu-central-1.amazonaws.com/fonts.teachsurfing.org/Museo300.otf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Museo';
+    font-style: normal;
+    font-weight: 500;
+    font-display: fallback;
+    src: url('https://s3.eu-central-1.amazonaws.com/fonts.teachsurfing.org/Museo500.otf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Museo';
+    font-style: normal;
+    font-weight: 700;
+    font-display: fallback;
+    src: url('https://s3.eu-central-1.amazonaws.com/fonts.teachsurfing.org/Museo700.otf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Museo';
+    font-style: normal;
+    font-weight: 900;
+    font-display: fallback;
+    src: url('https://s3.eu-central-1.amazonaws.com/fonts.teachsurfing.org/Museo900.otf') format('truetype');
+}
+
+/* Sans Font */
+@font-face {
+    font-family: 'MuseoSans';
+    font-style: normal;
+    font-weight: 100;
+    font-display: fallback;
+    src: url('https://s3.eu-central-1.amazonaws.com/fonts.teachsurfing.org/MuseoSans100.otf')
+        format('truetype');
+}
+
+@font-face {
+    font-family: 'MuseoSans';
+    font-style: normal;
+    font-weight: 300;
+    font-display: fallback;
+    src: url('https://s3.eu-central-1.amazonaws.com/fonts.teachsurfing.org/MuseoSans300.otf')
+        format('truetype');
+}
+
+@font-face {
+    font-family: 'MuseoSans';
+    font-style: normal;
+    font-weight: 500;
+    font-display: fallback;
+    src: url('https://s3.eu-central-1.amazonaws.com/fonts.teachsurfing.org/MuseoSans500.otf')
+        format('truetype');
+}
+
+@font-face {
+    font-family: 'MuseoSans';
+    font-style: normal;
+    font-weight: 700;
+    font-display: fallback;
+    src: url('https://s3.eu-central-1.amazonaws.com/fonts.teachsurfing.org/MuseoSans700.otf')
+        format('truetype');
+}
+
+@font-face {
+    font-family: 'MuseoSans';
+    font-style: normal;
+    font-weight: 900;
+    font-display: fallback;
+    src: url('https://s3.eu-central-1.amazonaws.com/fonts.teachsurfing.org/MuseoSans900.otf')
+        format('truetype');
+}

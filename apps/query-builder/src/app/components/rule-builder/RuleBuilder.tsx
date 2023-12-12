@@ -83,7 +83,6 @@ const RuleBuilder = (props: RuleBuilderProps) => {
 
             if (!chapterId) return;
 
-            console.log('RULE_BUILDER_SAVE', chapterId, unitId, rule);
             props.saveHandler({
                 chapterId,
                 unitId,
@@ -102,7 +101,7 @@ const RuleBuilder = (props: RuleBuilderProps) => {
     }, [props.chapterId, props.unitId, props.rule, props.fields]);
 
     return fields ? (
-        <section className="wrapper">
+        <div>
             <h2>Build your Query</h2>
             <QueryBuilderDnD>
                 <QueryBuilderMaterial>
@@ -125,7 +124,7 @@ const RuleBuilder = (props: RuleBuilderProps) => {
                     </code>
                 </AccordionDetails>
             </Accordion>
-        </section>
+        </div>
     ) : (
         <div>Loading...</div>
     );

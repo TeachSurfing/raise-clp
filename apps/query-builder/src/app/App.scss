@@ -1,87 +1,26 @@
+@use '../scss/colors.scss' as colors;
+@use '../scss/variables.scss' as vars;
+
 header {
-  background: #4db6ac;
+    background: #4db6ac;
 }
-
-.flex-justify {
-  display: flex;
-  justify-content: space-between;
-}
-
-.header-wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 24px 0;
-}
-
 h1 {
-  margin: 0;
-}
-
-.wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
-
-  &_grid {
-    display: grid;
-    grid-template-columns: 300px auto;
-    column-gap: 32px;
-
-    @media only screen and (max-width: 768px) {
-      display: block;
-    }
-
-    > div {
-      max-width: 100%;
-    }
-  }
-}
-
-.faq {
-  display: none;
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  top: 88px;
-
-  overflow-y: auto;
-  height: calc(100vh - 88px);
-
-  &--visible {
-    display: block;
-    background: #fff;
-  }
+    margin: 0;
 }
 
 .hint {
-  border: 1px solid #eed202;
-  padding: 12px 8px 8px;
-  border-radius: 4px;
-  position: relative;
+    border: 1px solid #eed202;
+    padding: 12px 8px 8px;
+    border-radius: 4px;
+    position: relative;
 
-  &::before {
-    color: #eed202;
-    display: block;
-    position: absolute;
-    content: '⚠ IMPORTANT';
-    top: -12px;
-    font-weight: bold;
-    background-color: #fff;
-  }
-}
-
-.refreshbutton {
-  position: fixed !important;
-  right: 24px;
-  bottom: 24px;
-}
-
-.textarea-lookalike {
-  appearance: textarea;
-  border: 1px solid gray;
-  font: -webkit-small-control;
-  height: 49px;
-  overflow-y: scroll;
-  padding: 2px;
-  resize: both;
-  width: 330px;
+    &::before {
+        color: #eed202;
+        display: block;
+        position: absolute;
+        content: '⚠ IMPORTANT';
+        top: -12px;
+        font-weight: bold;
+        background-color: #fff;
+    }
 }

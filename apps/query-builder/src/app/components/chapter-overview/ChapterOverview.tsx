@@ -31,7 +31,7 @@ const ChapterOverview = (props: Props) => {
     };
 
     return props.learningPlan?.chapters && props.learningPlan.chapters.length > 0 ? (
-        <>
+        <div>
             <h2>Chapter overview</h2>
 
             {props.learningPlan.chapters.map((chapter: ChapterDto, index: number) => (
@@ -58,7 +58,7 @@ const ChapterOverview = (props: Props) => {
                     </AccordionDetails>
                 </Accordion>
             ))}
-        </>
+        </div>
     ) : (
         <span>loading</span>
     );

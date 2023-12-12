@@ -1,21 +1,27 @@
+@use '../../../scss/colors.scss' as colors;
+@use '../../../scss/variables.scss' as vars;
+@use 'sass:math';
+
 .chapters {
-  padding: 0;
+    padding: 0;
 }
 
 .units {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 
-  li {
-    padding: 2px 4px;
-    &.active {
-      background: #4db6ac;
-      border-radius: 5px;
+    li {
+        padding: math.div(vars.$default-margin, 2);
+        line-height: 22px;
+        &.active {
+            background: colors.$primary-darker-color;
+            border-radius: 5px;
+            color: colors.$white;
+        }
+        &:hover:not(.active) {
+            cursor: pointer;
+            background: #cae9e6;
+        }
     }
-    &:hover:not(.active) {
-      cursor: pointer;
-      background: #cae9e6;
-    }
-  }
 }
