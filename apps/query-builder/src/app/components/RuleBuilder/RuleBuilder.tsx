@@ -8,6 +8,7 @@ import { QueryBuilderDnD } from '@react-querybuilder/dnd';
 import { QueryBuilderMaterial } from '@react-querybuilder/material';
 import { useCallback, useEffect, useState } from 'react';
 import {
+    DefaultRuleGroupType,
     Field,
     JsonLogicRulesLogic,
     QueryBuilder,
@@ -72,9 +73,9 @@ export const addValidators = (fields: Field[] | undefined) =>
     }));
 
 const RuleBuilder = (props: RuleBuilderProps) => {
-    const [chapterId, setChapterId] = useState(props.chapterId);
-    const [unitId, setUnitId] = useState(props.unitId);
-    const [rule, setRule] = useState(parseJsonLogic(props.rule ?? {}));
+    const [chapterId, setChapterId] = useState<number | undefined>(props.chapterId);
+    const [unitId, setUnitId] = useState<number | undefined>(props.unitId);
+    const [rule, setRule] = useState<DefaultRuleGroupType>(parseJsonLogic(props.rule ?? {}));
     const [fields, setFields] = useState(addValidators(props.fields));
     const handleQueryChange = useCallback(
         (change: JsonLogicRulesLogic) => {

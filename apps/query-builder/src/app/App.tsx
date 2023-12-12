@@ -2,9 +2,9 @@ import { useState } from 'react';
 
 import 'react-querybuilder/dist/query-builder.scss';
 import './App.scss';
-import Faq from './components/faq/Faq';
-import Home from './components/home/Home';
-import Navbar from './components/navbar/Navbar';
+import Faq from './components/Faq/Faq';
+import Home from './components/Home/Home';
+import Navbar from './components/Navbar/Navbar';
 
 const App = () => {
     const [isFaqVisible, setIsFaqVisible] = useState<boolean>(false);
@@ -19,7 +19,7 @@ const App = () => {
     return (
         <section>
             <Navbar handleInfoButtonClick={handleHelpClick} />
-            <Faq isDialogOpen={isFaqVisible} handleClose={handleCloseFaq} />
+            <Faq isDialogOpen={isFaqVisible} onClose={handleCloseFaq} />
             <Home />
         </section>
     );

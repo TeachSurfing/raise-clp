@@ -9,15 +9,15 @@ import './Faq.scss';
 
 interface FaqProps {
     isDialogOpen: boolean;
-    handleClose: () => void;
+    onClose: () => void;
 }
 
-const Faq = ({ isDialogOpen, handleClose }: FaqProps) => {
+const Faq = ({ isDialogOpen, onClose }: FaqProps) => {
     return (
         <Dialog
             fullScreen
             open={isDialogOpen}
-            onClose={handleClose}
+            onClose={onClose}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
             className="dialog"
@@ -25,7 +25,7 @@ const Faq = ({ isDialogOpen, handleClose }: FaqProps) => {
             <DialogContent>
                 <DialogTitle id="alert-dialog-title" className="dialog__title">
                     Frequently Asked Questions
-                    <IconButton edge="end" color="inherit" onClick={handleClose} aria-label="close">
+                    <IconButton edge="end" color="inherit" onClick={onClose} aria-label="close">
                         <CloseIcon />
                     </IconButton>
                 </DialogTitle>

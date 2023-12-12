@@ -10,8 +10,8 @@ import { LearningPlanDto } from '@raise-clp/models';
 import { plainToInstance } from 'class-transformer';
 import { useCallback, useEffect, useState } from 'react';
 import { SelectedItem } from '../../model/view.model';
-import ChapterOverview from '../chapter-overview/ChapterOverview';
-import RuleBuilder, { FieldWithType } from '../rule-builder/RuleBuilder';
+import ChapterOverview from '../ChapterOverview/ChapterOverview';
+import RuleBuilder, { FieldWithType } from '../RuleBuilder/RuleBuilder';
 
 import './Home.scss';
 
