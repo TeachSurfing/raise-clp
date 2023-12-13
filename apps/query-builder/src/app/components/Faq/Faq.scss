@@ -1,0 +1,28 @@
+@use '../../../scss/variables.scss' as vars;
+@use 'sass:math';
+
+.dialog {
+    width: 90%;
+    height: 90%;
+    margin: auto;
+    &__title {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.col-th {
+    padding-right: math.div(vars.$default-margin, 2);
+    font-size: 14px;
+}
+
+.textarea-lookalike {
+    appearance: textarea;
+    border: 1px solid gray;
+    font: -webkit-small-control;
+    height: 49px;
+    overflow-y: scroll;
+    padding: 2px;
+    resize: both;
+    width: 330px;
+}
