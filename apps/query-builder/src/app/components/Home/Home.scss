@@ -1,26 +1,6 @@
 @use '../../../scss/colors.scss' as colors;
 @use '../../../scss/variables.scss' as vars;
 
-.wrapper {
-    max-width: 1200px;
-    margin: 0 auto;
-
-    &--grid {
-        padding-top: vars.$default-margin;
-        display: grid;
-        grid-template-columns: 300px auto;
-        column-gap: 32px;
-
-        @media only screen and (max-width: 768px) {
-            display: block;
-        }
-
-        > div {
-            max-width: 100%;
-        }
-    }
-}
-
 .refreshbutton {
     position: fixed !important;
     right: 24px;

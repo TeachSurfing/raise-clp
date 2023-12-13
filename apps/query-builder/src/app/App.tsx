@@ -1,27 +1,16 @@
-import { useState } from 'react';
-
 import 'react-querybuilder/dist/query-builder.scss';
+import { Outlet } from 'react-router-dom';
 import './App.scss';
-import Faq from './components/Faq/Faq';
-import Home from './components/Home/Home';
 import Navbar from './components/Navbar/Navbar';
 
 const App = () => {
-    const [isFaqVisible, setIsFaqVisible] = useState<boolean>(false);
-
-    const handleHelpClick = () => {
-        setIsFaqVisible(true);
-    };
-    const handleCloseFaq = () => {
-        setIsFaqVisible(false);
-    };
-
     return (
-        <section>
-            <Navbar handleInfoButtonClick={handleHelpClick} />
-            <Faq isDialogOpen={isFaqVisible} onClose={handleCloseFaq} />
-            <Home />
-        </section>
+        <div id="clp-app">
+            <Navbar />
+            <div className="clp-page">
+                <Outlet />
+            </div>
+        </div>
     );
 };
 

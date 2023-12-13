@@ -22,6 +22,9 @@
 }
 
 .clp-menu-item-btn {
+    &--active {
+        color: colors.$primary-darker-color !important;
+    }
     &:hover {
         background-color: colors.$primary-lighter-color !important;
     }

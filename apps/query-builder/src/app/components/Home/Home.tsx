@@ -10,9 +10,11 @@ import { LearningPlanDto } from '@raise-clp/models';
 import { plainToInstance } from 'class-transformer';
 import { useCallback, useEffect, useState } from 'react';
 import { SelectedItem } from '../../model/view.model';
+
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Unstable_Grid2';
 import ChapterOverview from '../ChapterOverview/ChapterOverview';
 import RuleBuilder, { FieldWithType } from '../RuleBuilder/RuleBuilder';
-
 import './Home.scss';
 
 const Home = () => {
@@ -126,19 +128,28 @@ const Home = () => {
     }, [learningPlan]);
 
     return learningPlan ? (
-        <div className={'wrapper wrapper--grid'}>
-            <ChapterOverview
-                learningPlan={learningPlan}
-                selected={selectedItem?.selectedDto}
-                clickHandler={handleClick}
-            />
-            <RuleBuilder
-                chapterId={selectedItem?.chapterId}
-                unitId={selectedItem?.unitId}
-                rule={selectedItem?.rule ?? {}}
-                fields={learningPlan?.questions as FieldWithType[]}
-                saveHandler={handleSave}
-            />
+        <div>
+            <Container>
+                <Grid container columnSpacing={2}>
+                    <Grid sm={12} md={3}>
+                        <ChapterOverview
+                            learningPlan={learningPlan}
+                            selected={selectedItem?.selectedDto}
+                            clickHandler={handleClick}
+                        />
+                    </Grid>
+                    <Grid sm={12} md={9}>
+                        <RuleBuilder
+                            chapterId={selectedItem?.chapterId}
+                            unitId={selectedItem?.unitId}
+                            rule={selectedItem?.rule ?? {}}
+                            fields={learningPlan?.questions as FieldWithType[]}
+                            saveHandler={handleSave}
+                        />
+                    </Grid>
+                </Grid>
+            </Container>
+
             <Fab
                 color="primary"
                 aria-label="add"
@@ -177,9 +188,7 @@ const Home = () => {
             </Dialog>
         </div>
     ) : (
-        <div>
-            <p>Learning plan not found.</p>
-        </div>
+        <div>{/* <p>Learning plan not found.</p> */}</div>
     );
 };
 

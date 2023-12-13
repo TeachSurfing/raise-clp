@@ -15,11 +15,19 @@ import Typography from '@mui/material/Typography';
 import * as React from 'react';
 
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import { NavigateFunction, useLocation, useNavigate } from 'react-router-dom';
 import './Navbar.scss';
 
-const pages = ['Learning Planner'];
+const ResponsiveAppBar = () => {
+    const navigate: NavigateFunction = useNavigate();
+    const pathname: string = useLocation().pathname;
 
-const ResponsiveAppBar = (props: { handleInfoButtonClick: () => void }) => {
+    const menuClasses = (route: string): string => {
+        const classes = ['clp-menu-item-btn'];
+        const matchRoute = pathname === route;
+        return classes.concat(matchRoute ? 'clp-menu-item-btn--active' : '').join(' ');
+    };
+
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [avatarEl, setAvatarEl] = React.useState<null | HTMLElement>(null);
 
@@ -35,6 +43,10 @@ const ResponsiveAppBar = (props: { handleInfoButtonClick: () => void }) => {
     const handleMyProfileClick = () => {
         setAvatarEl(null);
     };
+    const handleGoToLP = () => {
+        setAvatarEl(null);
+        navigate('learning-planner');
+    };
     const handleCloseNavMenu = () => {
         setAvatarEl(null);
     };
@@ -43,7 +55,7 @@ const ResponsiveAppBar = (props: { handleInfoButtonClick: () => void }) => {
     };
     const handleFaqClick = (_: React.MouseEvent<HTMLElement>) => {
         setAvatarEl(null);
-        props.handleInfoButtonClick();
+        navigate('faq');
     };
 
     return (
@@ -105,36 +117,29 @@ const ResponsiveAppBar = (props: { handleInfoButtonClick: () => void }) => {
                                 display: { xs: 'block', md: 'none' }
                             }}
                         >
-                            {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
-                                </MenuItem>
-                            ))}
+                            <MenuItem onClick={handleGoToLP}>
+                                <Typography textAlign="center">Learning Planner</Typography>
+                            </MenuItem>
                         </Menu>
                     </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => {
-                            return (
-                                <Button
-                                    key={page}
-                                    onClick={handleCloseNavMenu}
-                                    className="clp-menu-item-btn"
-                                    sx={{
-                                        my: 2,
-                                        color: 'black',
-                                        fontFamily: 'MuseoSans',
-                                        fontSize: 12,
-                                        display: 'block',
-                                        ':hover': 'color: blue'
-                                    }}
-                                >
-                                    {page}
-                                </Button>
-                            );
-                        })}
+                        <Button
+                            onClick={handleGoToLP}
+                            className={menuClasses('/learning-planner')}
+                            sx={{
+                                my: 2,
+                                color: 'black',
+                                fontFamily: 'MuseoSans',
+                                fontSize: 12,
+                                display: 'block',
+                                ':hover': 'color: blue'
+                            }}
+                        >
+                            Learning Planner
+                        </Button>
                     </Box>
 
-                    {/* Desktop */}
+                    {/* Avatar Menu */}
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Menu">
                             <IconButton onClick={handleAvatarClick} sx={{ p: 0 }}>
@@ -157,7 +162,7 @@ const ResponsiveAppBar = (props: { handleInfoButtonClick: () => void }) => {
                             open={Boolean(avatarEl)}
                             onClose={handleOnCloseAvatar}
                         >
-                            <MenuItem className="clp-menu-item-btn" onClick={handleMyProfileClick}>
+                            <MenuItem className={menuClasses('/profile')} onClick={handleMyProfileClick}>
                                 <IconButton
                                     onClick={handleMyProfileClick}
                                     sx={{ p: 0, color: 'black', marginRight: '8px' }}
@@ -166,16 +171,16 @@ const ResponsiveAppBar = (props: { handleInfoButtonClick: () => void }) => {
                                 </IconButton>
                                 <Typography textAlign="center">My Profile</Typography>
                             </MenuItem>
-                            <MenuItem className="clp-menu-item-btn" onClick={handleFaqClick}>
+                            <MenuItem className={menuClasses('/faq')} onClick={handleFaqClick}>
                                 <IconButton
-                                    onClick={handleFaqClick}
                                     sx={{ p: 0, color: 'black', marginRight: '8px' }}
+                                    onClick={handleFaqClick}
                                 >
                                     <HelpOutlineIcon color="primary" />
                                 </IconButton>
                                 <Typography textAlign="center">Help</Typography>
                             </MenuItem>
-                            <MenuItem className="clp-menu-item-btn" onClick={handleLogoutClick}>
+                            <MenuItem className={menuClasses('/logout')} onClick={handleLogoutClick}>
                                 <IconButton
                                     onClick={handleLogoutClick}
                                     sx={{ p: 0, color: 'black', marginRight: '8px' }}

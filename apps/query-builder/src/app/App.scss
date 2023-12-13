@@ -1,11 +1,16 @@
 @use '../scss/colors.scss' as colors;
 @use '../scss/variables.scss' as vars;
+@use 'sass:math' as math;
 
 header {
     background: #4db6ac;
 }
 h1 {
     margin: 0;
+}
+
+.clp-page {
+    padding: (2 * vars.$default-margin) vars.$default-margin;
 }
 
 .hint {
