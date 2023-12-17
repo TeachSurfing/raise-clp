@@ -4,7 +4,7 @@
 
 .faq {
     &__content {
-        padding: vars.$default-margin;
+        padding: (2 * vars.$default-margin) (3 * vars.$default-margin);
         background-color: colors.$white;
         border-radius: 4px;
         h1 {

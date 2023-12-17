@@ -23,6 +23,7 @@ import './Navbar.scss';
 const ResponsiveAppBar = () => {
     const store = useAppStore();
     const isloggedIn = store.isLoggedIn();
+    const userInitial = store.user?.name?.charAt(0) || '';
     const signOut = useSignOut();
     const navigate: NavigateFunction = useNavigate();
     const pathname: string = useLocation().pathname;
@@ -51,6 +52,7 @@ const ResponsiveAppBar = () => {
     };
     const handleMyProfileClick = () => {
         setAvatarEl(null);
+        navigate('profile');
     };
     const handleGoToLP = () => {
         setAvatarEl(null);
@@ -178,7 +180,7 @@ const ResponsiveAppBar = () => {
                     <Box sx={{ flexGrow: 0, display: isloggedIn ? 'block' : 'none' }}>
                         <Tooltip title="Menu">
                             <IconButton onClick={handleAvatarClick} sx={{ p: 0 }}>
-                                <Avatar alt="Menu avatar" src="" />
+                                <Avatar alt="Menu avatar">{userInitial}</Avatar>
                             </IconButton>
                         </Tooltip>
                         <Menu
