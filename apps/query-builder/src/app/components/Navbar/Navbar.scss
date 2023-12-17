@@ -20,6 +20,10 @@
         margin-right: math.div(vars.$default-margin, 2);
     }
 }
+.login-btn {
+    border: 1px solid colors.$dark-accent-text !important;
+    border-radius: 4px !important;
+}
 
 .clp-menu-item-btn {
     &--active {

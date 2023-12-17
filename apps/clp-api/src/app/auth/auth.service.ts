@@ -43,7 +43,13 @@ export class AuthService {
 
         return {
             message: `Logged in as ${email}`,
-            token: this.jwtService.sign(payload)
+            token: this.jwtService.sign(payload),
+            user: {
+                id: user._id,
+                email: user.email,
+                name: user.name,
+                organizationName: user.organizationName
+            }
         };
     }
 
@@ -64,7 +70,8 @@ export class AuthService {
             user: {
                 id: newUser._id,
                 email: newUser.email,
-                name: newUser.name
+                name: newUser.name,
+                organizationName: newUser.organizationName
             }
         };
     }

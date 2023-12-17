@@ -11,10 +11,11 @@ export class UsersService {
         private userModel: Model<UserDocument>
     ) {}
 
-    async create({ email, name, password }: Partial<User>): Promise<Partial<User> | null> {
+    async create({ email, name, password, organizationName }: Partial<User>): Promise<Partial<User> | null> {
         const newUser = {
             email,
             name,
+            organizationName,
             password,
             tokenVersion: 0
         };

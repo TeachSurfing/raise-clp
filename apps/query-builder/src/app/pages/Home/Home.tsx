@@ -13,11 +13,15 @@ import { SelectedItem } from '../../model/view.model';
 
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
-import ChapterOverview from '../ChapterOverview/ChapterOverview';
-import RuleBuilder, { FieldWithType } from '../RuleBuilder/RuleBuilder';
+import { useNavigate } from 'react-router-dom';
+import ChapterOverview from '../../components/ChapterOverview/ChapterOverview';
+import RuleBuilder, { FieldWithType } from '../../components/RuleBuilder/RuleBuilder';
+import useAppStore from '../../state/app.store';
 import './Home.scss';
 
 const Home = () => {
+    const store = useAppStore();
+    const navigate = useNavigate();
     const [learningPlan, setLearningPlan] = useState<LearningPlanDto>();
     const [selectedItem, setSelectedItem] = useState<SelectedItem | undefined>();
     const [dialogOpen, setDialogOpen] = useState<boolean>(false);
@@ -29,7 +33,7 @@ const Home = () => {
         setDialogOpen(value);
     }, []);
     const handleRefresh = useCallback(async () => {
-        const learningPlanResponse = await fetch(
+        const response = await fetch(
             `${(window as any).env.API_URL as string}/learning-plans/${learningPlan?.id}`,
             {
                 method: 'POST',
@@ -39,10 +43,15 @@ const Home = () => {
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json'
-                }
+                },
+                credentials: 'include'
             }
         );
-        const lp: LearningPlanDto = await learningPlanResponse.json();
+        if (!response.ok) {
+            handleError(response);
+            return;
+        }
+        const lp: LearningPlanDto = await response.json();
         updateSelectedItem(lp);
         setLearningPlan(lp);
     }, [learningPlan?.id]);
@@ -57,7 +66,7 @@ const Home = () => {
             }/chapters/${itemSaved.chapterId}`;
             if (itemSaved.unitId) updateUrl += `/units/${itemSaved.unitId}`;
 
-            const learningPlanResponse = await fetch(updateUrl, {
+            const response = await fetch(updateUrl, {
                 method: 'POST',
                 body: JSON.stringify({
                     rule: itemSaved.rule
@@ -65,9 +74,14 @@ const Home = () => {
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json'
-                }
+                },
+                credentials: 'include'
             });
-            const lp: LearningPlanDto = await learningPlanResponse.json();
+            if (!response.ok) {
+                handleError(response);
+                return;
+            }
+            const lp: LearningPlanDto = await response.json();
 
             updateSelectedItem(lp);
             setLearningPlan(lp);
@@ -95,7 +109,13 @@ const Home = () => {
 
     useEffect(() => {
         async function fetchLearningPlans() {
-            const response = await fetch(`${(window as any).env.API_URL as string}/learning-plans`);
+            const response = await fetch(`${(window as any).env.API_URL as string}/learning-plans`, {
+                credentials: 'include'
+            });
+            if (!response.ok) {
+                handleError(response);
+                return;
+            }
             const learningPlans: LearningPlanDto[] = (await response.json()) || [];
 
             const lp: LearningPlanDto | undefined = learningPlans.length
@@ -118,14 +138,28 @@ const Home = () => {
         fetchLearningPlans();
     }, []);
 
-    // TODO: Remove this:
-    useEffect(() => {
-        console.log('selectedItem updated:', selectedItem);
-    }, [selectedItem]);
+    const handleError = async (response: Response) => {
+        const json = await response.json();
+        store.setAlert({
+            severity: 'error',
+            message: json.message
+        });
+        if (response.status === 401) {
+            navigate('../login');
+        }
+        if (response.status === 404) {
+            navigate('../register');
+        }
+    };
 
-    useEffect(() => {
-        console.log('learningPlan updated:', learningPlan);
-    }, [learningPlan]);
+    // TODO: Remove this:
+    // useEffect(() => {
+    //     console.log('selectedItem updated:', selectedItem);
+    // }, [selectedItem]);
+
+    // useEffect(() => {
+    //     console.log('learningPlan updated:', learningPlan);
+    // }, [learningPlan]);
 
     return learningPlan ? (
         <div>

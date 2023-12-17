@@ -1,0 +1,13 @@
+@use '../../../scss/variables.scss' as vars;
+
+#clp-alert {
+    position: fixed;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: vars.$default-margin;
+    > div {
+        width: auto;
+    }
+}

@@ -1,10 +1,13 @@
 import { createTheme, ThemeProvider } from '@mui/material';
 import { StrictMode } from 'react';
+import { AuthProvider } from 'react-auth-kit';
 import * as ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './app/App';
-import Faq from './app/components/Faq/Faq';
-import Home from './app/components/Home/Home';
+import Faq from './app/pages/Faq';
+import Home from './app/pages/Home';
+import Login from './app/pages/Login';
+import SignUp from './app/pages/SignUp';
 
 const muiTheme = createTheme({
     palette: {
@@ -35,6 +38,14 @@ const router = createBrowserRouter([
             {
                 path: 'faq',
                 element: <Faq />
+            },
+            {
+                path: 'register',
+                element: <SignUp />
+            },
+            {
+                path: 'login',
+                element: <Login />
             }
         ]
         // errorElement: ??
@@ -43,7 +54,14 @@ const router = createBrowserRouter([
 root.render(
     <StrictMode>
         <ThemeProvider theme={muiTheme}>
-            <RouterProvider router={router} />
+            <AuthProvider
+                authType={'cookie'}
+                authName={'_auth'}
+                cookieDomain={window.location.hostname}
+                cookieSecure={window.location.protocol === 'https:'}
+            >
+                <RouterProvider router={router} />
+            </AuthProvider>
         </ThemeProvider>
     </StrictMode>
 );

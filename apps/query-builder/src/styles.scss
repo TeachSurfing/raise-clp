@@ -4,8 +4,18 @@
 
 html,
 body {
+    height: 100%;
     margin: 0;
     padding: 0;
     background: colors.$light-bg-color;
     font-family: MuseoSans;
+}
+
+#root,
+#clp-app {
+    height: 100%;
+}
+
+.clp-page {
+    min-height: calc(100% - 129px);
 }

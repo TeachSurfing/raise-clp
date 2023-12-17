@@ -1,3 +1,5 @@
+@use '../../../scss/colors.scss' as colors;
+
 .MuiFormControl-root {
     max-width: 500px;
 }
@@ -47,6 +49,16 @@ div.ruleGroup-combinators {
             width: 24px;
             font-size: 24px;
             color: #f44336;
+        }
+    }
+}
+
+.queryBuilder {
+    button {
+        background-color: colors.$primary-darker-color !important;
+        color: #fff !important;
+        &:hover {
+            background-color: colors.$primary-color !important;
         }
     }
 }

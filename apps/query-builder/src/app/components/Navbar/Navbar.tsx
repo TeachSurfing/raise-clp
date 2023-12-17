@@ -15,10 +15,15 @@ import Typography from '@mui/material/Typography';
 import * as React from 'react';
 
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import { useSignOut } from 'react-auth-kit';
 import { NavigateFunction, useLocation, useNavigate } from 'react-router-dom';
+import useAppStore from '../../state/app.store';
 import './Navbar.scss';
 
 const ResponsiveAppBar = () => {
+    const store = useAppStore();
+    const isloggedIn = store.isLoggedIn();
+    const signOut = useSignOut();
     const navigate: NavigateFunction = useNavigate();
     const pathname: string = useLocation().pathname;
 
@@ -40,6 +45,10 @@ const ResponsiveAppBar = () => {
     const handleOnCloseAvatar = () => {
         setAvatarEl(null);
     };
+    const handleSignIn = () => {
+        setAvatarEl(null);
+        navigate('login');
+    };
     const handleMyProfileClick = () => {
         setAvatarEl(null);
     };
@@ -52,6 +61,9 @@ const ResponsiveAppBar = () => {
     };
     const handleLogoutClick = () => {
         setAvatarEl(null);
+        signOut();
+        store.setUser(null);
+        navigate('login');
     };
     const handleFaqClick = (_: React.MouseEvent<HTMLElement>) => {
         setAvatarEl(null);
@@ -62,7 +74,7 @@ const ResponsiveAppBar = () => {
         <AppBar className="navbar" position="static" sx={{ bgcolor: 'white' }}>
             <Container>
                 <Toolbar disableGutters>
-                    <a href="#fake" className="logo-link" style={{ textDecoration: 'none' }}>
+                    <a href="/" className="logo-link" style={{ textDecoration: 'none' }}>
                         <img
                             alt="teach-surfing-logo"
                             className="logo-link__logo"
@@ -73,7 +85,7 @@ const ResponsiveAppBar = () => {
                         variant="h6"
                         noWrap
                         component="a"
-                        href="#app-bar-with-responsive-menu"
+                        href="/"
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
@@ -88,7 +100,13 @@ const ResponsiveAppBar = () => {
                     </Typography>
 
                     {/* Mobile */}
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                    <Box
+                        sx={{
+                            flexGrow: 1,
+                            display: { xs: 'flex', md: 'none' },
+                            visibility: isloggedIn ? 'visible' : 'hidden'
+                        }}
+                    >
                         <IconButton
                             size="large"
                             aria-label="account of current user"
@@ -122,7 +140,14 @@ const ResponsiveAppBar = () => {
                             </MenuItem>
                         </Menu>
                     </Box>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+
+                    <Box
+                        sx={{
+                            flexGrow: 1,
+                            display: { xs: 'none', md: 'flex' },
+                            visibility: isloggedIn ? 'visible' : 'hidden'
+                        }}
+                    >
                         <Button
                             onClick={handleGoToLP}
                             className={menuClasses('/learning-planner')}
@@ -139,8 +164,18 @@ const ResponsiveAppBar = () => {
                         </Button>
                     </Box>
 
+                    {!isloggedIn ? (
+                        <Box sx={{ flexGrow: 0 }}>
+                            <Tooltip title="Sign in">
+                                <MenuItem className="login-btn" onClick={handleSignIn}>
+                                    <Typography textAlign="center">Sign in</Typography>
+                                </MenuItem>
+                            </Tooltip>
+                        </Box>
+                    ) : null}
+
                     {/* Avatar Menu */}
-                    <Box sx={{ flexGrow: 0 }}>
+                    <Box sx={{ flexGrow: 0, display: isloggedIn ? 'block' : 'none' }}>
                         <Tooltip title="Menu">
                             <IconButton onClick={handleAvatarClick} sx={{ p: 0 }}>
                                 <Avatar alt="Menu avatar" src="" />
@@ -178,7 +213,7 @@ const ResponsiveAppBar = () => {
                                 >
                                     <HelpOutlineIcon color="primary" />
                                 </IconButton>
-                                <Typography textAlign="center">Help</Typography>
+                                <Typography textAlign="center">FAQ</Typography>
                             </MenuItem>
                             <MenuItem className={menuClasses('/logout')} onClick={handleLogoutClick}>
                                 <IconButton

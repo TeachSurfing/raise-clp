@@ -1,9 +1,6 @@
 import { Body, Controller, Get, HttpException, HttpStatus, Param, Post } from '@nestjs/common';
-import { Public } from '../auth/public.decorator';
 import { LearningPlanService } from './learning-plan.service';
 
-// TODO: REMOVE PUBLIC
-@Public()
 @Controller({ path: 'learning-plans' })
 export class LearningPlanController {
     constructor(private readonly learningPlanService: LearningPlanService) {}

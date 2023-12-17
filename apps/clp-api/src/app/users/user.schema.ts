@@ -1,11 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { IUser } from '@raise-clp/models';
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsOptional } from 'class-validator';
 import { HydratedDocument } from 'mongoose';
 
 export type UserDocument = HydratedDocument<User>;
 
-@Schema({ versionKey: false })
+@Schema({ versionKey: false, timestamps: true })
 export class User implements IUser {
     _id?: string;
 
@@ -16,6 +16,10 @@ export class User implements IUser {
     @Prop()
     @IsNotEmpty()
     name: string;
+
+    @Prop()
+    @IsOptional()
+    organizationName: string;
 
     @Prop()
     @IsNotEmpty()

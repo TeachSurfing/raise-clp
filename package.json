@@ -33,7 +33,10 @@
     "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
+    "cookie-parser": "^1.4.6",
     "core-js": "^3.6.5",
+    "formik": "^2.4.5",
+    "formik-mui": "^5.0.0-alpha.0",
     "handlebars": "^4.7.7",
     "json-logic": "^2.0.0",
     "json-logic-js": "^2.0.2",
@@ -45,6 +48,7 @@
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "react": "18.2.0",
+    "react-auth-kit": "^2.12.7",
     "react-dom": "18.2.0",
     "react-querybuilder": "^5.1.1",
     "react-router-dom": "^6.20.1",
@@ -52,7 +56,8 @@
     "regenerator-runtime": "0.13.7",
     "rxjs": "^7.0.0",
     "tslib": "^2.3.0",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "zustand": "^4.4.7"
   },
   "devDependencies": {
     "@nestjs/schematics": "^9.0.0",
@@ -71,6 +76,7 @@
     "@nx-tools/nx-container": "^4.0.2",
     "@testing-library/react": "13.4.0",
     "@types/bcrypt": "^5.0.2",
+    "@types/cookie-parser": "^1.4.6",
     "@types/jest": "28.1.1",
     "@types/lodash": "^4.14.202",
     "@types/mjml": "^4.7.0",
