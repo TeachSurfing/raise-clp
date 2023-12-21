@@ -1,0 +1,8 @@
+@use '../../../scss/colors.scss' as colors;
+@use '../../../scss/variables.scss' as vars;
+
+.refreshbutton {
+    position: fixed !important;
+    right: 24px;
+    bottom: 24px;
+}

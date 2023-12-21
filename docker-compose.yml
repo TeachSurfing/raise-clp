@@ -1,37 +1,37 @@
 services:
-  raise-clp-service:
-    image: teachsurfing/clp-api:latest
-    env_file: ./.env
-    expose:
-      - 3000
-    depends_on:
-      - mongodb_container
-    networks:
-      - web
-    restart: always
-  raise-qb-service:
-    image: teachsurfing/query-builder:latest
-    env_file: ./.env
-    expose:
-      - 80
-    networks:
-      - web
-    restart: always
-    volumes:
-      - ./config.js:/usr/share/nginx/html/assets/config.js
-  mongodb_container:
-    image: mongo:latest
-    ports:
-      - 27017:27017
-    volumes:
-      - mongodb_data_container:/data/db
-    networks:
-      - web
-    restart: always
+    raise-clp-service:
+        image: teachsurfing/clp-api:latest
+        env_file: ./.env
+        expose:
+            - 3000
+        depends_on:
+            - mongodb_container
+        networks:
+            - web
+        restart: always
+    raise-qb-service:
+        image: teachsurfing/query-builder:latest
+        env_file: ./.env
+        expose:
+            - 80
+        networks:
+            - web
+        restart: always
+        volumes:
+            - ./config.js:/usr/share/nginx/html/assets/config.js
+    mongodb_container:
+        image: mongo:latest
+        ports:
+            - 27017:27017
+        volumes:
+            - mongodb_data_container:/data/db
+        networks:
+            - web
+        restart: always
 
 volumes:
-  mongodb_data_container:
+    mongodb_data_container:
 
 networks:
-  web:
-    external: true
+    web:
+        external: true

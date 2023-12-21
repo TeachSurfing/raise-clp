@@ -1,12 +1,21 @@
-/* You can add global styles to this file, and also import other style files */
+@use './scss/colors.scss' as colors;
+@use './scss/variables.scss' as vars;
+@use './scss/typography.scss' as typography;
 
 html,
 body {
-  margin: 0;
-  padding: 0;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: colors.$light-bg-color;
+    font-family: MuseoSans;
 }
 
-body {
-  background: #fafafa;
-  padding-bottom: 64px;
+#root,
+#clp-app {
+    height: 100%;
+}
+
+.clp-page {
+    min-height: calc(100% - 129px);
 }

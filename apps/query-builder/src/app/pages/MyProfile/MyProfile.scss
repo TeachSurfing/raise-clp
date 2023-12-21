@@ -1,0 +1,51 @@
+@use '../../../scss/variables.scss' as vars;
+@use '../../../scss/colors.scss' as colors;
+
+$m: vars.$default-margin;
+
+.my-profile {
+    padding: 20px;
+
+    &__content {
+        background-color: colors.$white;
+        padding: 2 * $m;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    &__header {
+        display: flex;
+        align-items: center;
+        margin-bottom: $m;
+
+        &__info {
+            margin-left: $m;
+            h2 {
+                margin: 0;
+                font-size: 1.5rem;
+                color: colors.$primary-high-contrast-color;
+            }
+            p {
+                margin: 0;
+                color: colors.$primary-darker-color;
+            }
+        }
+    }
+
+    &__password-change {
+        margin-top: $m;
+
+        h3 {
+            margin-top: 3 * $m;
+            margin-bottom: $m;
+            font-size: 1.2rem;
+            color: colors.$primary-high-contrast-color;
+        }
+        .MuiTextField-root {
+            margin: 0;
+            margin-bottom: $m;
+        }
+        .MuiButton-root {
+            color: colors.$white;
+        }
+    }
+}

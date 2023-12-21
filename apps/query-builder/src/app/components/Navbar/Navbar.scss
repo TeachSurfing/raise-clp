@@ -1,0 +1,35 @@
+@use '../../../scss/variables.scss' as vars;
+@use '../../../scss/colors.scss' as colors;
+@use 'sass:math';
+
+.navbar {
+    div:first-child {
+        max-width: 100%;
+        margin: 0;
+    }
+}
+
+.logo-link {
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center;
+    align-items: center;
+    &__logo {
+        height: 36px;
+        margin-right: math.div(vars.$default-margin, 2);
+    }
+}
+.login-btn {
+    border: 1px solid colors.$dark-accent-text !important;
+    border-radius: 4px !important;
+}
+
+.clp-menu-item-btn {
+    &--active {
+        color: colors.$primary-darker-color !important;
+    }
+    &:hover {
+        background-color: colors.$primary-lighter-color !important;
+    }
+}

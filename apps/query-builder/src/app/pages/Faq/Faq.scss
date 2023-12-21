@@ -1,0 +1,31 @@
+@use '../../../scss/variables.scss' as vars;
+@use '../../../scss/colors.scss' as colors;
+@use 'sass:math';
+
+.faq {
+    &__content {
+        padding: (2 * vars.$default-margin) (3 * vars.$default-margin);
+        background-color: colors.$white;
+        border-radius: 4px;
+        h1 {
+            margin-bottom: 2 * vars.$default-margin;
+            color: colors.$primary-darker-color;
+        }
+    }
+}
+
+.col-th {
+    padding-right: math.div(vars.$default-margin, 2);
+    font-size: 14px;
+}
+
+.textarea-lookalike {
+    appearance: textarea;
+    border: 1px solid gray;
+    font: -webkit-small-control;
+    height: 49px;
+    overflow-y: scroll;
+    padding: 2px;
+    resize: both;
+    width: 330px;
+}

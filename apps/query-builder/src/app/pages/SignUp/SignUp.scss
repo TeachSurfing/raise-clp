@@ -1,0 +1,57 @@
+@use '../../../scss/variables.scss' as vars;
+@use '../../../scss/colors.scss' as colors;
+
+.signup {
+    margin: 0;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    &__img {
+        margin-bottom: 3 * vars.$default-margin;
+    }
+    &__form-wrapper {
+        width: 340px;
+        padding: 3 * vars.$default-margin;
+        display: flex;
+        flex-direction: column;
+        background: colors.$white;
+        border-radius: 8px;
+        box-shadow: 0 1.8px 3.4px #00000008, 0 4.6px 16.9px #00000005, 0 9.4px 41.1px #00000005,
+            0 17.7px 77.5px #00000005, 0 33.4px 129.6px #00000003, 0 72px 215px #00000003;
+        &__title {
+            margin-top: 0;
+            margin-bottom: 2 * vars.$default-margin;
+            text-align: center;
+            font-size: vars.$font-size-l;
+            font-weight: 500;
+            letter-spacing: 0.16px;
+            color: colors.$primary-text;
+        }
+        &__form {
+            display: flex;
+            flex-direction: column;
+            input,
+            label,
+            button {
+                font-size: vars.$font-size-default;
+            }
+            .register-btn {
+                background: colors.$primary-high-contrast-color;
+                color: colors.$white;
+                text-transform: none;
+                &:hover {
+                    background: colors.$primary-high-contrast-color;
+                    background-image: linear-gradient(rgba(255, 255, 255, 0.08) 0 0);
+                }
+            }
+            .password-field-error {
+                white-space: pre-line;
+            }
+        }
+        &__login {
+            margin-top: 2 * vars.$default-margin !important;
+            text-align: center;
+        }
+    }
+}

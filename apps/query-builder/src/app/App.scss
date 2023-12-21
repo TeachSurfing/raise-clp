@@ -1,0 +1,32 @@
+@use '../scss/colors.scss' as colors;
+@use '../scss/variables.scss' as vars;
+@use 'sass:math' as math;
+
+header {
+    background: #4db6ac;
+}
+h1 {
+    margin: 0;
+}
+
+.clp-page {
+    position: relative;
+    padding: (2 * vars.$default-margin) vars.$default-margin;
+}
+
+.hint {
+    border: 1px solid #eed202;
+    padding: 12px 8px 8px;
+    border-radius: 4px;
+    position: relative;
+
+    &::before {
+        color: #eed202;
+        display: block;
+        position: absolute;
+        content: '⚠ IMPORTANT';
+        top: -12px;
+        font-weight: bold;
+        background-color: #fff;
+    }
+}
