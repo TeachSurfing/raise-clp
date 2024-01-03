@@ -13,11 +13,16 @@ import { NotFoundInterceptor } from './app/util/not-found.interceptor';
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
     const port = process.env.PORT || 3333;
+    const corsFrom = process.env.DEPLOY_TARGET_FRONTEND || 'http://localhost:4200';
     app.useGlobalInterceptors(new NotFoundInterceptor('Entity not found'));
     app.useGlobalPipes(new ValidationPipe());
     app.use(cookieParser());
 
-    app.enableCors();
+    app.enableCors({
+        origin: corsFrom,
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+        credentials: true
+    });
     await app.listen(port);
     Logger.log(`🚀 Application is running on: http://localhost:${port}`);
 }
