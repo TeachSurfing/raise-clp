@@ -16,6 +16,11 @@ body {
     height: 100%;
 }
 
-.clp-page {
-    min-height: calc(100% - 129px);
+.clp-button {
+    color: #fff !important;
+    background-color: colors.$primary-high-contrast-color !important;
+    line-height: 24px !important;
+    &:hover {
+        background-color: colors.$primary-link-color !important;
+    }
 }

@@ -56,7 +56,7 @@ const ResponsiveAppBar = () => {
     };
     const handleGoToLP = () => {
         setAvatarEl(null);
-        navigate('learning-planner');
+        navigate('learning-plans');
     };
     const handleCloseNavMenu = () => {
         setAvatarEl(null);
@@ -94,7 +94,7 @@ const ResponsiveAppBar = () => {
                             fontFamily: 'Museo',
                             fontSize: 22,
                             fontWeight: 400,
-                            color: 'inherit',
+                            color: 'rgba(0, 0, 0, 0.87)',
                             textDecoration: 'none'
                         }}
                     >
@@ -138,7 +138,7 @@ const ResponsiveAppBar = () => {
                             }}
                         >
                             <MenuItem onClick={handleGoToLP}>
-                                <Typography textAlign="center">Learning Planner</Typography>
+                                <Typography textAlign="center">My Learning Plans</Typography>
                             </MenuItem>
                         </Menu>
                     </Box>
@@ -152,7 +152,7 @@ const ResponsiveAppBar = () => {
                     >
                         <Button
                             onClick={handleGoToLP}
-                            className={menuClasses('/learning-planner')}
+                            className={menuClasses('/learning-plans')}
                             sx={{
                                 my: 2,
                                 color: 'black',
@@ -162,7 +162,7 @@ const ResponsiveAppBar = () => {
                                 ':hover': 'color: blue'
                             }}
                         >
-                            Learning Planner
+                            My Learning Plans
                         </Button>
                     </Box>
 

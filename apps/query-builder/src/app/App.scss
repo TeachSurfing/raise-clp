@@ -11,7 +11,7 @@ h1 {
 
 .clp-page {
     position: relative;
-    padding: (2 * vars.$default-margin) vars.$default-margin;
+    min-height: calc(100svh - 129px);
 }
 
 .hint {

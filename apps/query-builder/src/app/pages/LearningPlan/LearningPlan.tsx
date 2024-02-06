@@ -17,9 +17,9 @@ import { useNavigate } from 'react-router-dom';
 import ChapterOverview from '../../components/ChapterOverview/ChapterOverview';
 import RuleBuilder, { FieldWithType } from '../../components/RuleBuilder/RuleBuilder';
 import useAppStore from '../../state/app.store';
-import './Home.scss';
+import './LearningPlan.scss';
 
-const Home = () => {
+const LearningPlan = () => {
     const store = useAppStore();
     const navigate = useNavigate();
     const [learningPlan, setLearningPlan] = useState<LearningPlanDto>();
@@ -226,4 +226,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default LearningPlan;

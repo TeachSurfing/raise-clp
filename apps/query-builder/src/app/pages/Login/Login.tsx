@@ -41,7 +41,7 @@ const Login = () => {
                     ...json.user
                 }
             });
-            navigate('../learning-planner');
+            navigate('../learning-plans');
         } else {
             store.setAlert({
                 severity: 'error',

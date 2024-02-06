@@ -1,0 +1,14 @@
+@use '../../../scss/variables.scss' as vars;
+@use '../../../scss/colors.scss' as colors;
+@use 'sass:math';
+
+.footer {
+    width: 100%;
+    height: 336px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('../../../assets/img/footer-bg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
