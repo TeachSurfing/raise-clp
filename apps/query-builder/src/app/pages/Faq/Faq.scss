@@ -3,6 +3,7 @@
 @use 'sass:math';
 
 .faq {
+    padding: (2 * vars.$default-margin) vars.$default-margin;
     &__content {
         padding: (2 * vars.$default-margin) (3 * vars.$default-margin);
         background-color: colors.$white;

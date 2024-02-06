@@ -4,7 +4,7 @@
 $m: vars.$default-margin;
 
 .my-profile {
-    padding: 20px;
+    padding: (2 * vars.$default-margin) vars.$default-margin;
 
     &__content {
         background-color: colors.$white;

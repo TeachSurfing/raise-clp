@@ -1,0 +1,79 @@
+@use '../../../scss/variables.scss' as vars;
+@use '../../../scss/colors.scss' as colors;
+
+#my-learning-plans {
+    .getting-started {
+        width: 100%;
+        height: 128px;
+        flex-shrink: 0;
+        background: url('../../../assets/img/header-bg.png'), lightgray 50% / cover no-repeat;
+    }
+    .header {
+        padding: (4 * vars.$default-margin) 0 0;
+        &__title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2 * vars.$default-margin;
+            h1 {
+                color: colors.$primary-high-contrast-color;
+                font-size: 32px;
+            }
+        }
+        &__description {
+            margin-bottom: vars.$default-margin;
+            p {
+                color: colors.$primary-text;
+                font-size: vars.$font-size-default;
+                line-height: 22px;
+            }
+        }
+        @media only screen and (max-width: 600px) {
+            padding: (2 * vars.$default-margin) 0 0;
+            &__title {
+                flex-direction: column;
+                align-items: flex-start;
+                h1 {
+                    font-size: vars.$font-size-xl;
+                }
+                .clp-button {
+                    margin: (2 * vars.$default-margin) 0;
+                }
+            }
+        }
+    }
+
+    hr {
+        margin: (2 * vars.$default-margin) 0;
+        border-color: colors.$primary-darker-color;
+    }
+
+    .lps {
+        .lp-item {
+            margin-bottom: vars.$default-margin;
+        }
+        &--empty {
+            &__content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                border-radius: 4px;
+                border: 2px solid colors.$primary-darker-color;
+                background: colors.$primary-lighter-color;
+                padding: (2 * vars.$default-margin) vars.$default-margin;
+                h3 {
+                    font-size: vars.$font-size-xl;
+                }
+                h3,
+                p {
+                    margin: 0 0 vars.$default-margin;
+                    text-align: center;
+                }
+                p {
+                    line-height: 24px;
+                    font-weight: 300;
+                }
+            }
+        }
+    }
+}

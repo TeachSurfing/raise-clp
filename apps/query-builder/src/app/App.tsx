@@ -2,6 +2,7 @@ import 'react-querybuilder/dist/query-builder.scss';
 import { Outlet } from 'react-router-dom';
 import './App.scss';
 import ClpAlert from './components/Alert/Alert';
+import Footer from './components/Footer/Footer';
 import Navbar from './components/Navbar/Navbar';
 import useAppStore from './state/app.store';
 
@@ -14,6 +15,7 @@ const App = () => {
             <div className="clp-page">
                 <Outlet />
             </div>
+            <Footer />
             {store.alert ? <ClpAlert severity={store.alert.severity} message={store.alert.message} /> : null}
         </div>
     );

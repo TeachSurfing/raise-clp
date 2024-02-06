@@ -6,7 +6,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import App from './app/App';
 import ProtectedRoute from './app/components/ProtectedRoute/ProtectedRoute';
 import Faq from './app/pages/Faq';
-import Home from './app/pages/Home';
+import LearningPlan from './app/pages/LearningPlan';
+import LearningPlans from './app/pages/LearningPlans';
 import Login from './app/pages/Login';
 import MyProfile from './app/pages/MyProfile';
 import SignUp from './app/pages/SignUp';
@@ -17,7 +18,7 @@ const muiTheme = createTheme({
             main: '#4db6ac',
             light: '#cae9e6',
             dark: '#349e92',
-            contrastText: 'rgba(0, 0, 0, 0.87)'
+            contrastText: '#fff'
         },
         secondary: {
             main: '#4db6ac',
@@ -41,10 +42,18 @@ const Main = () => {
                         <Routes>
                             <Route path="/" element={<App />}>
                                 <Route
+                                    path="learning-plans"
+                                    element={
+                                        <ProtectedRoute>
+                                            <LearningPlans />
+                                        </ProtectedRoute>
+                                    }
+                                />
+                                <Route
                                     path="learning-planner"
                                     element={
                                         <ProtectedRoute>
-                                            <Home />
+                                            <LearningPlan />
                                         </ProtectedRoute>
                                     }
                                 />

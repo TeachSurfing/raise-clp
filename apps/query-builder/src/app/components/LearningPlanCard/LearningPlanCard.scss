@@ -1,0 +1,17 @@
+@use '../../../scss/variables.scss' as vars;
+@use '../../../scss/colors.scss' as colors;
+
+.lp-card {
+    border: 1px solid colors.$light-disabled-text;
+    transition: border-color 0.2s ease;
+    &__name {
+        transition: color 0.2s ease;
+    }
+    &:hover {
+        border: 1px solid colors.$primary-color;
+        cursor: pointer;
+        .lp-card__name {
+            color: colors.$primary-color;
+        }
+    }
+}
