@@ -1,7 +1,7 @@
 import { HttpService } from '@nestjs/axios';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { FieldValueType } from '@raise-clp/models';
+import { FieldValueType, INewLearningPlan } from '@raise-clp/models';
 import { plainToInstance } from 'class-transformer';
 import { defaultOperators } from 'react-querybuilder';
 import { catchError, firstValueFrom, forkJoin, map } from 'rxjs';
@@ -13,19 +13,11 @@ import { LearningplanTransformationProvider } from './learningplan-transformatio
 export class LearnpressTransformationProvider implements LearningplanTransformationProvider {
     constructor(private readonly configService: ConfigService, private readonly httpService: HttpService) {}
 
-    transform(data: {
-        learningPlan: {
-            name: string;
-            description: string;
-            courseUrl: string;
-            lpOptionalUrl: string;
-        };
-        questionnaireUrl: string;
-    }): Promise<LearningPlan> {
+    async transform(newLP: INewLearningPlan): Promise<LearningPlan> {
         return firstValueFrom(
             forkJoin({
-                learningPlan: this.httpService.get(data.learningPlan.courseUrl),
-                questionnaireData: this.httpService.get(data.questionnaireUrl, {
+                learningPlan: this.httpService.get(newLP.courseUrl),
+                questionnaireData: this.httpService.get(newLP.questionnaireUrl, {
                     headers: {
                         Authorization: `Bearer ${this.configService.get('PAPERFORM_ACCESS_TOKEN')}`
                     }
@@ -39,15 +31,17 @@ export class LearnpressTransformationProvider implements LearningplanTransformat
                     (transformedData) =>
                         new LearningPlan(
                             undefined,
-                            data.learningPlan.name,
-                            data.learningPlan.description,
+                            newLP.name,
+                            newLP.description,
                             plainToInstance(Chapter, transformedData.learningPlan.sections as Chapter[], {
                                 excludeExtraneousValues: true
                             }),
                             this.extractNameLabel(transformedData.questionnaireData),
-                            data.learningPlan.courseUrl,
-                            data.learningPlan.lpOptionalUrl,
-                            data.questionnaireUrl
+                            newLP.courseUrl,
+                            newLP.lpOptionalUrl,
+                            newLP.questionnaireUrl,
+                            newLP.paperformToken,
+                            newLP.userId
                         )
                 ),
                 catchError((e) => {

@@ -7,6 +7,8 @@
         height: 128px;
         flex-shrink: 0;
         background: url('../../../assets/img/header-bg.png'), lightgray 50% / cover no-repeat;
+        display: flex;
+        align-items: center;
     }
     .header {
         padding: (4 * vars.$default-margin) 0 0;

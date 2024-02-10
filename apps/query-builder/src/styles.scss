@@ -16,6 +16,9 @@ body {
     height: 100%;
 }
 
+.clp-simple-button {
+    color: colors.$primary-high-contrast-color !important;
+}
 .clp-button {
     color: #fff !important;
     background-color: colors.$primary-high-contrast-color !important;

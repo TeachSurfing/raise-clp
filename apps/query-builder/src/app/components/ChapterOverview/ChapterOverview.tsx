@@ -1,5 +1,7 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
 import { ChapterDto, LearningPlanDto, UnitDto } from '@raise-clp/models';
 import { useState } from 'react';
 import { SelectedItem } from '../../model/view.model';

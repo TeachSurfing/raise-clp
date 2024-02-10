@@ -1,5 +1,5 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Param, Post } from '@nestjs/common';
-import { Public } from '../auth/public.decorator';
+import { Body, Controller, Get, HttpException, HttpStatus, Param, Post, Request } from '@nestjs/common';
+import { INewLearningPlanPayload, IUser } from '@raise-clp/models';
 import { LearningPlanService } from './learning-plan.service';
 
 @Controller({ path: 'learning-plans' })
@@ -7,19 +7,21 @@ export class LearningPlanController {
     constructor(private readonly learningPlanService: LearningPlanService) {}
 
     @Get()
-    findAll() {
-        return this.learningPlanService.findAll();
+    findAll(@Request() { user }: Request & { user: Partial<IUser> }) {
+        return this.learningPlanService.findAll(user.id);
     }
 
     @Post()
-    @Public()
-    addLearningPlan(@Body() body: any) {
-        return this.learningPlanService.addLearningPlan(body);
+    addLearningPlan(
+        @Request() req: Request & { user: Partial<IUser> },
+        @Body() body: INewLearningPlanPayload
+    ) {
+        return this.learningPlanService.addLearningPlan(body, req.user.id);
     }
 
     @Get(':id')
-    findOne(@Param() params) {
-        return this.learningPlanService.findOne(params.id);
+    findOne(@Param() { id }) {
+        return this.learningPlanService.findOne(id);
     }
 
     @Post(':id')

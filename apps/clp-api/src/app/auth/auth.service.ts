@@ -22,7 +22,7 @@ export class AuthService {
         const authPassed = await compare(password, foundUser.password);
         // Increment the user's token version
         const tokenVersion = (foundUser.tokenVersion += 1);
-        await this.usersService.updateById(foundUser._id, { tokenVersion });
+        await this.usersService.updateById(foundUser.id, { tokenVersion });
 
         if (authPassed) {
             return omit(foundUser, ['password']);
@@ -39,13 +39,13 @@ export class AuthService {
             });
         }
 
-        const payload = { id: user._id, tokenVersion: user.tokenVersion, email: user.email, name: user.name };
+        const payload = { id: user.id, tokenVersion: user.tokenVersion, email: user.email, name: user.name };
 
         return {
             message: `Logged in as ${email}`,
             token: this.jwtService.sign(payload),
             user: {
-                id: user._id,
+                id: user.id,
                 email: user.email,
                 name: user.name,
                 organizationName: user.organizationName
@@ -68,7 +68,7 @@ export class AuthService {
         return {
             message: `${user.email} has been successfully registered!`,
             user: {
-                id: newUser._id,
+                id: newUser.id,
                 email: newUser.email,
                 name: newUser.name,
                 organizationName: newUser.organizationName

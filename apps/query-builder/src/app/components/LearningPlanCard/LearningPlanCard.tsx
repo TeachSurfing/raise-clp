@@ -14,10 +14,10 @@ export interface LearningPlanCardProps {
     description: string;
 }
 
-const LearningPlanCard = ({ name, updatedAt, description }: LearningPlanCardProps) => {
+const LearningPlanCard = ({ id, name, updatedAt, description }: LearningPlanCardProps) => {
     const navigate: NavigateFunction = useNavigate();
     const handleClick = () => {
-        navigate('../learning-planner');
+        navigate(`../learning-plan/${id}`);
     };
     const shortDate = format(new Date(updatedAt), 'PPP');
     const longDate = format(new Date(updatedAt), `dd.MM.yyyy 'at' HH:mm`);

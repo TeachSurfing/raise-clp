@@ -5,9 +5,19 @@ import { HydratedDocument } from 'mongoose';
 
 export type UserDocument = HydratedDocument<User>;
 
-@Schema({ versionKey: false, timestamps: true })
+@Schema({
+    versionKey: false,
+    timestamps: true,
+    toJSON: {
+        transform(_, ret, __) {
+            ret.id = ret._id;
+            delete ret._id;
+        }
+    }
+})
 export class User implements IUser {
     _id?: string;
+    id?: string;
 
     @Prop()
     @IsNotEmpty()

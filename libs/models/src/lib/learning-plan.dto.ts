@@ -33,8 +33,13 @@ export class LearningPlanDto implements ILearningPlan {
         public id: string,
         public name: string,
         public description: string,
+        public courseUrl: string,
+        public questionnaireUrl: string,
+        public lpOptionalUrl: string,
+        public paperformToken: string,
         public chapters: ChapterDto[],
-        public questions: QuestionDto[]
+        public questions: QuestionDto[],
+        public userId: string
     ) {}
 
     public static fromSchema(schemaLearningPlan: ILearningPlan) {
@@ -42,6 +47,10 @@ export class LearningPlanDto implements ILearningPlan {
             schemaLearningPlan.id,
             schemaLearningPlan.name,
             schemaLearningPlan.description,
+            schemaLearningPlan.courseUrl,
+            schemaLearningPlan.questionnaireUrl,
+            schemaLearningPlan.lpOptionalUrl,
+            schemaLearningPlan.paperformToken,
             schemaLearningPlan.chapters.map(
                 (chapter) =>
                     new ChapterDto(
@@ -61,7 +70,8 @@ export class LearningPlanDto implements ILearningPlan {
                         question.values,
                         question.operators
                     )
-            )
+            ),
+            schemaLearningPlan.userId
         );
     }
 }
