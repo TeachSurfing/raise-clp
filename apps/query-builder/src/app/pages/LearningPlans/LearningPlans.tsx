@@ -36,21 +36,16 @@ const LearningPlans = () => {
     ): Promise<void> => {
         setSubmitting(true);
         console.log(lp);
-        // setSubmitting(true);
-
-        let response;
+        let newLp;
         try {
-            response = await createLearningPlan(lp);
+            newLp = await createLearningPlan(lp);
         } catch (err) {
             return handleError(err as Response);
         }
 
-        console.log(response);
-
-        await refreshPage();
-
         setSubmitting(false);
         shouldOpenNewLPDialog(false);
+        navigate(`../learning-plan/${newLp.id}`);
     };
 
     const refreshPage = async () => {
