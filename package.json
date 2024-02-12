@@ -49,7 +49,6 @@
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "react": "18.2.0",
-    "react-auth-kit": "^2.12.7",
     "react-dom": "18.2.0",
     "react-querybuilder": "^5.1.1",
     "react-router-dom": "^6.20.1",

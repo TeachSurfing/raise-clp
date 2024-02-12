@@ -15,7 +15,6 @@ import Typography from '@mui/material/Typography';
 import * as React from 'react';
 
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import { useSignOut } from 'react-auth-kit';
 import { NavigateFunction, useLocation, useNavigate } from 'react-router-dom';
 import useAppStore from '../../state/app.store';
 import './Navbar.scss';
@@ -24,7 +23,6 @@ const ResponsiveAppBar = () => {
     const store = useAppStore();
     const isloggedIn = store.isLoggedIn();
     const userInitial = store.user?.name?.charAt(0) || '';
-    const signOut = useSignOut();
     const navigate: NavigateFunction = useNavigate();
     const pathname: string = useLocation().pathname;
 
@@ -61,11 +59,21 @@ const ResponsiveAppBar = () => {
     const handleCloseNavMenu = () => {
         setAvatarEl(null);
     };
-    const handleLogoutClick = () => {
-        setAvatarEl(null);
-        signOut();
-        store.setUser(null);
-        navigate('login');
+    const handleLogoutClick = async () => {
+        const url = `${(window as any).env.API_URL as string}/logout`;
+        const response: Response = await fetch(url, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            }
+        });
+        if (response.ok) {
+            setAvatarEl(null);
+            store.setUser(null);
+            navigate('login');
+        }
     };
     const handleFaqClick = (_: React.MouseEvent<HTMLElement>) => {
         setAvatarEl(null);
