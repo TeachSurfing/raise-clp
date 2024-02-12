@@ -32,6 +32,11 @@ export class UsersService {
         return user ? (user.toJSON() as Partial<User>) : null;
     }
 
+    async findOneById(id: string): Promise<Partial<User> | null> {
+        const user = await this.userModel.findOne({ id });
+        return user ? omit(user.toJSON(), ['password']) : null;
+    }
+
     async getProfile(email: string): Promise<Partial<User> | null> {
         const user = await this.userModel.findOne({ email });
         return user ? omit(user.toJSON(), ['password']) : null;

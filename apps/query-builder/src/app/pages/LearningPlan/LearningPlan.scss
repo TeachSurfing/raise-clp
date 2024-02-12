@@ -1,7 +1,18 @@
 @use '../../../scss/colors.scss' as colors;
 @use '../../../scss/variables.scss' as vars;
 
-.refreshbutton {
+.green-header {
+    width: 100%;
+    padding: (3 * vars.$default-margin) 0;
+    flex-shrink: 0;
+    background: url('../../../assets/img/header-bg-lp-page.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.query-builder {
+    padding: (2 * vars.$default-margin) 0;
+}
+.refresh-button {
     position: fixed !important;
     right: 24px;
     bottom: 24px;

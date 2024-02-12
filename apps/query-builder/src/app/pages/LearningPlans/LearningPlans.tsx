@@ -1,12 +1,17 @@
 import AddIcon from '@mui/icons-material/Add';
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Unstable_Grid2';
 import { LearningPlanDto } from '@raise-clp/models';
+import { FormikHelpers } from 'formik';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LearningPlanCard from '../../components/LearningPlanCard/LearningPlanCard';
+import NewLearningPlanDialog from '../../components/NewLearningPlanDialog/NewLearningPlanDialog';
+import { BaseLearningPlan } from '../../model/base-learning-plan.model';
+import { createLearningPlan, fetchLearningPlans } from '../../services/LearningPlan.service';
 import useAppStore from '../../state/app.store';
 import './LearningPlans.scss';
 
@@ -14,25 +19,51 @@ const LearningPlans = () => {
     const store = useAppStore();
     const navigate = useNavigate();
     const [learningPlans, setLearningPlans] = useState<LearningPlanDto[]>([]);
-    const handleCreateNewLearningPlan = () => {
-        return;
+    const [isNewLPDialogOpen, shouldOpenNewLPDialog] = useState(false);
+
+    const handleCreateNewLearningPlan = (): void => {
+        shouldOpenNewLPDialog(true);
+    };
+    const handleCancelNewLearningPlan = (): void => {
+        shouldOpenNewLPDialog(false);
+    };
+    const handleCloseNewLearningPlan = (): void => {
+        shouldOpenNewLPDialog(false);
+    };
+    const handleSubmitNewLearningPlan = async (
+        lp: BaseLearningPlan,
+        { setSubmitting }: FormikHelpers<BaseLearningPlan>
+    ): Promise<void> => {
+        setSubmitting(true);
+        console.log(lp);
+        let newLp;
+        try {
+            newLp = await createLearningPlan(lp);
+        } catch (err) {
+            return handleError(err as Response);
+        }
+
+        setSubmitting(false);
+        shouldOpenNewLPDialog(false);
+        navigate(`../learning-plan/${newLp.id}`);
+    };
+
+    const refreshPage = async () => {
+        let lps;
+        try {
+            lps = await fetchLearningPlans();
+        } catch (err) {
+            return handleError(err as Response);
+        }
+
+        setLearningPlans(lps);
     };
 
     useEffect(() => {
-        async function fetchLearningPlans() {
-            const response = await fetch(`${(window as any).env.API_URL as string}/learning-plans`, {
-                credentials: 'include'
-            });
-            if (!response.ok) {
-                handleError(response);
-                return;
-            }
-            const learningPlans: LearningPlanDto[] = (await response.json()) || [];
-
-            setLearningPlans(learningPlans);
+        async function init() {
+            await refreshPage();
         }
-
-        fetchLearningPlans();
+        init();
     }, []);
 
     const handleError = async (response: Response) => {
@@ -51,7 +82,28 @@ const LearningPlans = () => {
 
     return (
         <div id="my-learning-plans">
-            <section className="getting-started"></section>
+            <section className="getting-started">
+                <Container>
+                    <Grid container>
+                        <Grid xs={12}>
+                            <Typography
+                                variant="h1"
+                                sx={{ mb: '24px', fontSize: 24, fontWeight: 500 }}
+                                color="white"
+                            >
+                                Learning Plans
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                </Container>
+            </section>
+            <NewLearningPlanDialog
+                title="Create New Learning Plan"
+                isOpen={isNewLPDialogOpen}
+                onCancel={handleCancelNewLearningPlan}
+                onClose={handleCloseNewLearningPlan}
+                onSubmit={handleSubmitNewLearningPlan}
+            />
             <Container maxWidth="md">
                 <section className="header">
                     <div className="header__title">
@@ -81,7 +133,7 @@ const LearningPlans = () => {
                     <section className="lps">
                         <Grid>
                             {learningPlans.map((lp) => (
-                                <Box className="lp-item">
+                                <Box className="lp-item" key={lp.id}>
                                     <LearningPlanCard
                                         id={lp.id}
                                         name={lp.name}

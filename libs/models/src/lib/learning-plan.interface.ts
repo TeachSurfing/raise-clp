@@ -30,8 +30,26 @@ export interface ILearningPlan {
     id: string;
     name: string;
     description: string;
+    courseUrl: string;
+    lpOptionalUrl: string;
+    questionnaireUrl: string;
     chapters: IChapter[];
     questions: IQuestion[];
+    paperformToken: string;
+    userId: string;
     createdAt: string;
     updatedAt: string;
+}
+
+export interface INewLearningPlanPayload {
+    name: string;
+    description?: string;
+    courseUrl: string;
+    lpOptionalUrl: string;
+    questionnaireUrl: string;
+    paperformToken: string;
+}
+
+export interface INewLearningPlan extends INewLearningPlanPayload {
+    userId: string;
 }

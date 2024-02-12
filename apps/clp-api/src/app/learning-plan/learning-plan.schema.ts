@@ -134,7 +134,7 @@ export class LearningPlan implements ILearningPlan {
 
     @Prop()
     @Expose()
-    lpUrl: string;
+    courseUrl: string;
 
     @Prop()
     @Expose()
@@ -143,6 +143,13 @@ export class LearningPlan implements ILearningPlan {
     @Prop()
     @Expose()
     questionnaireUrl: string;
+
+    @Prop()
+    @Expose()
+    paperformToken: string;
+
+    @Prop()
+    userId: string;
 
     @Prop()
     createdAt: string;
@@ -156,18 +163,22 @@ export class LearningPlan implements ILearningPlan {
         description: string,
         chapters: Chapter[],
         questions: Question[],
-        lpUrl?: string,
-        lpOptionalUrl?: string,
-        questionnaireUrl?: string
+        courseUrl: string,
+        lpOptionalUrl: string,
+        questionnaireUrl: string,
+        paperformToken: string,
+        userId: string
     ) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.chapters = chapters;
         this.questions = questions;
-        this.lpUrl = lpUrl;
+        this.courseUrl = courseUrl;
         this.lpOptionalUrl = lpOptionalUrl;
         this.questionnaireUrl = questionnaireUrl;
+        this.paperformToken = paperformToken;
+        this.userId = userId;
     }
 }
 

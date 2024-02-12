@@ -1,4 +1,5 @@
-import { createTheme, ThemeProvider } from '@mui/material';
+import ThemeProvider from '@mui/material/styles/ThemeProvider';
+import createTheme from '@mui/material/styles/createTheme';
 import { StrictMode } from 'react';
 import { AuthProvider } from 'react-auth-kit';
 import * as ReactDOM from 'react-dom/client';
@@ -50,7 +51,7 @@ const Main = () => {
                                     }
                                 />
                                 <Route
-                                    path="learning-planner"
+                                    path="learning-plan/:id"
                                     element={
                                         <ProtectedRoute>
                                             <LearningPlan />
