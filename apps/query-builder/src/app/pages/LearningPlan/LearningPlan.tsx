@@ -20,7 +20,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import { useNavigate, useParams } from 'react-router-dom';
 import ChapterOverview from '../../components/ChapterOverview/ChapterOverview';
 import RuleBuilder, { FieldWithType } from '../../components/RuleBuilder/RuleBuilder';
-import { fetchLearningPlansById } from '../../services/LearningPlan.service';
+import { fetchLearningPlanById } from '../../services/LearningPlan.service';
 import useAppStore from '../../state/app.store';
 import './LearningPlan.scss';
 
@@ -124,7 +124,7 @@ const LearningPlan = () => {
                     goBack();
                     return;
                 }
-                lp = await fetchLearningPlansById(urlParams.id);
+                lp = await fetchLearningPlanById(urlParams.id);
             } catch (error) {
                 handleError(error as Response);
             }

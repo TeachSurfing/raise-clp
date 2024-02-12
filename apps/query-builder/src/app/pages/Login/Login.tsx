@@ -4,7 +4,6 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Link from '@mui/material/Link';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { TextField } from 'formik-mui';
-import { useSignIn } from 'react-auth-kit';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import useAppStore from '../../state/app.store';
 import './Login.scss';
@@ -16,7 +15,6 @@ type LoginFormData = {
 
 const Login = () => {
     const store = useAppStore();
-    const signIn = useSignIn();
     const navigate: NavigateFunction = useNavigate();
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,}$/i;
     const handleSubmit = async (values: LoginFormData, { setSubmitting }: FormikHelpers<LoginFormData>) => {
@@ -24,6 +22,7 @@ const Login = () => {
         setSubmitting(true);
         const response: Response = await fetch(url, {
             method: 'POST',
+            credentials: 'include',
             body: JSON.stringify({
                 ...values
             }),
@@ -35,14 +34,6 @@ const Login = () => {
         const json = await response.json();
         if (response.ok) {
             store.setUser(json.user);
-            signIn({
-                token: json.token,
-                expiresIn: 3600 * 24, // 1 day
-                tokenType: 'Bearer',
-                authState: {
-                    ...json.user
-                }
-            });
             navigate('../learning-plans');
         } else {
             store.setAlert({

@@ -1,7 +1,6 @@
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import createTheme from '@mui/material/styles/createTheme';
 import { StrictMode } from 'react';
-import { AuthProvider } from 'react-auth-kit';
 import * as ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import App from './app/App';
@@ -33,53 +32,46 @@ const Main = () => {
     return (
         <StrictMode>
             <ThemeProvider theme={muiTheme}>
-                <AuthProvider
-                    authType={'cookie'}
-                    authName={'_auth'}
-                    cookieDomain={window.location.hostname}
-                    cookieSecure={window.location.protocol === 'https:'}
-                >
-                    <BrowserRouter>
-                        <Routes>
-                            <Route path="/" element={<App />}>
-                                <Route
-                                    path="learning-plans"
-                                    element={
-                                        <ProtectedRoute>
-                                            <LearningPlans />
-                                        </ProtectedRoute>
-                                    }
-                                />
-                                <Route
-                                    path="learning-plan/:id"
-                                    element={
-                                        <ProtectedRoute>
-                                            <LearningPlan />
-                                        </ProtectedRoute>
-                                    }
-                                />
-                                <Route
-                                    path="faq"
-                                    element={
-                                        <ProtectedRoute>
-                                            <Faq />
-                                        </ProtectedRoute>
-                                    }
-                                />
-                                <Route
-                                    path="profile"
-                                    element={
-                                        <ProtectedRoute>
-                                            <MyProfile />
-                                        </ProtectedRoute>
-                                    }
-                                />
-                                <Route path="register" element={<SignUp />} />
-                                <Route path="login" element={<Login />} />
-                            </Route>
-                        </Routes>
-                    </BrowserRouter>
-                </AuthProvider>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/" element={<App />}>
+                            <Route
+                                path="learning-plans"
+                                element={
+                                    <ProtectedRoute>
+                                        <LearningPlans />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="learning-plan/:id"
+                                element={
+                                    <ProtectedRoute>
+                                        <LearningPlan />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="faq"
+                                element={
+                                    <ProtectedRoute>
+                                        <Faq />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="profile"
+                                element={
+                                    <ProtectedRoute>
+                                        <MyProfile />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route path="register" element={<SignUp />} />
+                            <Route path="login" element={<Login />} />
+                        </Route>
+                    </Routes>
+                </BrowserRouter>
             </ThemeProvider>
         </StrictMode>
     );

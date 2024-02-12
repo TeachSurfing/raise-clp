@@ -45,7 +45,7 @@ export const fetchLearningPlans = async (): Promise<LearningPlanDto[]> => {
     return learningPlans;
 };
 
-export const fetchLearningPlansById = async (id: string): Promise<LearningPlanDto> => {
+export const fetchLearningPlanById = async (id: string): Promise<LearningPlanDto> => {
     const response = await fetch(`${(window as any).env.API_URL as string}/learning-plans/${id}`, {
         credentials: 'include'
     });
