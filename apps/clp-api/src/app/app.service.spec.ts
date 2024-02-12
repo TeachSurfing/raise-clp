@@ -18,6 +18,8 @@ describe('TestService', () => {
         const submissionModelMock = new Submission(undefined, undefined);
         const learningPlanModelMock = new LearningPlan(
             '66ace02b-7c51-43ed-9986-1d24cb0709ef',
+            'test',
+            'test desc',
             [
                 {
                     id: 1,
@@ -185,7 +187,9 @@ describe('TestService', () => {
             ],
             '',
             '',
-            ''
+            '',
+            '',
+            '123'
         );
 
         const module: TestingModule = await Test.createTestingModule({
