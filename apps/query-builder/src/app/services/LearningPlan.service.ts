@@ -14,7 +14,7 @@ export const createLearningPlan = async ({
         description,
         courseUrl,
         lpOptionalUrl:
-            'https://demo-clp.teachsurfing.com/wp-json/learnpress-recommended-lessons/v1/add-multiple-optional-lessons',
+            'https://c3.teachsurfing.com/wp-json/learnpress-recommended-lessons/v1/add-multiple-optional-lessons',
         paperformToken,
         questionnaireUrl
     };
@@ -54,4 +54,19 @@ export const fetchLearningPlanById = async (id: string): Promise<LearningPlanDto
     }
     const learningPlan: LearningPlanDto = (await response.json()) || [];
     return learningPlan;
+};
+
+export const deleteLearningPlan = async (id: string) => {
+    const response = await fetch(`${(window as any).env.API_URL as string}/learning-plans/${id}`, {
+        method: 'DELETE',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include'
+    });
+    if (!response.ok) {
+        throw response;
+    }
+    return true;
 };

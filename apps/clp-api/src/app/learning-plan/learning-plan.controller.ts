@@ -1,4 +1,14 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Param, Post, Request } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    HttpException,
+    HttpStatus,
+    Param,
+    Post,
+    Request
+} from '@nestjs/common';
 import { INewLearningPlanPayload, IUser } from '@raise-clp/models';
 import { LearningPlanService } from './learning-plan.service';
 
@@ -56,5 +66,10 @@ export class LearningPlanController {
         if (!body || !body.rule) throw new HttpException('Bad Request.', HttpStatus.BAD_REQUEST);
 
         return this.learningPlanService.updateUnitRule(params.id, params.cid, params.uid, body.rule);
+    }
+
+    @Delete(':id')
+    deleteById(@Param() { id }) {
+        return this.learningPlanService.deleteOne(id);
     }
 }

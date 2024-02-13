@@ -26,4 +26,7 @@ body {
     &:hover {
         background-color: colors.$primary-link-color !important;
     }
+    &--outlined {
+        font-size: vars.$font-size-s !important;
+    }
 }
