@@ -1,3 +1,5 @@
+import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -19,8 +21,9 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useNavigate, useParams } from 'react-router-dom';
 import ChapterOverview from '../../components/ChapterOverview/ChapterOverview';
+import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog';
 import RuleBuilder, { FieldWithType } from '../../components/RuleBuilder/RuleBuilder';
-import { fetchLearningPlanById } from '../../services/LearningPlan.service';
+import { deleteLearningPlan, fetchLearningPlanById } from '../../services/LearningPlan.service';
 import useAppStore from '../../state/app.store';
 import './LearningPlan.scss';
 
@@ -31,6 +34,7 @@ const LearningPlan = () => {
     const [learningPlan, setLearningPlan] = useState<LearningPlanDto>();
     const [selectedItem, setSelectedItem] = useState<SelectedItem | undefined>();
     const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+    const [confirmDialogOpen, setConfirmDialogOpen] = useState<boolean>(false);
 
     const handleClick = useCallback((item: SelectedItem) => {
         setSelectedItem(item);
@@ -38,6 +42,29 @@ const LearningPlan = () => {
     const handleDialogButtonClick = useCallback((value: boolean) => {
         setDialogOpen(value);
     }, []);
+    const handleDeleteClick = useCallback((value: boolean) => {
+        setConfirmDialogOpen(value);
+    }, []);
+    const handleDelete = async () => {
+        if (!learningPlan?.id) {
+            return;
+        }
+        try {
+            await deleteLearningPlan(learningPlan.id);
+        } catch (err) {
+            console.error(err);
+            store.setAlert({
+                severity: 'error',
+                message: 'An error occurred while deleting learning plan '
+            });
+        }
+
+        goBack();
+        store.setAlert({
+            severity: 'success',
+            message: 'Learning plan has been successfully deleted.'
+        });
+    };
     const handleRefresh = useCallback(async () => {
         const response = await fetch(
             `${(window as any).env.API_URL as string}/learning-plans/${learningPlan?.id}`,
@@ -177,16 +204,42 @@ const LearningPlan = () => {
                             </Tooltip>
                         </Grid>
                         <Grid xs={11}>
-                            <Typography sx={{ mb: '8px', fontSize: 12, fontWeight: 300 }} color="white">
-                                Custom Learning Plan for
-                            </Typography>
-                            <Typography
-                                variant="h1"
-                                sx={{ mb: '24px', fontSize: 24, fontWeight: 500 }}
-                                color="white"
-                            >
-                                {learningPlan.name}
-                            </Typography>
+                            <Grid container>
+                                <Grid xs={9}>
+                                    <Typography
+                                        sx={{ mb: '8px', fontSize: 12, fontWeight: 300 }}
+                                        color="white"
+                                    >
+                                        Custom Learning Plan for
+                                    </Typography>
+                                    <Typography
+                                        variant="h1"
+                                        sx={{ mb: '24px', fontSize: 24, fontWeight: 500 }}
+                                        color="white"
+                                    >
+                                        {learningPlan.name}
+                                    </Typography>
+                                </Grid>
+                                <Grid xs={3} className="toolbar">
+                                    <Button
+                                        variant="outlined"
+                                        className="clp-button clp-button--outlined"
+                                        startIcon={<CreateOutlinedIcon />}
+                                        disabled
+                                    >
+                                        Edit
+                                    </Button>
+                                    <Button
+                                        variant="outlined"
+                                        className="clp-button clp-button--outlined"
+                                        startIcon={<DeleteOutlineOutlinedIcon />}
+                                        onClick={() => handleDeleteClick(true)}
+                                    >
+                                        Delete
+                                    </Button>
+                                </Grid>
+                            </Grid>
+
                             <Typography sx={{ mb: '24px', fontSize: 14 }} color="rgba(255, 255, 255, 0.70)">
                                 {learningPlan.description}
                             </Typography>
@@ -256,6 +309,17 @@ const LearningPlan = () => {
                     </DialogActions>
                 </Dialog>
             </section>
+            <ConfirmDialog
+                isOpen={confirmDialogOpen}
+                title={'Delete Learning Plan'}
+                message={'Are you sure, you want to remove this learning plan?'}
+                confirmText={'Remove'}
+                confirmColor={'error'}
+                cancelText={'Cancel'}
+                onClose={() => handleDeleteClick(false)}
+                onConfirm={handleDelete}
+                onCancel={() => handleDeleteClick(false)}
+            />
         </>
     ) : (
         <div>{/* <p>Learning plan not found.</p> */}</div>

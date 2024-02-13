@@ -1,5 +1,6 @@
 @use '../../../scss/colors.scss' as colors;
 @use '../../../scss/variables.scss' as vars;
+@use 'sass:math' as math;
 
 .green-header {
     width: 100%;
@@ -16,4 +17,12 @@
     position: fixed !important;
     right: 24px;
     bottom: 24px;
+}
+.toolbar {
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-end;
+    button:first-child {
+        margin-right: math.div(vars.$default-margin, 2);
+    }
 }

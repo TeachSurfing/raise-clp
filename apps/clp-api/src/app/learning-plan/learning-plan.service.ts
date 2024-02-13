@@ -22,6 +22,10 @@ export class LearningPlanService {
         return await this.learningPlanModel.findOne({ id }).exec();
     }
 
+    async deleteOne(id: string) {
+        return await this.learningPlanModel.deleteOne({ id }).exec();
+    }
+
     async findLatest() {
         return await (await this.learningPlanModel.find().exec()).pop();
     }
