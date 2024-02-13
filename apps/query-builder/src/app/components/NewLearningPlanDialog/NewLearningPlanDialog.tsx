@@ -94,11 +94,15 @@ const NewLearningPlanDialog = ({
                                         label="Paperform URL"
                                     />
                                     <br />
+
                                     <Field
-                                        component={TextField}
+                                        component="textarea"
                                         type="text"
+                                        rows="6"
                                         name="paperformToken"
                                         label="Paperform Token"
+                                        className="resize-none"
+                                        required
                                     />
                                     <br />
                                     <DialogActions>

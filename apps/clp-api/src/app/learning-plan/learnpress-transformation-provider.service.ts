@@ -19,7 +19,7 @@ export class LearnpressTransformationProvider implements LearningplanTransformat
                 learningPlan: this.httpService.get(newLP.courseUrl),
                 questionnaireData: this.httpService.get(newLP.questionnaireUrl, {
                     headers: {
-                        Authorization: `Bearer ${this.configService.get('PAPERFORM_ACCESS_TOKEN')}`
+                        Authorization: `Bearer ${newLP.paperformToken}`
                     }
                 })
             }).pipe(

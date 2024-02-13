@@ -1,12 +1,14 @@
 import { Body, Controller, HttpCode, HttpException, HttpStatus, Post } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AppService } from './app.service';
+import { Public } from './auth/public.decorator';
 import { PaperformSubmissionDto } from './models/paperform-submission.dto';
 
 @Controller()
 export class AppController {
     constructor(private readonly appService: AppService, private readonly config: ConfigService) {}
 
+    @Public()
     @Post('submission')
     @HttpCode(204)
     async processQuestionnaireSubmission(@Body() submission: PaperformSubmissionDto) {
