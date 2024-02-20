@@ -165,7 +165,9 @@ const ResponsiveAppBar = () => {
                                 my: 2,
                                 color: 'black',
                                 fontFamily: 'MuseoSans',
-                                fontSize: 12,
+                                fontSize: 14,
+                                fontWeight: 500,
+                                marginLeft: 10,
                                 display: 'block',
                                 ':hover': 'color: blue'
                             }}
@@ -177,7 +179,7 @@ const ResponsiveAppBar = () => {
                     {!isloggedIn ? (
                         <Box sx={{ flexGrow: 0 }}>
                             <Tooltip title="Sign in">
-                                <MenuItem className="login-btn" onClick={handleSignIn}>
+                                <MenuItem className="sign-btn" onClick={handleSignIn}>
                                     <Typography textAlign="center">Sign in</Typography>
                                 </MenuItem>
                             </Tooltip>
