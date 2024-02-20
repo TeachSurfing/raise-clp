@@ -4,11 +4,26 @@
 
 .green-header {
     width: 100%;
-    padding: (3 * vars.$default-margin) 0;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    padding: (1 * vars.$default-margin) 0;
     flex-shrink: 0;
     background: url('../../../assets/img/header-bg-lp-page.png');
     background-repeat: no-repeat;
     background-size: cover;
+    .link-icon {
+        color: white;
+        margin-right: math.div(vars.$default-margin, 2);
+    }
+}
+.home-section {
+    padding: 80px 20px;
+    color: colors.$primary-text;
+    background-color: colors.$mat-light-bg-color;
+    &--grey {
+        background-color: colors.$light-bg-color;
+    }
 }
 .query-builder {
     padding: (2 * vars.$default-margin) 0;
@@ -25,4 +40,9 @@
     button:first-child {
         margin-right: math.div(vars.$default-margin, 2);
     }
+}
+.link-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: vars.$default-margin;
 }

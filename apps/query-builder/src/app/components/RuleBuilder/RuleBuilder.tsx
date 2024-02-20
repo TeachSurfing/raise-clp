@@ -6,12 +6,13 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import { FieldValueType } from '@raise-clp/models';
 import { QueryBuilderDnD } from '@react-querybuilder/dnd';
 import { QueryBuilderMaterial } from '@react-querybuilder/material';
+import { prop as _prop } from 'lodash/fp';
 import { useCallback, useEffect, useState } from 'react';
 import {
-    DefaultRuleGroupType,
     Field,
     JsonLogicRulesLogic,
     QueryBuilder,
+    RuleGroupType,
     RuleValidator,
     ValidationResult,
     formatQuery,
@@ -28,13 +29,13 @@ export interface FieldWithType extends Field {
 interface RuleBuilderProps {
     chapterId: number | undefined;
     unitId: number | undefined;
-    rule: JsonLogicRulesLogic;
+    rule: JsonLogicRulesLogic | any;
     fields: FieldWithType[] | undefined;
 
-    saveHandler: (selectedItem: SelectedItem) => void;
+    saveHandler: (selectedItem: SelectedItem, shouldSkip: boolean) => void;
 }
 
-export const validatorFactory = (field: any) => {
+export const validatorFactory = (field: Field) => {
     switch (field.fieldType) {
         case FieldValueType.boolean:
             return yesNoValidator;
@@ -75,21 +76,26 @@ export const addValidators = (fields: Field[] | undefined) =>
 const RuleBuilder = (props: RuleBuilderProps) => {
     const [chapterId, setChapterId] = useState<number | undefined>(props.chapterId);
     const [unitId, setUnitId] = useState<number | undefined>(props.unitId);
-    const [rule, setRule] = useState<DefaultRuleGroupType>(parseJsonLogic(props.rule ?? {}));
+    const [rule, setRule] = useState<RuleGroupType>(parseJsonLogic(props.rule ?? {}));
     const [fields, setFields] = useState(addValidators(props.fields));
     const handleQueryChange = useCallback(
-        (change: JsonLogicRulesLogic) => {
+        (change: RuleGroupType) => {
             setRule(change);
-            const rule = formatQuery(change, 'jsonlogic') || {};
+            const rule = formatQuery(change, 'jsonlogic') || ({} as any);
+            const newGroup = change.rules.find(_prop('combinator')) as RuleGroupType;
+            const isNewGroup: boolean = newGroup && newGroup?.rules.length < 2;
 
             if (!chapterId) return;
 
-            props.saveHandler({
-                chapterId,
-                unitId,
-                selectedDto: undefined,
-                rule
-            });
+            props.saveHandler(
+                {
+                    chapterId,
+                    unitId,
+                    selectedDto: undefined,
+                    rule
+                },
+                !!isNewGroup
+            );
         },
         [chapterId, props, unitId]
     );
@@ -111,6 +117,7 @@ const RuleBuilder = (props: RuleBuilderProps) => {
                         fields={fields}
                         query={rule}
                         onQueryChange={handleQueryChange}
+                        addRuleToNewGroups
                     />
                 </QueryBuilderMaterial>
             </QueryBuilderDnD>

@@ -1,0 +1,22 @@
+@use '../../../scss/colors.scss' as colors;
+@use '../../../scss/variables.scss' as vars;
+
+.green-section {
+    width: 100%;
+    padding: (3 * vars.$default-margin) 0;
+    flex-shrink: 0;
+    background: url('../../../assets/img/header-bg-lp-page.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.hiw-for-whom-h5 {
+    padding-top: 3 * vars.$default-margin;
+    border-top: 2px solid colors.$primary-darker-color;
+}
+.hiw-list {
+    font-size: 18px;
+    line-height: 28px;
+    li {
+        margin-bottom: 16px;
+    }
+}

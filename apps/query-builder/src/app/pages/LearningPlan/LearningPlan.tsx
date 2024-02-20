@@ -1,6 +1,7 @@
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import TaskIcon from '@mui/icons-material/Task';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -13,6 +14,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { SelectedItem } from '../../model/view.model';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
 import Link from '@mui/material/Link';
@@ -34,9 +36,11 @@ const LearningPlan = () => {
     const [learningPlan, setLearningPlan] = useState<LearningPlanDto>();
     const [selectedItem, setSelectedItem] = useState<SelectedItem | undefined>();
     const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+    const [fromClick, setFromClick] = useState<boolean>(false);
     const [confirmDialogOpen, setConfirmDialogOpen] = useState<boolean>(false);
 
-    const handleClick = useCallback((item: SelectedItem) => {
+    const onUnitClicked = useCallback((item: SelectedItem) => {
+        setFromClick(true);
         setSelectedItem(item);
     }, []);
     const handleDialogButtonClick = useCallback((value: boolean) => {
@@ -65,7 +69,7 @@ const LearningPlan = () => {
             message: 'Learning plan has been successfully deleted.'
         });
     };
-    const handleRefresh = useCallback(async () => {
+    const handleRefresh = async () => {
         const response = await fetch(
             `${(window as any).env.API_URL as string}/learning-plans/${learningPlan?.id}`,
             {
@@ -87,13 +91,20 @@ const LearningPlan = () => {
         const lp: LearningPlanDto = await response.json();
         updateSelectedItem(lp);
         setLearningPlan(lp);
-    }, [learningPlan?.id]);
+    };
 
     const handleSave = useCallback(
-        async (itemSaved: SelectedItem) => {
-            if (!learningPlan?.id || !selectedItem) {
+        async (itemSaved: SelectedItem, shouldSkip: boolean) => {
+            if (fromClick || shouldSkip || !learningPlan?.id || !selectedItem?.chapterId) {
+                setFromClick(false);
                 return;
             }
+            // const lpRule = learningPlan.chapters
+            //     .find(_propEq('id', selectedItem.chapterId))
+            //     ?.units.find(_propEq('id', selectedItem.unitId))?.rule;
+            // if (_isEqual(lpRule, selectedItem?.rule)) {
+            //     return;
+            // }
             let updateUrl = `${(window as any).env.API_URL as string}/learning-plans/${
                 learningPlan?.id
             }/chapters/${itemSaved.chapterId}`;
@@ -119,7 +130,7 @@ const LearningPlan = () => {
             updateSelectedItem(lp);
             setLearningPlan(lp);
         },
-        [learningPlan, selectedItem]
+        [learningPlan, selectedItem, fromClick]
     );
 
     const updateSelectedItem = (lp: LearningPlanDto) => {
@@ -157,13 +168,16 @@ const LearningPlan = () => {
             }
 
             let si: SelectedItem | undefined;
-            if (lp?.chapters?.[0]?.units?.[0])
+            if (lp?.chapters?.[0]?.units?.[0]) {
+                const firstChapter = lp?.chapters[0];
+                const firstUnit = lp?.chapters[0].units[0];
                 si = {
-                    chapterId: lp.chapters[0].id,
-                    unitId: lp.chapters[0].units[0].id,
-                    rule: lp.chapters[0].units[0].rule,
-                    selectedDto: lp.chapters[0].units[0]
+                    chapterId: firstChapter.id,
+                    unitId: firstUnit.id,
+                    rule: firstUnit.rule,
+                    selectedDto: firstUnit
                 };
+            }
 
             setSelectedItem(si);
             setLearningPlan(lp);
@@ -243,9 +257,32 @@ const LearningPlan = () => {
                             <Typography sx={{ mb: '24px', fontSize: 14 }} color="rgba(255, 255, 255, 0.70)">
                                 {learningPlan.description}
                             </Typography>
-                            <Link href={learningPlan.courseUrl} fontSize={14} underline="always">
-                                {learningPlan.courseUrl}
-                            </Link>
+                            <div>
+                                <Link
+                                    href={learningPlan.courseUrl}
+                                    fontSize={14}
+                                    className="link-wrapper"
+                                    underline="always"
+                                >
+                                    <AutoStoriesIcon
+                                        className="link-icon"
+                                        sx={{ fontSize: 20 }}
+                                        color="primary"
+                                    />
+                                    {learningPlan.courseUrl}
+                                </Link>
+                            </div>
+                            <div>
+                                <Link
+                                    href={learningPlan.questionnaireUrl}
+                                    fontSize={14}
+                                    className="link-wrapper"
+                                    underline="always"
+                                >
+                                    <TaskIcon className="link-icon" sx={{ fontSize: 20 }} color="primary" />
+                                    {learningPlan.questionnaireUrl}
+                                </Link>
+                            </div>
                         </Grid>
                     </Grid>
                 </Container>
@@ -257,7 +294,7 @@ const LearningPlan = () => {
                             <ChapterOverview
                                 learningPlan={learningPlan}
                                 selected={selectedItem?.selectedDto}
-                                clickHandler={handleClick}
+                                clickHandler={onUnitClicked}
                             />
                         </Grid>
                         <Grid sm={12} md={9}>
