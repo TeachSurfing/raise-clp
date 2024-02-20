@@ -11,6 +11,7 @@ import { firstValueFrom } from 'rxjs';
 import { LearningPlanService } from './learning-plan/learning-plan.service';
 import { MailService } from './mail/mail.service';
 import { Submission, SubmissionDocument } from './submission/submission.schema';
+import { UsersService } from './users/users.service';
 
 const deriveValue = (question: Data) => {
     switch (question?.type) {
@@ -31,6 +32,7 @@ export class AppService {
         private readonly httpService: HttpService,
         private readonly learningPlanService: LearningPlanService,
         private readonly mailService: MailService,
+        private readonly userService: UsersService,
         @InjectModel(Submission.name)
         private readonly submissionModel: Model<SubmissionDocument>
     ) {}
@@ -40,27 +42,39 @@ export class AppService {
         email: string,
         submission: PaperformSubmissionDto
     ): Promise<boolean> {
+        const user = await this.userService.findOneByEmail(email);
+
+        if (!user) {
+            console.log(`ERROR: User for email ${email} not found!`);
+        }
+
+        console.log('>> BEFORE NORMALIZE');
+        console.log(JSON.stringify(submission.data, null, 2));
+
         const normalizedData = this.normalizeData(submission);
-        const clp = await this.evaluateRules(normalizedData);
+
+        console.log('>> AFTER NORMALIZE');
+        console.log(JSON.stringify(normalizedData, null, 2));
+
+        const clp = await this.evaluateRules(normalizedData, user.id);
         const wpUserId = submission.data.find(
             (question) => question.custom_key === this.config.get('USER_ID_KEY')
         )?.value;
 
         // Send mail to questionnaire sender
-        if (email && this.config.get('MAIL_TO_SENDER_ACTIVE'))
-            await this.mailService.sendClpMail(name, email, clp);
+        if (email && this.config.get('MAIL_TO_SENDER_ACTIVE')) this.mailService.sendClpMail(name, email, clp);
 
         // Send mail to admin
         const mailAddresses = this.config.get('MAIL_TO_ADMINS')?.split(' ');
         if (this.config.get('MAIL_TO_ADMINS'))
-            await this.mailService.sendClpAdminMail(name, wpUserId, mailAddresses, clp);
+            this.mailService.sendClpAdminMail(name, wpUserId, mailAddresses, clp);
 
         // Safe data and CLP
         const submissionEntity = new Submission(submission, clp);
         await this.submissionModel.create(submissionEntity);
 
         // Talk to WP
-        const lp = (await this.learningPlanService.findLatest())?.toObject();
+        const lp = (await this.learningPlanService.findLatest(user.id))?.toObject();
 
         const requestData = clp.chapters.map((chapter) => ({
             lessonId: chapter.lessonId,
@@ -80,10 +94,14 @@ export class AppService {
         }, {});
     }
 
-    public async evaluateRules(normalizedData: unknown) {
+    public async evaluateRules(normalizedData: unknown, userId: string) {
         const customLearningPlan: CustomLearningPlan = new CustomLearningPlan();
 
-        const lp = (await this.learningPlanService.findLatest())?.toObject();
+        const lp = (await this.learningPlanService.findLatest(userId))?.toObject();
+
+        console.log('>> LATEST LEARNING PLAN');
+        console.log(JSON.stringify(normalizedData, null, 2));
+
         lp.chapters.forEach((chapter) => {
             chapter.units.forEach((unit) => {
                 if (!unit.rule)
@@ -93,11 +111,16 @@ export class AppService {
                         lessonId: unit.id
                     });
                 else {
-                    customLearningPlan.chapters.push({
+                    console.log(`>> VALIDATING UNIT: ${unit.title}`);
+                    console.log(`>> UNIT RULE: ${JSON.stringify(unit.rule, null, 2)}`);
+                    const chapterWithRule = {
                         title: unit.title,
                         recommendation: jsonLogic.apply(unit.rule, normalizedData),
                         lessonId: unit.id
-                    });
+                    };
+                    console.log(`>> IS RECOMMENDED TRUE?: ${JSON.stringify(chapterWithRule, null, 2)}`);
+
+                    customLearningPlan.chapters.push(chapterWithRule);
                 }
             });
         });

@@ -117,7 +117,6 @@ const RuleBuilder = (props: RuleBuilderProps) => {
                         fields={fields}
                         query={rule}
                         onQueryChange={handleQueryChange}
-                        addRuleToNewGroups
                     />
                 </QueryBuilderMaterial>
             </QueryBuilderDnD>

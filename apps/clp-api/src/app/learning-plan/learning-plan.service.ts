@@ -26,8 +26,8 @@ export class LearningPlanService {
         return await this.learningPlanModel.deleteOne({ id }).exec();
     }
 
-    async findLatest() {
-        return await (await this.learningPlanModel.find().exec()).pop();
+    async findLatest(userId: string) {
+        return (await this.learningPlanModel.find({ userId }).exec()).pop();
     }
 
     async addLearningPlan(data: INewLearningPlanPayload, userId: string) {
