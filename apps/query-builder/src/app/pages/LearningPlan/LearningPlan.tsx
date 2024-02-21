@@ -99,12 +99,6 @@ const LearningPlan = () => {
                 setFromClick(false);
                 return;
             }
-            // const lpRule = learningPlan.chapters
-            //     .find(_propEq('id', selectedItem.chapterId))
-            //     ?.units.find(_propEq('id', selectedItem.unitId))?.rule;
-            // if (_isEqual(lpRule, selectedItem?.rule)) {
-            //     return;
-            // }
             let updateUrl = `${(window as any).env.API_URL as string}/learning-plans/${
                 learningPlan?.id
             }/chapters/${itemSaved.chapterId}`;

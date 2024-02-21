@@ -100,10 +100,12 @@ export class AppService {
         const lp = (await this.learningPlanService.findLatest(userId))?.toObject();
 
         console.log('>> LATEST LEARNING PLAN');
-        console.log(JSON.stringify(normalizedData, null, 2));
+        console.log(JSON.stringify(lp, null, 2));
 
         lp.chapters.forEach((chapter) => {
             chapter.units.forEach((unit) => {
+                console.log('>> UNIT');
+                console.log(JSON.stringify(unit, null, 2));
                 if (!unit.rule)
                     customLearningPlan.chapters.push({
                         title: unit.title,
