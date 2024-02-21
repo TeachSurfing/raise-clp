@@ -13,6 +13,7 @@ import { Submission } from './submission/submission.schema';
 import { UsersService } from './users/users.service';
 
 describe('TestService', () => {
+    const FORM_ID = '123';
     let service: AppService;
     let userService: UsersService;
 
@@ -194,17 +195,12 @@ describe('TestService', () => {
             '123'
         );
 
-        const userServiceMock = () => ({
-            findOneByEmail: jest.fn(() => '123')
-        });
-
         const module: TestingModule = await Test.createTestingModule({
             imports: [HttpModule],
             providers: [
                 AppService,
                 ConfigService,
                 LearningPlanService,
-                { provide: UsersService, useValue: userServiceMock },
                 {
                     provide: LearningPlanService,
                     useValue: {
@@ -239,8 +235,10 @@ describe('TestService', () => {
     const createSubmission = (dataTrue: Data, dataFalse: Data) => {
         const toBeTrue = new PaperformSubmissionDto();
         toBeTrue.data = [dataTrue];
+        toBeTrue.form_id = '111';
         const toBeFalse = new PaperformSubmissionDto();
         toBeFalse.data = [dataFalse];
+        toBeFalse.form_id = '222';
 
         return { toBeTrue, toBeFalse };
     };
@@ -255,9 +253,9 @@ describe('TestService', () => {
         return { toBeTrue, toBeFalse };
     };
 
-    const evaluateRules = async (data: { toBeTrue: unknown; toBeFalse: unknown }, userId: string) => {
-        const toBeTrue = await service.evaluateRules(data.toBeTrue, userId);
-        const toBeFalse = await service.evaluateRules(data.toBeFalse, userId);
+    const evaluateRules = async (data: { toBeTrue: unknown; toBeFalse: unknown }, formId: string) => {
+        const toBeTrue = await service.evaluateRules(data.toBeTrue, formId);
+        const toBeFalse = await service.evaluateRules(data.toBeFalse, formId);
 
         return { toBeTrue, toBeFalse };
     };
@@ -293,8 +291,7 @@ describe('TestService', () => {
             [dataFalse.key]: dataFalse.value
         });
 
-        const anyUserId = '123';
-        const clps = await evaluateRules(normalizedData, anyUserId);
+        const clps = await evaluateRules(normalizedData, FORM_ID);
 
         expect(clps.toBeTrue.chapters[0].recommendation).toBe(true);
         expect(clps.toBeFalse.chapters[0].recommendation).toBe(false);
@@ -338,8 +335,7 @@ describe('TestService', () => {
             [dataFalse.key]: '1,2,3'
         });
 
-        const anyUserId = '123';
-        const clps = await evaluateRules(normalizedData, anyUserId);
+        const clps = await evaluateRules(normalizedData, FORM_ID);
 
         expect(clps.toBeTrue.chapters[1].recommendation).toBe(true);
         expect(clps.toBeFalse.chapters[1].recommendation).toBe(false);
@@ -373,8 +369,7 @@ describe('TestService', () => {
             [dataFalse.key]: dataFalse.value
         });
 
-        const anyUserId = '123';
-        const clps = await evaluateRules(normalizedData, anyUserId);
+        const clps = await evaluateRules(normalizedData, FORM_ID);
 
         expect(clps.toBeTrue.chapters[2].recommendation).toBe(true);
         expect(clps.toBeFalse.chapters[2].recommendation).toBe(false);
@@ -408,8 +403,7 @@ describe('TestService', () => {
             [dataFalse.key]: dataFalse.value
         });
 
-        const anyUserId = '123';
-        const clps = await evaluateRules(normalizedData, anyUserId);
+        const clps = await evaluateRules(normalizedData, FORM_ID);
 
         expect(clps.toBeTrue.chapters[3].recommendation).toBe(true);
         expect(clps.toBeFalse.chapters[3].recommendation).toBe(false);
@@ -443,8 +437,7 @@ describe('TestService', () => {
             [dataFalse.key]: dataFalse.value
         });
 
-        const anyUserId = '123';
-        const clps = await evaluateRules(normalizedData, anyUserId);
+        const clps = await evaluateRules(normalizedData, FORM_ID);
 
         expect(clps.toBeTrue.chapters[4].recommendation).toBe(true);
         expect(clps.toBeFalse.chapters[4].recommendation).toBe(false);
@@ -478,8 +471,7 @@ describe('TestService', () => {
             [dataFalse.key]: dataFalse.value.join('\n')
         });
 
-        const anyUserId = '123';
-        const clps = await evaluateRules(normalizedData, anyUserId);
+        const clps = await evaluateRules(normalizedData, FORM_ID);
 
         expect(clps.toBeTrue.chapters[5].recommendation).toBe(true);
         expect(clps.toBeFalse.chapters[5].recommendation).toBe(false);

@@ -35,7 +35,6 @@ const LearningPlans = () => {
         { setSubmitting }: FormikHelpers<BaseLearningPlan>
     ): Promise<void> => {
         setSubmitting(true);
-        console.log(lp);
         let newLp;
         try {
             newLp = await createLearningPlan(lp);
