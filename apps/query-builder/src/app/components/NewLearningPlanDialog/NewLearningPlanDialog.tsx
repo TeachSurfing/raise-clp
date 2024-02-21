@@ -101,6 +101,7 @@ const NewLearningPlanDialog = ({
                                         rows="6"
                                         name="paperformToken"
                                         label="Paperform Token"
+                                        placeholder="Paperform Token"
                                         className="resize-none"
                                         required
                                     />

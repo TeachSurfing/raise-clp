@@ -13,7 +13,7 @@ import { Submission } from './submission/submission.schema';
 import { UsersService } from './users/users.service';
 
 describe('TestService', () => {
-    const FORM_ID = '123';
+    const FORM_SLUG = '123';
     let service: AppService;
     let userService: UsersService;
 
@@ -235,10 +235,10 @@ describe('TestService', () => {
     const createSubmission = (dataTrue: Data, dataFalse: Data) => {
         const toBeTrue = new PaperformSubmissionDto();
         toBeTrue.data = [dataTrue];
-        toBeTrue.form_id = '111';
+        toBeTrue.slug = '111';
         const toBeFalse = new PaperformSubmissionDto();
         toBeFalse.data = [dataFalse];
-        toBeFalse.form_id = '222';
+        toBeFalse.slug = '222';
 
         return { toBeTrue, toBeFalse };
     };
@@ -291,7 +291,7 @@ describe('TestService', () => {
             [dataFalse.key]: dataFalse.value
         });
 
-        const clps = await evaluateRules(normalizedData, FORM_ID);
+        const clps = await evaluateRules(normalizedData, FORM_SLUG);
 
         expect(clps.toBeTrue.chapters[0].recommendation).toBe(true);
         expect(clps.toBeFalse.chapters[0].recommendation).toBe(false);
@@ -335,7 +335,7 @@ describe('TestService', () => {
             [dataFalse.key]: '1,2,3'
         });
 
-        const clps = await evaluateRules(normalizedData, FORM_ID);
+        const clps = await evaluateRules(normalizedData, FORM_SLUG);
 
         expect(clps.toBeTrue.chapters[1].recommendation).toBe(true);
         expect(clps.toBeFalse.chapters[1].recommendation).toBe(false);
@@ -369,7 +369,7 @@ describe('TestService', () => {
             [dataFalse.key]: dataFalse.value
         });
 
-        const clps = await evaluateRules(normalizedData, FORM_ID);
+        const clps = await evaluateRules(normalizedData, FORM_SLUG);
 
         expect(clps.toBeTrue.chapters[2].recommendation).toBe(true);
         expect(clps.toBeFalse.chapters[2].recommendation).toBe(false);
@@ -403,7 +403,7 @@ describe('TestService', () => {
             [dataFalse.key]: dataFalse.value
         });
 
-        const clps = await evaluateRules(normalizedData, FORM_ID);
+        const clps = await evaluateRules(normalizedData, FORM_SLUG);
 
         expect(clps.toBeTrue.chapters[3].recommendation).toBe(true);
         expect(clps.toBeFalse.chapters[3].recommendation).toBe(false);
@@ -437,7 +437,7 @@ describe('TestService', () => {
             [dataFalse.key]: dataFalse.value
         });
 
-        const clps = await evaluateRules(normalizedData, FORM_ID);
+        const clps = await evaluateRules(normalizedData, FORM_SLUG);
 
         expect(clps.toBeTrue.chapters[4].recommendation).toBe(true);
         expect(clps.toBeFalse.chapters[4].recommendation).toBe(false);
@@ -471,7 +471,7 @@ describe('TestService', () => {
             [dataFalse.key]: dataFalse.value.join('\n')
         });
 
-        const clps = await evaluateRules(normalizedData, FORM_ID);
+        const clps = await evaluateRules(normalizedData, FORM_SLUG);
 
         expect(clps.toBeTrue.chapters[5].recommendation).toBe(true);
         expect(clps.toBeFalse.chapters[5].recommendation).toBe(false);

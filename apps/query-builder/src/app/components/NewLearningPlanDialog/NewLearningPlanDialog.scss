@@ -1,3 +1,14 @@
+@use '../../../scss/colors.scss' as colors;
+
 .resize-none {
     resize: none;
+    &::placeholder-shown {
+        color: red !important;
+    }
+}
+textarea.resize-none::placeholder {
+    color: colors.$dark-accent-text;
+    padding: 8px;
+    font-family: 'Helvetica';
+    font-size: 14px;
 }

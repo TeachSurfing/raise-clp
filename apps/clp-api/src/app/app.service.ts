@@ -40,15 +40,8 @@ export class AppService {
         email: string,
         submission: PaperformSubmissionDto
     ): Promise<boolean> {
-        console.log('>> SUBMISSION OBJECT:');
-        console.log(JSON.stringify(submission, null, 2));
-        console.log('>> FORM ID:');
-        console.log(submission.form_id);
-        console.log('>> FORM SLUG:');
-        console.log(submission.slug);
-
         const normalizedData = this.normalizeData(submission);
-        const clp = await this.evaluateRules(normalizedData, submission.form_id);
+        const clp = await this.evaluateRules(normalizedData, submission.slug);
         const wpUserId = submission.data.find(
             (question) => question.custom_key === this.config.get('USER_ID_KEY')
         )?.value;
@@ -66,7 +59,7 @@ export class AppService {
         await this.submissionModel.create(submissionEntity);
 
         // Talk to WP
-        const lp = (await this.learningPlanService.findLatest(submission.form_id))?.toObject();
+        const lp = (await this.learningPlanService.findLatest(submission.slug))?.toObject();
 
         const requestData = clp.chapters.map((chapter) => ({
             lessonId: chapter.lessonId,
@@ -86,10 +79,10 @@ export class AppService {
         }, {});
     }
 
-    public async evaluateRules(normalizedData: unknown, formId: string) {
+    public async evaluateRules(normalizedData: unknown, formSlug: string) {
         const customLearningPlan: CustomLearningPlan = new CustomLearningPlan();
 
-        const lp = (await this.learningPlanService.findLatest(formId))?.toObject();
+        const lp = (await this.learningPlanService.findLatest(formSlug))?.toObject();
 
         console.log('>> LATEST LEARNING PLAN');
         console.log(JSON.stringify(lp, null, 2));

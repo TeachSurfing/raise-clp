@@ -26,8 +26,8 @@ export class LearningPlanService {
         return await this.learningPlanModel.deleteOne({ id }).exec();
     }
 
-    async findLatest(formId: string) {
-        const questionnaireUrl = `https://api.paperform.co/v1/forms/${formId}/fields`;
+    async findLatest(formSlug: string) {
+        const questionnaireUrl = `https://api.paperform.co/v1/forms/${formSlug}/fields`;
         return await this.learningPlanModel.findOne({ questionnaireUrl }).sort({ createdAt: -1 }).exec();
     }
 
