@@ -7,6 +7,8 @@ import 'react-querybuilder/dist/query-builder.scss';
 import { useNavigate } from 'react-router-dom';
 import euLogo from '../../../assets/img/eu-logo.png';
 import heidelbergLogo from '../../../assets/img/heidelberg-logo.png';
+import homeSvg1 from '../../../assets/img/home-svg-1.svg';
+import homeSvg2 from '../../../assets/img/home-svg-2.svg';
 import vilniusLogo from '../../../assets/img/vilnius-uni-logo.svg';
 import useAppStore from '../../state/app.store';
 import './LandingPage.scss';
@@ -180,7 +182,9 @@ const LandingPage = () => {
                     </Grid>
                 </Container>
             </section>
-            <section className="home-section home-section--illustration"></section>
+            <section className="home-section home-section--illustration">
+                <img src={homeSvg1} alt="" />
+            </section>
             <section className="home-section">
                 <Container sx={{ maxWidth: 960 }} maxWidth={false}>
                     <Grid container columnSpacing={0}>
@@ -230,7 +234,9 @@ const LandingPage = () => {
                     </Grid>
                 </Container>
             </section>
-            <section className="home-section home-section--illustration"></section>
+            <section className="home-section home-section--illustration">
+                <img src={homeSvg2} alt="" />
+            </section>
             <section className="home-section">
                 <Container sx={{ maxWidth: 960 }} maxWidth={false}>
                     <Grid container columnSpacing={0}>

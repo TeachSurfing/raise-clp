@@ -25,7 +25,19 @@
     }
     &--illustration {
         height: 360px;
+        padding-top: 0;
+        padding-bottom: 0;
         background-color: colors.$primary-color;
+        display: flex;
+        justify-content: center;
+        @media only screen and (max-width: 600px) {
+            height: auto;
+            padding: 0 !important;
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
     }
     @media only screen and (max-width: 600px) {
         padding: 40px vars.$default-margin;
