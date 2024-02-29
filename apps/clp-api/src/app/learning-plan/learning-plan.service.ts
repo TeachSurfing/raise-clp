@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { INewLearningPlan, INewLearningPlanPayload } from '@raise-clp/models';
 import { Model } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
-import { LearningPlan, LearningPlanDocument } from './learning-plan.schema';
+import { LearningPlan, LearningPlanDocument, Question } from './learning-plan.schema';
 import { LearningplanTransformationProvider } from './learningplan-transformation-provider.service';
 
 @Injectable()
@@ -64,10 +64,8 @@ export class LearningPlanService {
         });
     }
 
-    async getQuestions(id: string) {
-        return await (
-            await this.learningPlanModel.findOne({ id: id })
-        ).questions;
+    async getQuestions(id: string): Promise<Question[]> {
+        return (await this.learningPlanModel.findOne({ id })).questions;
     }
 
     async updateChapterRule(courseId: number, chapterId: number, rule: any) {

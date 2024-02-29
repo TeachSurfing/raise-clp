@@ -7,9 +7,13 @@ import {
     HttpStatus,
     Param,
     Post,
-    Request
+    Request,
+    UseGuards
 } from '@nestjs/common';
-import { INewLearningPlanPayload, IUser } from '@raise-clp/models';
+import { IUser } from '@raise-clp/models';
+import { LearningPlanOwnerGuard } from './guards/learning-plan-owner.guard';
+import { CreateLearningPlanGuard } from './guards/learning-plan.guard';
+import { NewLearningPlanDTO } from './learning-plan.schema';
 import { LearningPlanService } from './learning-plan.service';
 
 @Controller({ path: 'learning-plans' })
@@ -22,19 +26,19 @@ export class LearningPlanController {
     }
 
     @Post()
-    addLearningPlan(
-        @Request() req: Request & { user: Partial<IUser> },
-        @Body() body: INewLearningPlanPayload
-    ) {
+    @UseGuards(CreateLearningPlanGuard)
+    addLearningPlan(@Request() req: Request & { user: Partial<IUser> }, @Body() body: NewLearningPlanDTO) {
         return this.learningPlanService.addLearningPlan(body, req.user.id);
     }
 
     @Get(':id')
+    @UseGuards(LearningPlanOwnerGuard)
     findOne(@Param() { id }) {
         return this.learningPlanService.findOne(id);
     }
 
     @Post(':id')
+    @UseGuards(LearningPlanOwnerGuard)
     updateLearningPlan(@Param() params, @Body() body: { safety: boolean }) {
         if (!body.safety)
             return new HttpException(
@@ -45,16 +49,19 @@ export class LearningPlanController {
     }
 
     @Get(':id/questions')
+    @UseGuards(LearningPlanOwnerGuard)
     async getQuestions(@Param() params) {
         return await this.learningPlanService.getQuestions(params.id);
     }
 
     @Get(':id/chapters/:cid')
+    @UseGuards(LearningPlanOwnerGuard)
     getChapters() {
         return true;
     }
 
     @Post(':id/chapters/:cid')
+    @UseGuards(LearningPlanOwnerGuard)
     updateChapter(@Param() params, @Body() body: { rule: any }) {
         if (!body || !body.rule) throw new HttpException('Bad Request.', HttpStatus.BAD_REQUEST);
 
@@ -62,6 +69,7 @@ export class LearningPlanController {
     }
 
     @Post(':id/chapters/:cid/units/:uid')
+    @UseGuards(LearningPlanOwnerGuard)
     updateUnit(@Param() params, @Body() body: { rule: any }) {
         if (!body || !body.rule) throw new HttpException('Bad Request.', HttpStatus.BAD_REQUEST);
 
@@ -69,6 +77,7 @@ export class LearningPlanController {
     }
 
     @Delete(':id')
+    @UseGuards(LearningPlanOwnerGuard)
     deleteById(@Param() { id }) {
         return this.learningPlanService.deleteOne(id);
     }

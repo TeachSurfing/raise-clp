@@ -4,13 +4,31 @@
 
 .faq {
     padding: (2 * vars.$default-margin) vars.$default-margin;
+    overflow-x: hidden;
+    @media only screen and (max-width: 600px) {
+        padding: vars.$default-margin 0;
+    }
     &__content {
         padding: (2 * vars.$default-margin) (3 * vars.$default-margin);
         background-color: colors.$white;
         border-radius: 4px;
+        overflow-y: auto;
+        overflow-x: hidden;
         h1 {
             margin-bottom: 2 * vars.$default-margin;
             color: colors.$primary-darker-color;
+        }
+        p {
+            line-height: 22px;
+        }
+        section:nth-child(2) {
+            overflow-x: auto;
+        }
+        .table-wrapper {
+            overflow-x: auto;
+        }
+        @media only screen and (max-width: 600px) {
+            padding: vars.$default-margin vars.$default-margin;
         }
     }
 }
@@ -21,12 +39,12 @@
 }
 
 .textarea-lookalike {
+    padding: 2px;
+    margin-top: vars.$default-margin;
     appearance: textarea;
     border: 1px solid gray;
     font: -webkit-small-control;
     height: 49px;
-    overflow-y: scroll;
-    padding: 2px;
     resize: both;
-    width: 330px;
+    overflow-y: scroll;
 }
