@@ -1,23 +1,36 @@
+import GitHubIcon from '@mui/icons-material/GitHub';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import 'react-querybuilder/dist/query-builder.scss';
 import { useNavigate } from 'react-router-dom';
+import euLogo from '../../../assets/img/eu-logo.png';
+import heidelbergLogo from '../../../assets/img/heidelberg-logo.png';
+import vilniusLogo from '../../../assets/img/vilnius-uni-logo.svg';
+import useAppStore from '../../state/app.store';
 import './LandingPage.scss';
 
 const LandingPage = () => {
+    const store = useAppStore();
     const navigate = useNavigate();
 
+    // Click Actions
     const handleHowWorksButton = () => {
         navigate('./learning-plans');
+    };
+    const handleCreateAccountButton = () => {
+        navigate(store.isLoggedIn() ? './learning-plans' : './login');
+    };
+    const handleGitHubBtnClicked = () => {
+        window.open('https://github.com/TeachSurfing/raise-clp', '_blank');
     };
     return (
         <div className="landing-page">
             <section className="green-section">
                 <Container sx={{ maxWidth: 960 }} maxWidth={false}>
                     <Grid container columnSpacing={0}>
-                        <Grid item={true} xs={12}>
+                        <Grid item xs={12}>
                             <Typography
                                 variant="h1"
                                 sx={{
@@ -32,7 +45,7 @@ const LandingPage = () => {
                                 Your Custom Learning Plan Tool
                             </Typography>
                         </Grid>
-                        <Grid item={true} xs={12}>
+                        <Grid item xs={12}>
                             <Typography
                                 sx={{
                                     mb: '32px',
@@ -46,7 +59,7 @@ const LandingPage = () => {
                                 Make your online courses more attractive and personalised for your learners.
                             </Typography>
                         </Grid>
-                        <Grid item={true} xs={12}>
+                        <Grid item xs={12} className="btn-wrapper">
                             <Button
                                 variant="outlined"
                                 className="clp-button clp-button--rounded"
@@ -61,7 +74,7 @@ const LandingPage = () => {
             <section className="home-section">
                 <Container sx={{ maxWidth: 960 }} maxWidth={false}>
                     <Grid container columnSpacing={0}>
-                        <Grid item={true} xs={12}>
+                        <Grid item xs={12}>
                             <Typography
                                 variant="h2"
                                 sx={{
@@ -74,7 +87,7 @@ const LandingPage = () => {
                                 About the project
                             </Typography>
                         </Grid>
-                        <Grid item={true} xs={12}>
+                        <Grid item xs={12}>
                             <Typography sx={{ mb: '0px', fontSize: 18, fontWeight: 300 }} lineHeight={'32px'}>
                                 The Custom Learning Planner Tool (CLP-Tool) is an open-source software
                                 developed within the EU Erasmus+ program “Young Refugees AI Student
@@ -91,7 +104,7 @@ const LandingPage = () => {
             <section className="home-section home-section--grey">
                 <Container sx={{ maxWidth: 960 }} maxWidth={false}>
                     <Grid container columnSpacing={0}>
-                        <Grid item={true} xs={12}>
+                        <Grid item xs={12}>
                             <Typography
                                 variant="h2"
                                 sx={{
@@ -104,7 +117,7 @@ const LandingPage = () => {
                                 How it works
                             </Typography>
                         </Grid>
-                        <Grid item={true} xs={12}>
+                        <Grid item xs={12}>
                             <Typography
                                 sx={{ mb: '48px', fontSize: 18, fontWeight: 300 }}
                                 lineHeight={'32px'}
@@ -117,7 +130,7 @@ const LandingPage = () => {
                         </Grid>
                     </Grid>
                     <Grid container columnSpacing={2}>
-                        <Grid item={true} xs={12} sm={6}>
+                        <Grid item xs={12} sm={6}>
                             <Typography
                                 variant="h5"
                                 sx={{ mb: '32px', fontSize: 22, fontWeight: 500 }}
@@ -138,7 +151,7 @@ const LandingPage = () => {
                                 </ul>
                             </Typography>
                         </Grid>
-                        <Grid item={true} xs={12} sm={6}>
+                        <Grid item xs={12} sm={6}>
                             <Typography
                                 variant="h5"
                                 sx={{ mb: '32px', fontSize: 22, fontWeight: 500 }}
@@ -158,6 +171,152 @@ const LandingPage = () => {
                                     </li>
                                 </ul>
                             </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={6} className="btn-wrapper">
+                            <Button className="clp-button" onClick={handleCreateAccountButton}>
+                                Create an account
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Container>
+            </section>
+            <section className="home-section home-section--illustration"></section>
+            <section className="home-section">
+                <Container sx={{ maxWidth: 960 }} maxWidth={false}>
+                    <Grid container columnSpacing={0}>
+                        <Grid item xs={12}>
+                            <Typography
+                                variant="h2"
+                                sx={{
+                                    mb: '32px',
+                                    fontSize: 32,
+                                    fontWeight: 500,
+                                    textTransform: 'uppercase'
+                                }}
+                            >
+                                Partners
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Typography sx={{ mb: '0px', fontSize: 18, fontWeight: 300 }} lineHeight={'32px'}>
+                                The CLP tool is developed in collaboration with TeachSurfing gUG (Germany),
+                                Heidelberg University of Education (Germany), CESIE (Italy), CSI (Cyprus), and
+                                GEYC (Romania). For inquiries about the course, contact us at
+                                <span>
+                                    {' '}
+                                    <a
+                                        href="mailto:evelp@teachsurfing.de"
+                                        target="_blank"
+                                        className="clp-link"
+                                        rel="noreferrer"
+                                    >
+                                        evelp@teachsurfing.de
+                                    </a>
+                                </span>
+                                .
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} container className="logos-wrapper">
+                            <Grid item xs={12} sm={4} className="logos-wrapper__img">
+                                <img src={euLogo} height={52} alt="eu-logo" />
+                            </Grid>
+                            <Grid item xs={12} sm={4} className="logos-wrapper__img">
+                                <img src={heidelbergLogo} height={88} alt="heidelberg-logo" />
+                            </Grid>
+                            <Grid item xs={12} sm={4} className="logos-wrapper__img">
+                                <img src={vilniusLogo} height={88} alt="vilnius-uni-logo" />
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Container>
+            </section>
+            <section className="home-section home-section--illustration"></section>
+            <section className="home-section">
+                <Container sx={{ maxWidth: 960 }} maxWidth={false}>
+                    <Grid container columnSpacing={0}>
+                        <Grid item xs={12}>
+                            <Typography
+                                variant="h2"
+                                sx={{
+                                    mb: '32px',
+                                    fontSize: 32,
+                                    fontWeight: 500,
+                                    textTransform: 'uppercase'
+                                }}
+                            >
+                                TECHNICAL SETUP
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Typography sx={{ mb: '0px', fontSize: 18, fontWeight: 300 }} lineHeight={'32px'}>
+                                The Beta version of the tool integrates Paperform for survey creation and
+                                Learnpress Learning Management System for course structure import. Future
+                                development aims to support entering course structures and creating surveys in
+                                a more versatile manner, ensuring educators aren't limited to specific
+                                technologies or platforms.
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                </Container>
+            </section>
+            <section className="home-section home-section--grey">
+                <Container sx={{ maxWidth: 960 }} maxWidth={false}>
+                    <Grid container columnSpacing={0}>
+                        <Grid item xs={12}>
+                            <Typography
+                                variant="h2"
+                                sx={{
+                                    mb: '30px',
+                                    fontSize: 32,
+                                    fontWeight: 500,
+                                    textTransform: 'uppercase'
+                                }}
+                            >
+                                OPEN SOURCE
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Typography
+                                sx={{ mb: '48px', fontSize: 18, fontWeight: 300 }}
+                                lineHeight={'32px'}
+                            >
+                                Get involved in shaping the future of education technology! Contribute to our
+                                open-source project or deploy your own instance of the Custom Learning Planner
+                                Tool. <br />
+                                <span>
+                                    <a
+                                        href="https://github.com/TeachSurfing/raise-clp"
+                                        target="_blank"
+                                        className="clp-link"
+                                        rel="noreferrer"
+                                    >
+                                        Explore our GitHub project
+                                    </a>
+                                </span>{' '}
+                                and contact us at{' '}
+                                <span>
+                                    {' '}
+                                    <a
+                                        href="mailto:evelp@teachsurfing.de"
+                                        target="_blank"
+                                        className="clp-link"
+                                        rel="noreferrer"
+                                    >
+                                        evelp@teachsurfing.de
+                                    </a>
+                                </span>{' '}
+                                to join the collaboration. Let's innovate together for a better educational
+                                experience!
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={6} className="btn-wrapper">
+                            <Button
+                                className="clp-button"
+                                startIcon={<GitHubIcon />}
+                                onClick={handleGitHubBtnClicked}
+                            >
+                                Explore on GitHub
+                            </Button>
                         </Grid>
                     </Grid>
                 </Container>

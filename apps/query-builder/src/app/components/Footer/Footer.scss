@@ -3,12 +3,81 @@
 @use 'sass:math';
 
 .footer {
-    width: 100%;
-    height: 336px;
+    padding: (3 * vars.$default-margin) (2 * vars.$default-margin) (3 * vars.$default-margin);
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url('../../../assets/img/footer-bg.png');
+    background-image: url('https://cockpit.teachsurfing.org//storage/uploads/2020/12/17/5fdb49476e4b8wave-bottom.svg');
     background-repeat: no-repeat;
     background-size: cover;
+    @media only screen and (max-width: 600px) {
+        padding: (2 * vars.$default-margin) (1 * vars.$default-margin) (2 * vars.$default-margin);
+    }
+    &__logo {
+        display: flex;
+        margin-bottom: vars.$default-margin;
+    }
+    hr {
+        margin: 2 * vars.$default-margin 0;
+    }
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        li {
+            line-height: 24px;
+            margin-bottom: math.div(vars.$default-margin, 2);
+        }
+    }
+    .footer-link {
+        font-size: 16px;
+        color: #fff;
+        transition: color 0.2s ease;
+        &:hover {
+            color: colors.$primary-color;
+        }
+    }
+    .stats {
+        @media only screen and (max-width: 600px) {
+            margin: vars.$default-margin;
+        }
+    }
+    .stat-wrapper {
+        display: flex;
+        justify-content: center;
+        padding-left: 4 * vars.$default-margin;
+        @media only screen and (max-width: 600px) {
+            padding: 0;
+            margin-top: vars.$default-margin;
+        }
+        .stat {
+            width: 140px;
+            display: flex;
+            flex-direction: column;
+            &__value {
+                font-size: 34px;
+                font-weight: bold;
+                margin-bottom: vars.$default-margin;
+                &--ts {
+                    color: #7aa7ba;
+                }
+                &--h {
+                    color: #33bba7;
+                }
+                &--ss {
+                    color: colors.$accent-color;
+                }
+                &--c {
+                    color: #e8e0b6;
+                }
+            }
+            &__label {
+                font-size: 16px;
+                line-height: 22px;
+                font-weight: 400;
+                color: #fff;
+                text-transform: uppercase;
+            }
+        }
+    }
 }

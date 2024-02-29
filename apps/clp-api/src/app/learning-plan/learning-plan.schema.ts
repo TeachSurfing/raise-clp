@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { IChapter, ILearningPlan, IQuestion, IUnit } from '@raise-clp/models';
 import { Expose, Type } from 'class-transformer';
+import { IsNotEmpty, IsOptional, IsString, IsUrl } from 'class-validator';
 import { HydratedDocument } from 'mongoose';
 import { NameLabelPair } from 'react-querybuilder';
 
@@ -107,6 +108,32 @@ export class Question implements IQuestion {
         this.values = values;
         this.operators = operators;
     }
+}
+
+export class NewLearningPlanDTO {
+    @IsNotEmpty()
+    @IsString()
+    name: string;
+
+    @IsOptional()
+    @IsString()
+    description?: string;
+
+    @IsNotEmpty()
+    @IsString()
+    courseUrl: string;
+
+    @IsNotEmpty()
+    @IsUrl()
+    lpOptionalUrl: string;
+
+    @IsNotEmpty()
+    @IsUrl()
+    questionnaireUrl: string;
+
+    @IsNotEmpty()
+    @IsString()
+    paperformToken: string;
 }
 
 @Schema({ versionKey: false, timestamps: true })

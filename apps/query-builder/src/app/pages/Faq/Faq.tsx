@@ -44,67 +44,70 @@ const Faq = () => {
                             answer, separated with a comma. So for example, if the correct solution of the
                             matrix looks like this:
                         </p>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <td></td>
-                                    <th scope="col" className="col-th">
-                                        Affective component
-                                    </th>
-                                    <th scope="col" className="col-th">
-                                        Behavorial Component
-                                    </th>
-                                    <th scope="col" className="col-th">
-                                        Cognitive component
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row" style={{ textAlign: 'left' }}>
-                                        Feelings/Emotions = e.g. they feel happy when they recycle
-                                    </th>
-                                    <td data-label="Affective component">
-                                        <input type="radio" disabled />
-                                    </td>
-                                    <td data-label="Behavorial Component">
-                                        <input type="radio" checked disabled />
-                                    </td>
-                                    <td data-label="Cognitive component">
-                                        <input type="radio" disabled />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" style={{ textAlign: 'left' }}>
-                                        Response/Action = e.g. they recycle every day
-                                    </th>
-                                    <td data-label="Affective component">
-                                        <input type="radio" checked disabled />
-                                    </td>
-                                    <td data-label="Behavorial Component">
-                                        <input type="radio" disabled />
-                                    </td>
-                                    <td data-label="Cognitive component">
-                                        <input type="radio" disabled />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" style={{ textAlign: 'left' }}>
-                                        Belief/Evaluation = e.g. they believe recycling is the responsible
-                                        things to do
-                                    </th>
-                                    <td data-label="Affective component">
-                                        <input type="radio" disabled />
-                                    </td>
-                                    <td data-label="Behavorial Component">
-                                        <input type="radio" disabled />
-                                    </td>
-                                    <td data-label="Cognitive component">
-                                        <input type="radio" checked disabled />
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div className="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <td></td>
+                                        <th scope="col" className="col-th">
+                                            Affective component
+                                        </th>
+                                        <th scope="col" className="col-th">
+                                            Behavorial Component
+                                        </th>
+                                        <th scope="col" className="col-th">
+                                            Cognitive component
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row" style={{ textAlign: 'left' }}>
+                                            Feelings/Emotions = e.g. they feel happy when they recycle
+                                        </th>
+                                        <td data-label="Affective component">
+                                            <input type="radio" disabled />
+                                        </td>
+                                        <td data-label="Behavorial Component">
+                                            <input type="radio" checked disabled />
+                                        </td>
+                                        <td data-label="Cognitive component">
+                                            <input type="radio" disabled />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style={{ textAlign: 'left' }}>
+                                            Response/Action = e.g. they recycle every day
+                                        </th>
+                                        <td data-label="Affective component">
+                                            <input type="radio" checked disabled />
+                                        </td>
+                                        <td data-label="Behavorial Component">
+                                            <input type="radio" disabled />
+                                        </td>
+                                        <td data-label="Cognitive component">
+                                            <input type="radio" disabled />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style={{ textAlign: 'left' }}>
+                                            Belief/Evaluation = e.g. they believe recycling is the responsible
+                                            things to do
+                                        </th>
+                                        <td data-label="Affective component">
+                                            <input type="radio" disabled />
+                                        </td>
+                                        <td data-label="Behavorial Component">
+                                            <input type="radio" disabled />
+                                        </td>
+                                        <td data-label="Cognitive component">
+                                            <input type="radio" checked disabled />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
                         <p>
                             You would need to put the following into the value field (index of correct answer
                             of first row, index of correct answer second row, etc.): <i>2,1,3</i>
