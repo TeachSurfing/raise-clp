@@ -1,0 +1,18 @@
+/* Hide the default sidebar that shows the list of pages */
+#wiki-wrapper .wiki-pages-box {
+    display: none;
+}
+
+/* Move the custom sidebar to the left */
+#wiki-wrapper .gh-header-sticky + div > div > div > .gh-header-search + .Layout-sidebar {
+    order: -1; /* Move the custom sidebar to the left side */
+    margin-left: 0; /* Remove any extra margin */
+    padding-right: 10px; /* Add some padding for better spacing */
+    width: 220px; /* Set a fixed width for the custom sidebar */
+}
+
+/* Adjust the content area to accommodate the custom sidebar */
+#wiki-wrapper .gh-header-sticky + div > div > div > .gh-header-search + .Layout-content {
+    margin-left: 220px; /* Shift content to the right to make space for the custom sidebar */
+    width: calc(100% - 220px); /* Adjust width to fill the remaining space */
+}
