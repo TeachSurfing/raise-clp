@@ -1,6 +1,6 @@
-# RAISE custom learning plan tool
+# RAISE Custom Learning Planner tool
 
-The RAISE custom learning plan tool is developed as part of the [RAISE program](https://evelp.teachsurfing.org/raise-lp/). It will facilitate a way to create rules, based on a questionnaire to individually select units from a course per participant.
+The RAISE custom learning plan tool is developed as part of the [RAISE program](https://evelp.teachsurfing.org/raise-lp/). It will facilitate a way to create rules, based on a questionnaire to individually select units from a course per participant. This document explains the technical setup for deploying the CLP tool. For more details on the technical overview, functionality, user roles and user workflows, we invite you to read our comprehensive [wiki page](https://github.com/TeachSurfing/raise-clp/wiki).
 
 ## Setup
 
